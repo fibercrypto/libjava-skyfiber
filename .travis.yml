@@ -10,6 +10,10 @@ script:
   - jdk_switcher use openjdk8
   - # do stuff with OpenJDK 8
   - export JAVA_HOME=$HOME/openjdk8
+  - make configure
+  - make build-libc
+  - make build-swig
+  - make build-libjava
   - make test
   
 notifications:
