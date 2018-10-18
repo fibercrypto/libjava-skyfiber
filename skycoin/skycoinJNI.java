@@ -880,7 +880,7 @@ public class skycoinJNI {
   public final static native int get_SKY_ErrWriteQueueFull();
   public final static native int get_SKY_ErrNoReachableConnections();
   public final static native int get_SKY_ErrMaxDefaultConnectionsReached();
-  public final static native int get_SKY_ErrDisconnectInvalidVersion();
+  public final static native int get_SKY_ErrDisconnectVersionNotSupported();
   public final static native int get_SKY_ErrDisconnectIntroductionTimeout();
   public final static native int get_SKY_ErrDisconnectVersionSendFailed();
   public final static native int get_SKY_ErrDisconnectIsBlacklisted();
@@ -889,7 +889,7 @@ public class skycoinJNI {
   public final static native int get_SKY_ErrDisconnectIdle();
   public final static native int get_SKY_ErrDisconnectNoIntroduction();
   public final static native int get_SKY_ErrDisconnectIPLimitReached();
-  public final static native int get_SKY_ErrDisconnectOtherError();
+  public final static native int get_SKY_ErrDisconnectIncomprehensibleError();
   public final static native int get_SKY_ErrDisconnectMaxDefaultConnectionReached();
   public final static native int get_SKY_ErrDisconnectMaxOutgoingConnectionsReached();
   public final static native int get_SKY_ConnectionError();

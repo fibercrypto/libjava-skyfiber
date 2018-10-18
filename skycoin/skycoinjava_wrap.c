@@ -18190,7 +18190,7 @@ SWIGEXPORT jint JNICALL Java_skycoinJNI_get_1SKY_1ErrMaxDefaultConnectionsReache
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoinJNI_get_1SKY_1ErrDisconnectInvalidVersion(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_skycoinJNI_get_1SKY_1ErrDisconnectVersionNotSupported(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   
@@ -18298,7 +18298,7 @@ SWIGEXPORT jint JNICALL Java_skycoinJNI_get_1SKY_1ErrDisconnectIPLimitReached(JN
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoinJNI_get_1SKY_1ErrDisconnectOtherError(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_skycoinJNI_get_1SKY_1ErrDisconnectIncomprehensibleError(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   

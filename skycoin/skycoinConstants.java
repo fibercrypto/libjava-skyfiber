@@ -106,7 +106,7 @@ public interface skycoinConstants {
   public final static int SKY_ErrWriteQueueFull = skycoinJNI.get_SKY_ErrWriteQueueFull();
   public final static int SKY_ErrNoReachableConnections = skycoinJNI.get_SKY_ErrNoReachableConnections();
   public final static int SKY_ErrMaxDefaultConnectionsReached = skycoinJNI.get_SKY_ErrMaxDefaultConnectionsReached();
-  public final static int SKY_ErrDisconnectInvalidVersion = skycoinJNI.get_SKY_ErrDisconnectInvalidVersion();
+  public final static int SKY_ErrDisconnectVersionNotSupported = skycoinJNI.get_SKY_ErrDisconnectVersionNotSupported();
   public final static int SKY_ErrDisconnectIntroductionTimeout = skycoinJNI.get_SKY_ErrDisconnectIntroductionTimeout();
   public final static int SKY_ErrDisconnectVersionSendFailed = skycoinJNI.get_SKY_ErrDisconnectVersionSendFailed();
   public final static int SKY_ErrDisconnectIsBlacklisted = skycoinJNI.get_SKY_ErrDisconnectIsBlacklisted();
@@ -115,7 +115,7 @@ public interface skycoinConstants {
   public final static int SKY_ErrDisconnectIdle = skycoinJNI.get_SKY_ErrDisconnectIdle();
   public final static int SKY_ErrDisconnectNoIntroduction = skycoinJNI.get_SKY_ErrDisconnectNoIntroduction();
   public final static int SKY_ErrDisconnectIPLimitReached = skycoinJNI.get_SKY_ErrDisconnectIPLimitReached();
-  public final static int SKY_ErrDisconnectOtherError = skycoinJNI.get_SKY_ErrDisconnectOtherError();
+  public final static int SKY_ErrDisconnectIncomprehensibleError = skycoinJNI.get_SKY_ErrDisconnectIncomprehensibleError();
   public final static int SKY_ErrDisconnectMaxDefaultConnectionReached = skycoinJNI.get_SKY_ErrDisconnectMaxDefaultConnectionReached();
   public final static int SKY_ErrDisconnectMaxOutgoingConnectionsReached = skycoinJNI.get_SKY_ErrDisconnectMaxOutgoingConnectionsReached();
   public final static int SKY_ConnectionError = skycoinJNI.get_SKY_ConnectionError();
