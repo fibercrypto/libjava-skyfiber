@@ -1,33 +1,22 @@
+import junit.framework.*;
 
-public class check_simple {
+/**
+ * Un test de ejemplo sobre la clase String.
+ */
+public class EjemploTest extends TestCase {
 
-    static {
-        try {
-            System.loadLibrary("skycoin");
-        } catch (UnsatisfiedLinkError e) {
-            System.err.println(
-                    "Native code library failed to load. See the chapter on Dynamic Linking Problems in the SWIG Java documentation for help.\n"
-                            + e);
-            System.exit(1);
-        }
-    }
+    public void testConcat() {
+        String s = "hola";
+        String s2 = s.concat(" que tal");
+        assertTrue(s2.equals("hola que tal"));
+    } // testConcat
 
-    skycoin skycoin = new skycoin();
+    public static Test suite() {
+        return new TestSuite(EjemploTest.class);
+    } // suite
 
-    public static void main(String argv[]) {
-        // Call our gcd() function
+    public static void main(String[] args) {
+        junit.textui.TestRunner.run(suite());
+    } // main
 
-        int x = 42;
-        int y = 105;
-        int g = skycoin.SKY_OK;
-        System.out.println("The gcd of " + x + " and " + y + " is " + g);
-
-        // Manipulate the Foo global variable
-
-        // Output its current value
-        System.out.println("Foo = " + skycoin.SKY_OK);
-
-        // See if the change took effect
-        System.out.println("Foo = " + skycoin.SKY_OK);
-    }
-}
+} // class
