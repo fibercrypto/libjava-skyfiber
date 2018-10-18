@@ -9,7 +9,7 @@ install:
   
   
 script:
-  - build-libjava
+  - make build-libjava
   
 notifications:
   email: false
