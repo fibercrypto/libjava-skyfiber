@@ -9,8 +9,7 @@ install:
   
   
 script:
-  - make build-libc 
-  - make build-swig
+  - build-libjava
   
 notifications:
   email: false
