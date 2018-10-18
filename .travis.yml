@@ -1,0 +1,17 @@
+language: java
+jdk:
+  - openjdk8
+
+install:
+  - eval "$(gimme 1.10)"
+  - go version
+  - mkdir swig_build && cd swig_build && wget http://prdownloads.sourceforge.net/swig/swig-3.0.12.tar.gz && tar -zxf swig-3.0.12.tar.gz && cd swig-3.0.12 && sudo ./configure --prefix=/usr && sudo make && sudo make install && cd ../../ && sudo rm -rf swig_build	
+  
+  
+script:
+  - make build-libc 
+  - make build-swig
+  
+notifications:
+  email: false
+  webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
