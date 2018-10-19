@@ -1,5 +1,15 @@
 language: java
 
+sudo: false
+addons:
+  apt:
+    packages:
+      - oracle-java6-installer
+      - oracle-java7-installer
+      - oracle-java8-installer
+      - oracle-java9-installer
+      - oracle-java10-installer
+
 install:
   - eval "$(gimme 1.11)"
   - go version
@@ -41,8 +51,8 @@ script:
   - make build-swig
   - make build-libjava
   - make test
-  - jdk_switcher use openjdk11
-  - export JAVA_HOME=$HOME/openjdk11
+  - jdk_switcher use oraclejdk8
+  - export JAVA_HOME=$HOME/oraclejdk8
   - make configure
   - make build-libc
   - make build-swig
