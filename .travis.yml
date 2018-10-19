@@ -1,15 +1,15 @@
 language: java
-
-sudo: false
-addons:
-  apt:
-    packages:
-      - oracle-java6-installer
-      - oracle-java7-installer
-      - oracle-java8-installer
-      - oracle-java9-installer
-      - oracle-java10-installer
-
+jdk:
+  - oraclejdk8
+  - oraclejdk9
+  - oraclejdk10
+  - oraclejdk11
+  - openjdk6
+  - openjdk7
+  - openjdk8
+  - openjdk9
+  - openjdk10
+  - openjdk11
 install:
   - eval "$(gimme 1.11)"
   - go version
