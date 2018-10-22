@@ -43,13 +43,11 @@ build-swig: build-libc
 		fi \
 	}
 	mkdir -p skycoin
-	mkdir -p test
-	mkdir -p test/bin
-	swig -java -oldvarnames -v  -Iswig/include -I$(INCLUDE_DIR) -outdir skycoin -o skycoin/skycoinjava_wrap.c $(LIBSWIG_DIR)/skycoin.i
+	mkdir -p src/skycoin
+	swig -java -oldvarnames -v -package skycoin -Iswig/include -I$(INCLUDE_DIR) -outdir src/skycoin -o src/skycoin/skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
 
 build-libjava: build-swig
-	gcc -c -fpic -I /usr/lib/jvm/java-8-openjdk-amd64/include/  -I /usr/lib/jvm/java-8-openjdk-amd64/include/linux -I ./swig/include -I$(INCLUDE_DIR) ./skycoin/skycoinjava_wrap.c
+	gcc -c -fpic -I /usr/lib/jvm/java-8-openjdk-amd64/include/  -I /usr/lib/jvm/java-8-openjdk-amd64/include/linux -I ./swig/include -I$(INCLUDE_DIR) src/skycoin/skycoin_wrap.c
 	gcc -shared skycoinjava_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o libskycoin.so
-	mv libskycoin.so test/bin
 	
 test: build-libjava
