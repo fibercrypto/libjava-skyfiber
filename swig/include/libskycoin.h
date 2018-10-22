@@ -946,11 +946,11 @@ extern GoUint32 SKY_cipher_Sig_Hex(cipher__Sig* p0, GoString_* p1);
 
 extern GoUint32 SKY_cipher_SignHash(cipher__SHA256* p0, cipher__SecKey* p1, cipher__Sig* p2);
 
-extern GoUint32 SKY_cipher_ChkSig(cipher__Address* p0, cipher__SHA256* p1, cipher__Sig* p2);
+extern GoUint32 SKY_cipher_VerifyAddressSignedHash(cipher__Address* p0, cipher__Sig* p1, cipher__SHA256* p2);
 
 extern GoUint32 SKY_cipher_VerifySignedHash(cipher__Sig* p0, cipher__SHA256* p1);
 
-extern GoUint32 SKY_cipher_VerifySignature(cipher__PubKey* p0, cipher__Sig* p1, cipher__SHA256* p2);
+extern GoUint32 SKY_cipher_VerifyPubKeySignedHash(cipher__PubKey* p0, cipher__Sig* p1, cipher__SHA256* p2);
 
 extern GoUint32 SKY_cipher_GenerateKeyPair(cipher__PubKey* p0, cipher__SecKey* p1);
 

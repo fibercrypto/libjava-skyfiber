@@ -90,9 +90,9 @@ public class skycoinJNI {
   public final static native void convertGoUint8toSHA256(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_cipher_SumSHA256__SWIG_0(long jarg1, GoSlice jarg1_, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_cipher_SignHash__SWIG_0(long jarg1, cipher_SHA256 jarg1_, long jarg2, long jarg3, cipher_Sig jarg3_);
-  public final static native long SKY_cipher_ChkSig__SWIG_0(long jarg1, cipher__Address jarg1_, long jarg2, cipher_SHA256 jarg2_, long jarg3, cipher_Sig jarg3_);
+  public final static native long SKY_cipher_ChkSig(long jarg1, cipher__Address jarg1_, long jarg2, cipher_SHA256 jarg2_, long jarg3, cipher_Sig jarg3_);
   public final static native long SKY_cipher_PubKeyFromSig__SWIG_0(long jarg1, cipher_Sig jarg1_, long jarg2, cipher_SHA256 jarg2_, long jarg3, cipher_PubKey jarg3_);
-  public final static native long SKY_cipher_VerifySignature__SWIG_0(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_Sig jarg2_, long jarg3, cipher_SHA256 jarg3_);
+  public final static native long SKY_cipher_VerifySignature(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_Sig jarg2_, long jarg3, cipher_SHA256 jarg3_);
   public final static native long SKY_cipher_SHA256_Set__SWIG_0(long jarg1, cipher_SHA256 jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_cipher_SHA256_Hex__SWIG_0(long jarg1, cipher_SHA256 jarg1_, long jarg2);
   public final static native long SKY_cipher_SHA256FromHex__SWIG_0(long jarg1, _GoString_ jarg1_, long jarg2, cipher_SHA256 jarg2_);
@@ -447,9 +447,9 @@ public class skycoinJNI {
   public final static native long SKY_cipher_SigFromHex(long jarg1, _GoString_ jarg1_, long jarg2);
   public final static native long SKY_cipher_Sig_Hex(long jarg1, long jarg2);
   public final static native long SKY_cipher_SignHash__SWIG_1(long jarg1, long jarg2, long jarg3);
-  public final static native long SKY_cipher_ChkSig__SWIG_1(long jarg1, cipher__Address jarg1_, long jarg2, long jarg3);
+  public final static native long SKY_cipher_VerifyAddressSignedHash(long jarg1, cipher__Address jarg1_, long jarg2, long jarg3);
   public final static native long SKY_cipher_VerifySignedHash(long jarg1, long jarg2);
-  public final static native long SKY_cipher_VerifySignature__SWIG_1(long jarg1, long jarg2, long jarg3);
+  public final static native long SKY_cipher_VerifyPubKeySignedHash(long jarg1, long jarg2, long jarg3);
   public final static native long SKY_cipher_GenerateKeyPair(long jarg1, long jarg2);
   public final static native long SKY_cipher_GenerateDeterministicKeyPair(long jarg1, GoSlice jarg1_, long jarg2, long jarg3);
   public final static native long SKY_cipher_DeterministicKeyPairIterator(long jarg1, GoSlice jarg1_, long jarg2, long jarg3, long jarg4);

@@ -319,7 +319,7 @@ public class skycoin {
   }
 
   public static long SKY_cipher_ChkSig(cipher__Address a, cipher_SHA256 sha, cipher_Sig s) {
-    return skycoinJNI.SKY_cipher_ChkSig__SWIG_0(cipher__Address.getCPtr(a), a, cipher_SHA256.getCPtr(sha), sha, cipher_Sig.getCPtr(s), s);
+    return skycoinJNI.SKY_cipher_ChkSig(cipher__Address.getCPtr(a), a, cipher_SHA256.getCPtr(sha), sha, cipher_Sig.getCPtr(s), s);
   }
 
   public static long SKY_cipher_PubKeyFromSig(cipher_Sig sig, cipher_SHA256 h, cipher_PubKey p) {
@@ -327,7 +327,7 @@ public class skycoin {
   }
 
   public static long SKY_cipher_VerifySignature(cipher_PubKey p, cipher_Sig sig, cipher_SHA256 h) {
-    return skycoinJNI.SKY_cipher_VerifySignature__SWIG_0(cipher_PubKey.getCPtr(p), p, cipher_Sig.getCPtr(sig), sig, cipher_SHA256.getCPtr(h), h);
+    return skycoinJNI.SKY_cipher_VerifySignature(cipher_PubKey.getCPtr(p), p, cipher_Sig.getCPtr(sig), sig, cipher_SHA256.getCPtr(h), h);
   }
 
   public static long SKY_cipher_SHA256_Set(cipher_SHA256 h, GoSlice s) {
@@ -1218,16 +1218,16 @@ public class skycoin {
     return skycoinJNI.SKY_cipher_SignHash__SWIG_1(SWIGTYPE_p_a_32__GoUint8_.getCPtr(p0), SWIGTYPE_p_a_32__GoUint8_.getCPtr(p1), SWIGTYPE_p_a_65__GoUint8_.getCPtr(p2));
   }
 
-  public static long SKY_cipher_ChkSig(cipher__Address p0, SWIGTYPE_p_a_32__GoUint8_ p1, SWIGTYPE_p_a_65__GoUint8_ p2) {
-    return skycoinJNI.SKY_cipher_ChkSig__SWIG_1(cipher__Address.getCPtr(p0), p0, SWIGTYPE_p_a_32__GoUint8_.getCPtr(p1), SWIGTYPE_p_a_65__GoUint8_.getCPtr(p2));
+  public static long SKY_cipher_VerifyAddressSignedHash(cipher__Address p0, SWIGTYPE_p_a_65__GoUint8_ p1, SWIGTYPE_p_a_32__GoUint8_ p2) {
+    return skycoinJNI.SKY_cipher_VerifyAddressSignedHash(cipher__Address.getCPtr(p0), p0, SWIGTYPE_p_a_65__GoUint8_.getCPtr(p1), SWIGTYPE_p_a_32__GoUint8_.getCPtr(p2));
   }
 
   public static long SKY_cipher_VerifySignedHash(SWIGTYPE_p_a_65__GoUint8_ p0, SWIGTYPE_p_a_32__GoUint8_ p1) {
     return skycoinJNI.SKY_cipher_VerifySignedHash(SWIGTYPE_p_a_65__GoUint8_.getCPtr(p0), SWIGTYPE_p_a_32__GoUint8_.getCPtr(p1));
   }
 
-  public static long SKY_cipher_VerifySignature(SWIGTYPE_p_a_33__GoUint8_ p0, SWIGTYPE_p_a_65__GoUint8_ p1, SWIGTYPE_p_a_32__GoUint8_ p2) {
-    return skycoinJNI.SKY_cipher_VerifySignature__SWIG_1(SWIGTYPE_p_a_33__GoUint8_.getCPtr(p0), SWIGTYPE_p_a_65__GoUint8_.getCPtr(p1), SWIGTYPE_p_a_32__GoUint8_.getCPtr(p2));
+  public static long SKY_cipher_VerifyPubKeySignedHash(SWIGTYPE_p_a_33__GoUint8_ p0, SWIGTYPE_p_a_65__GoUint8_ p1, SWIGTYPE_p_a_32__GoUint8_ p2) {
+    return skycoinJNI.SKY_cipher_VerifyPubKeySignedHash(SWIGTYPE_p_a_33__GoUint8_.getCPtr(p0), SWIGTYPE_p_a_65__GoUint8_.getCPtr(p1), SWIGTYPE_p_a_32__GoUint8_.getCPtr(p2));
   }
 
   public static long SKY_cipher_GenerateKeyPair(SWIGTYPE_p_a_33__GoUint8_ p0, SWIGTYPE_p_a_32__GoUint8_ p1) {

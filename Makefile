@@ -67,4 +67,4 @@ test: build-libjava
 	# javac -d bin/test -cp /usr/share/java/junit4.jar:skycoin.jar src/test/simple.java
 	# java -verbose:jni  -Djava.library.path=$(PWD) -cp .:/usr/share/java/junit-4.jar:/usr/share/java/hamcrest-core-1.3.jar:skycoin.jar:bin/skycoin  test.simple
 	javac -cp lib/*:. src/test/simple.java
-	java -cp lib/*:. org.junit.platform.console.ConsoleLauncher -p simple
+	java -cp lib/*:. org.junit.platform.console.ConsoleLauncher -p test.simple

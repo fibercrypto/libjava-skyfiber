@@ -3122,7 +3122,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1SignHash_1_1SWIG_1
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1ChkSig_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1ChkSig(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
   jlong jresult = 0 ;
   cipher__Address *arg1 = (cipher__Address *) 0 ;
   cipher_SHA256 *arg2 = (cipher_SHA256 *) 0 ;
@@ -3164,7 +3164,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1PubKeyFromSig_1_1S
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1VerifySignature_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
+SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1VerifySignature(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
   jlong jresult = 0 ;
   cipher_PubKey *arg1 = (cipher_PubKey *) 0 ;
   cipher_Sig *arg2 = (cipher_Sig *) 0 ;
@@ -11236,20 +11236,20 @@ SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1SignHash_1_1SWIG_1
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1ChkSig_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
+SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1VerifyAddressSignedHash(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jlong jarg3) {
   jlong jresult = 0 ;
   cipher__Address *arg1 = (cipher__Address *) 0 ;
-  cipher__SHA256 *arg2 = (cipher__SHA256 *) 0 ;
-  cipher__Sig *arg3 = (cipher__Sig *) 0 ;
+  cipher__Sig *arg2 = (cipher__Sig *) 0 ;
+  cipher__SHA256 *arg3 = (cipher__SHA256 *) 0 ;
   GoUint32 result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(cipher__Address **)&jarg1; 
-  arg2 = *(cipher__SHA256 **)&jarg2; 
-  arg3 = *(cipher__Sig **)&jarg3; 
-  result = (GoUint32)SKY_cipher_ChkSig(arg1,(GoUint8_ (*)[32])arg2,(GoUint8_ (*)[65])arg3);
+  arg2 = *(cipher__Sig **)&jarg2; 
+  arg3 = *(cipher__SHA256 **)&jarg3; 
+  result = (GoUint32)SKY_cipher_VerifyAddressSignedHash(arg1,(GoUint8_ (*)[65])arg2,(GoUint8_ (*)[32])arg3);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -11271,7 +11271,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1VerifySignedHash(J
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1VerifySignature_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
+SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1VerifyPubKeySignedHash(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
   jlong jresult = 0 ;
   cipher__PubKey *arg1 = (cipher__PubKey *) 0 ;
   cipher__Sig *arg2 = (cipher__Sig *) 0 ;
@@ -11283,7 +11283,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_skycoinJNI_SKY_1cipher_1VerifySignature_1_
   arg1 = *(cipher__PubKey **)&jarg1; 
   arg2 = *(cipher__Sig **)&jarg2; 
   arg3 = *(cipher__SHA256 **)&jarg3; 
-  result = (GoUint32)SKY_cipher_VerifySignature((GoUint8_ (*)[33])arg1,(GoUint8_ (*)[65])arg2,(GoUint8_ (*)[32])arg3);
+  result = (GoUint32)SKY_cipher_VerifyPubKeySignedHash((GoUint8_ (*)[33])arg1,(GoUint8_ (*)[65])arg2,(GoUint8_ (*)[32])arg3);
   jresult = (jlong)result; 
   return jresult;
 }

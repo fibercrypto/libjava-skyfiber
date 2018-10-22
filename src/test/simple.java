@@ -10,6 +10,6 @@ public class simple extends skycoin {
 
   @Test
   public void pruebaJUnit() {
-    assertTrue(true);
+    assertTrue(false);
   }
 }
