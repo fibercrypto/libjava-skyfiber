@@ -47,24 +47,23 @@ build-swig: build-libc
 	}
 	# rm -rf src/skycoin
 	rm -rf bin/skycoin
-	mkdir -p src/skycoin
+	mkdir -p skycoin
 	mkdir -p bin/skycoin
-	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin -Iswig/include -I$(INCLUDE_DIR) -outdir src/skycoin -o src/skycoin/skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
+	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin -Iswig/include -I$(INCLUDE_DIR) -outdir skycoin -o skycoin/skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
  
 build-libjava: build-swig
-	gcc -c -fpic -I /usr/lib/jvm/java-8-openjdk-amd64/include/  -I /usr/lib/jvm/java-8-openjdk-amd64/include/linux -I swig/include -I$(INCLUDE_DIR) src/skycoin/skycoin_wrap.c
-	rm libskycoin.so
+	gcc -c -fpic -I /usr/lib/jvm/java-8-openjdk-amd64/include/  -I /usr/lib/jvm/java-8-openjdk-amd64/include/linux -I swig/include -I$(INCLUDE_DIR) skycoin/skycoin_wrap.c
 	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o libskycoin.so
 	cp -f libskycoin.so bin/
 	cp -f libskycoin.so bin/skycoin
 	cp -f libskycoin.so bin/test
-	cp -f libskycoin.so src/skycoin
-	javac -d bin/ src/skycoin/*.java
+	cp -f libskycoin.so skycoin
+	javac -d bin/ skycoin/*.java
 	jar cf skycoin.jar -C bin/ .
 	cp -f skycoin.jar lib/
 	
 test: build-libjava
 	# javac -d bin/test -cp /usr/share/java/junit4.jar:skycoin.jar src/test/simple.java
 	# java -verbose:jni  -Djava.library.path=$(PWD) -cp .:/usr/share/java/junit-4.jar:/usr/share/java/hamcrest-core-1.3.jar:skycoin.jar:bin/skycoin  test.simple
-	javac -cp lib/*:. src/test/simple.java
-	java -cp lib/*:. org.junit.platform.console.ConsoleLauncher -p test.simple
+	javac -cp lib/*:. test/simple.java
+	java -cp /usr/share/java/junit4.jar:skycoin.jar:lib/junit-platform-console-standalone-1.0.2.jar org.junit.platform.console.ConsoleLauncher  -c test
