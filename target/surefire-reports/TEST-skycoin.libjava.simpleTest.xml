@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="skycoin.libjava.simpleTest" time="0.001" tests="1" errors="0" skipped="0" failures="1">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="skycoin.libjava.simpleTest" time="0.002" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
     <property name="file.encoding.pkg" value="sun.io"/>
@@ -16,7 +16,7 @@
     <property name="user.country" value="ES"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
-    <property name="sun.java.command" value="/home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/surefire/surefirebooter4847277104755870876.jar /home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/surefire 2018-10-23T21-43-54_376-jvmRun1 surefire5378391151159209650tmp surefire_01819820263250354396tmp"/>
+    <property name="sun.java.command" value="/home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/surefire/surefirebooter434846778158307855.jar /home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/surefire 2018-10-23T21-54-03_532-jvmRun1 surefire4765654542035189877tmp surefire_02996852131108830807tmp"/>
     <property name="surefire.test.class.path" value="/home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/test-classes:/home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/classes:/home/maykel/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/maykel/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/home/maykel"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/surefire/surefirebooter4847277104755870876.jar"/>
+    <property name="surefire.real.class.path" value="/home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/surefire/surefirebooter434846778158307855.jar"/>
     <property name="sun.boot.class.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/resources.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jsse.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/charsets.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jfr.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/classes"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="1.8.0_181-8u181-b13-0ubuntu0.18.04.1-b13"/>
@@ -57,9 +57,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="name" classname="skycoin.libjava.simpleTest" time="0">
-    <failure type="java.lang.AssertionError">java.lang.AssertionError
-	at skycoin.libjava.simpleTest.name(simpleTest.java:14)
-</failure>
-  </testcase>
+  <testcase name="pruebaJUnit" classname="skycoin.libjava.simpleTest" time="0"/>
 </testsuite>

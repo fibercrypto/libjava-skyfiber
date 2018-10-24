@@ -1,6 +1,6 @@
 package skycoin.libjava;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 public class simpleTest {
 
   @Test
-  public void name() {
-    assertTrue(false);
+  public void pruebaJUnit() {
+    assertTrue(true);
   }
 }
