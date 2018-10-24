@@ -9,7 +9,7 @@ BUILD_DIR = build
 BIN_DIR = $(SKYCOIN_DIR)/bin
 INCLUDE_DIR = $(SKYCOIN_DIR)/include
 FULL_PATH_LIB = $(PWD)/$(BUILDLIBC_DIR)
-LD_LIBRARY_PATH=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib:bin/skycoin:bin/test
+LD_LIBRARY_PATH=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
 
 LIB_FILES = $(shell find $(SKYCOIN_DIR)/lib/cgo -type f -name "*.go")
 SRC_FILES = $(shell find $(SKYCOIN_DIR)/src -type f -name "*.go")
@@ -45,10 +45,6 @@ build-swig: build-libc
 			sed -i 's/#/%/g' $(LIBSWIG_DIR)/structs.i ;\
 		fi \
 	}
-	# rm -rf src/skycoin
-	rm -rf bin/skycoin
-	mkdir -p skycoin
-	mkdir -p bin/skycoin
 	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
  
 build-libjava: build-swig
@@ -56,4 +52,8 @@ build-libjava: build-swig
 	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o libskycoin.so
 	
 test: build-libjava
+	cp libskycoin.so target/test-classes/skycoin/libjava/	
+	cp skycoin_wrap.o target/classes/skycoin/libjava/
+	cp skycoin_wrap.o target/test-classes/skycoin/libjava/
+	export LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):target/classes/skycoin/libjava/
 	mvn test
