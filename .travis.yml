@@ -2,14 +2,8 @@ language: java
 jdk:
   - oraclejdk8
   - oraclejdk9
-  - oraclejdk10
-  - oraclejdk11
-  - openjdk6
-  - openjdk7
   - openjdk8
   - openjdk9
-  - openjdk10
-  - openjdk11
 install:
   - eval "$(gimme 1.11)"
   - go version
