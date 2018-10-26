@@ -55,13 +55,12 @@ public class cipher_PubKey {
     return new GoSlice(skycoinJNI.cipher_PubKey_toSlice(swigCPtr, this), true);
   }
 
-  public void setData(SWIGTYPE_p_unsigned_char value) {
-    skycoinJNI.cipher_PubKey_data_set(swigCPtr, this, SWIGTYPE_p_unsigned_char.getCPtr(value));
+  public void setData(short[] value) {
+    skycoinJNI.cipher_PubKey_data_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_unsigned_char getData() {
-    long cPtr = skycoinJNI.cipher_PubKey_data_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
+  public short[] getData() {
+    return skycoinJNI.cipher_PubKey_data_get(swigCPtr, this);
   }
 
   public cipher_PubKey() {

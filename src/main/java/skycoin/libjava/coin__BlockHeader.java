@@ -39,36 +39,36 @@ public class coin__BlockHeader {
     return skycoinJNI.coin__BlockHeader_isEqual(swigCPtr, this, coin__BlockHeader.getCPtr(bh), bh);
   }
 
-  public void setVersion(SWIGTYPE_p_GoUint32_ value) {
-    skycoinJNI.coin__BlockHeader_Version_set(swigCPtr, this, SWIGTYPE_p_GoUint32_.getCPtr(value));
+  public void setVersion(long value) {
+    skycoinJNI.coin__BlockHeader_Version_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoUint32_ getVersion() {
-    return new SWIGTYPE_p_GoUint32_(skycoinJNI.coin__BlockHeader_Version_get(swigCPtr, this), true);
+  public long getVersion() {
+    return skycoinJNI.coin__BlockHeader_Version_get(swigCPtr, this);
   }
 
-  public void setTime(SWIGTYPE_p_GoUint64_ value) {
-    skycoinJNI.coin__BlockHeader_Time_set(swigCPtr, this, SWIGTYPE_p_GoUint64_.getCPtr(value));
+  public void setTime(java.math.BigInteger value) {
+    skycoinJNI.coin__BlockHeader_Time_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoUint64_ getTime() {
-    return new SWIGTYPE_p_GoUint64_(skycoinJNI.coin__BlockHeader_Time_get(swigCPtr, this), true);
+  public java.math.BigInteger getTime() {
+    return skycoinJNI.coin__BlockHeader_Time_get(swigCPtr, this);
   }
 
-  public void setBkSeq(SWIGTYPE_p_GoUint64_ value) {
-    skycoinJNI.coin__BlockHeader_BkSeq_set(swigCPtr, this, SWIGTYPE_p_GoUint64_.getCPtr(value));
+  public void setBkSeq(java.math.BigInteger value) {
+    skycoinJNI.coin__BlockHeader_BkSeq_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoUint64_ getBkSeq() {
-    return new SWIGTYPE_p_GoUint64_(skycoinJNI.coin__BlockHeader_BkSeq_get(swigCPtr, this), true);
+  public java.math.BigInteger getBkSeq() {
+    return skycoinJNI.coin__BlockHeader_BkSeq_get(swigCPtr, this);
   }
 
-  public void setFee(SWIGTYPE_p_GoUint64_ value) {
-    skycoinJNI.coin__BlockHeader_Fee_set(swigCPtr, this, SWIGTYPE_p_GoUint64_.getCPtr(value));
+  public void setFee(java.math.BigInteger value) {
+    skycoinJNI.coin__BlockHeader_Fee_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoUint64_ getFee() {
-    return new SWIGTYPE_p_GoUint64_(skycoinJNI.coin__BlockHeader_Fee_get(swigCPtr, this), true);
+  public java.math.BigInteger getFee() {
+    return skycoinJNI.coin__BlockHeader_Fee_get(swigCPtr, this);
   }
 
   public void setPrevHash(SWIGTYPE_p_GoUint8_ value) {

@@ -35,36 +35,36 @@ public class encrypt__ScryptChacha20poly1305 {
     }
   }
 
-  public void setN(SWIGTYPE_p_GoInt_ value) {
-    skycoinJNI.encrypt__ScryptChacha20poly1305_N_set(swigCPtr, this, SWIGTYPE_p_GoInt_.getCPtr(value));
+  public void setN(long value) {
+    skycoinJNI.encrypt__ScryptChacha20poly1305_N_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt_ getN() {
-    return new SWIGTYPE_p_GoInt_(skycoinJNI.encrypt__ScryptChacha20poly1305_N_get(swigCPtr, this), true);
+  public long getN() {
+    return skycoinJNI.encrypt__ScryptChacha20poly1305_N_get(swigCPtr, this);
   }
 
-  public void setR(SWIGTYPE_p_GoInt_ value) {
-    skycoinJNI.encrypt__ScryptChacha20poly1305_R_set(swigCPtr, this, SWIGTYPE_p_GoInt_.getCPtr(value));
+  public void setR(long value) {
+    skycoinJNI.encrypt__ScryptChacha20poly1305_R_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt_ getR() {
-    return new SWIGTYPE_p_GoInt_(skycoinJNI.encrypt__ScryptChacha20poly1305_R_get(swigCPtr, this), true);
+  public long getR() {
+    return skycoinJNI.encrypt__ScryptChacha20poly1305_R_get(swigCPtr, this);
   }
 
-  public void setP(SWIGTYPE_p_GoInt_ value) {
-    skycoinJNI.encrypt__ScryptChacha20poly1305_P_set(swigCPtr, this, SWIGTYPE_p_GoInt_.getCPtr(value));
+  public void setP(long value) {
+    skycoinJNI.encrypt__ScryptChacha20poly1305_P_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt_ getP() {
-    return new SWIGTYPE_p_GoInt_(skycoinJNI.encrypt__ScryptChacha20poly1305_P_get(swigCPtr, this), true);
+  public long getP() {
+    return skycoinJNI.encrypt__ScryptChacha20poly1305_P_get(swigCPtr, this);
   }
 
-  public void setKeyLen(SWIGTYPE_p_GoInt_ value) {
-    skycoinJNI.encrypt__ScryptChacha20poly1305_KeyLen_set(swigCPtr, this, SWIGTYPE_p_GoInt_.getCPtr(value));
+  public void setKeyLen(long value) {
+    skycoinJNI.encrypt__ScryptChacha20poly1305_KeyLen_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt_ getKeyLen() {
-    return new SWIGTYPE_p_GoInt_(skycoinJNI.encrypt__ScryptChacha20poly1305_KeyLen_get(swigCPtr, this), true);
+  public long getKeyLen() {
+    return skycoinJNI.encrypt__ScryptChacha20poly1305_KeyLen_get(swigCPtr, this);
   }
 
   public encrypt__ScryptChacha20poly1305() {

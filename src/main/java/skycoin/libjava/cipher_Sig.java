@@ -47,13 +47,12 @@ public class cipher_Sig {
     skycoinJNI.cipher_Sig_assignTo(swigCPtr, this, SWIGTYPE_p_void.getCPtr(data));
   }
 
-  public void setData(SWIGTYPE_p_unsigned_char value) {
-    skycoinJNI.cipher_Sig_data_set(swigCPtr, this, SWIGTYPE_p_unsigned_char.getCPtr(value));
+  public void setData(short[] value) {
+    skycoinJNI.cipher_Sig_data_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_unsigned_char getData() {
-    long cPtr = skycoinJNI.cipher_Sig_data_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
+  public short[] getData() {
+    return skycoinJNI.cipher_Sig_data_get(swigCPtr, this);
   }
 
   public cipher_Sig() {

@@ -47,12 +47,12 @@ public class _GoString_ {
     return skycoinJNI._GoString__p_get(swigCPtr, this);
   }
 
-  public void setN(SWIGTYPE_p_ptrdiff_t value) {
-    skycoinJNI._GoString__n_set(swigCPtr, this, SWIGTYPE_p_ptrdiff_t.getCPtr(value));
+  public void setN(int value) {
+    skycoinJNI._GoString__n_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_ptrdiff_t getN() {
-    return new SWIGTYPE_p_ptrdiff_t(skycoinJNI._GoString__n_get(swigCPtr, this), true);
+  public int getN() {
+    return skycoinJNI._GoString__n_get(swigCPtr, this);
   }
 
   public _GoString_() {

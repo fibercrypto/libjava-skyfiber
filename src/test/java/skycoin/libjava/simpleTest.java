@@ -10,15 +10,18 @@ import skycoin.libjava.*;
 /**
  * Unit test for simple App.
  */
-public class simpleTest {
-  static {
-    System.out.print(System.getProperty("java.library.path"));
-    System.loadLibrary("skycoin"); // hello.dll (Windows) or libhello.so (Unixes)
-  }
+public class simpleTest extends skycoin {
+  static { System.loadLibrary("skycoin"); }
 
   @Test
-  public void pruebaJUnit() {
+  public void test() {
     assertTrue(true);
     cipher__Address a = new cipher__Address();
+    cipher_PubKey p = new cipher_PubKey();
+    cipher_SecKey s = new cipher_SecKey();
+
+    long err = SKY_OK;
+    err = skycoin.SKY_cipher_GenerateKeyPair(p, s);
+    assertEquals(err, SKY_OK);
   }
 }

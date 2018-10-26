@@ -43,12 +43,12 @@ public class cli__SendAmount {
     return new SWIGTYPE_p_GoString_(skycoinJNI.cli__SendAmount_Addr_get(swigCPtr, this), true);
   }
 
-  public void setCoins(SWIGTYPE_p_GoInt64_ value) {
-    skycoinJNI.cli__SendAmount_Coins_set(swigCPtr, this, SWIGTYPE_p_GoInt64_.getCPtr(value));
+  public void setCoins(long value) {
+    skycoinJNI.cli__SendAmount_Coins_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt64_ getCoins() {
-    return new SWIGTYPE_p_GoInt64_(skycoinJNI.cli__SendAmount_Coins_get(swigCPtr, this), true);
+  public long getCoins() {
+    return skycoinJNI.cli__SendAmount_Coins_get(swigCPtr, this);
   }
 
   public cli__SendAmount() {

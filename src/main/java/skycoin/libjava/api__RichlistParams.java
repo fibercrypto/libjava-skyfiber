@@ -35,12 +35,12 @@ public class api__RichlistParams {
     }
   }
 
-  public void setN(SWIGTYPE_p_GoInt_ value) {
-    skycoinJNI.api__RichlistParams_N_set(swigCPtr, this, SWIGTYPE_p_GoInt_.getCPtr(value));
+  public void setN(long value) {
+    skycoinJNI.api__RichlistParams_N_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt_ getN() {
-    return new SWIGTYPE_p_GoInt_(skycoinJNI.api__RichlistParams_N_get(swigCPtr, this), true);
+  public long getN() {
+    return skycoinJNI.api__RichlistParams_N_get(swigCPtr, this);
   }
 
   public void setIncludeDistribution(SWIGTYPE_p_BOOL value) {

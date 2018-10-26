@@ -39,12 +39,12 @@ public class cipher__BitcoinAddress {
     return skycoinJNI.cipher__BitcoinAddress_isEqual(swigCPtr, this, cipher__BitcoinAddress.getCPtr(a), a);
   }
 
-  public void setVersion(SWIGTYPE_p_GoUint8_ value) {
-    skycoinJNI.cipher__BitcoinAddress_Version_set(swigCPtr, this, SWIGTYPE_p_GoUint8_.getCPtr(value));
+  public void setVersion(short value) {
+    skycoinJNI.cipher__BitcoinAddress_Version_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoUint8_ getVersion() {
-    return new SWIGTYPE_p_GoUint8_(skycoinJNI.cipher__BitcoinAddress_Version_get(swigCPtr, this), true);
+  public short getVersion() {
+    return skycoinJNI.cipher__BitcoinAddress_Version_get(swigCPtr, this);
   }
 
   public void setKey(SWIGTYPE_p_GoUint8_ value) {

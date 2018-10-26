@@ -44,12 +44,12 @@ public class wallet__UxBalance {
     return (cPtr == 0) ? null : new SWIGTYPE_p_GoUint8_(cPtr, false);
   }
 
-  public void setBkSeq(SWIGTYPE_p_GoInt64_ value) {
-    skycoinJNI.wallet__UxBalance_BkSeq_set(swigCPtr, this, SWIGTYPE_p_GoInt64_.getCPtr(value));
+  public void setBkSeq(long value) {
+    skycoinJNI.wallet__UxBalance_BkSeq_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt64_ getBkSeq() {
-    return new SWIGTYPE_p_GoInt64_(skycoinJNI.wallet__UxBalance_BkSeq_get(swigCPtr, this), true);
+  public long getBkSeq() {
+    return skycoinJNI.wallet__UxBalance_BkSeq_get(swigCPtr, this);
   }
 
   public void setAddress(cipher__Address value) {
@@ -61,20 +61,20 @@ public class wallet__UxBalance {
     return (cPtr == 0) ? null : new cipher__Address(cPtr, false);
   }
 
-  public void setCoins(SWIGTYPE_p_GoInt64_ value) {
-    skycoinJNI.wallet__UxBalance_Coins_set(swigCPtr, this, SWIGTYPE_p_GoInt64_.getCPtr(value));
+  public void setCoins(long value) {
+    skycoinJNI.wallet__UxBalance_Coins_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt64_ getCoins() {
-    return new SWIGTYPE_p_GoInt64_(skycoinJNI.wallet__UxBalance_Coins_get(swigCPtr, this), true);
+  public long getCoins() {
+    return skycoinJNI.wallet__UxBalance_Coins_get(swigCPtr, this);
   }
 
-  public void setHours(SWIGTYPE_p_GoInt64_ value) {
-    skycoinJNI.wallet__UxBalance_Hours_set(swigCPtr, this, SWIGTYPE_p_GoInt64_.getCPtr(value));
+  public void setHours(long value) {
+    skycoinJNI.wallet__UxBalance_Hours_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt64_ getHours() {
-    return new SWIGTYPE_p_GoInt64_(skycoinJNI.wallet__UxBalance_Hours_get(swigCPtr, this), true);
+  public long getHours() {
+    return skycoinJNI.wallet__UxBalance_Hours_get(swigCPtr, this);
   }
 
   public wallet__UxBalance() {

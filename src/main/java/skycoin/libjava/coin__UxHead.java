@@ -35,20 +35,20 @@ public class coin__UxHead {
     }
   }
 
-  public void setTime(SWIGTYPE_p_GoUint64_ value) {
-    skycoinJNI.coin__UxHead_Time_set(swigCPtr, this, SWIGTYPE_p_GoUint64_.getCPtr(value));
+  public void setTime(java.math.BigInteger value) {
+    skycoinJNI.coin__UxHead_Time_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoUint64_ getTime() {
-    return new SWIGTYPE_p_GoUint64_(skycoinJNI.coin__UxHead_Time_get(swigCPtr, this), true);
+  public java.math.BigInteger getTime() {
+    return skycoinJNI.coin__UxHead_Time_get(swigCPtr, this);
   }
 
-  public void setBkSeq(SWIGTYPE_p_GoUint64_ value) {
-    skycoinJNI.coin__UxHead_BkSeq_set(swigCPtr, this, SWIGTYPE_p_GoUint64_.getCPtr(value));
+  public void setBkSeq(java.math.BigInteger value) {
+    skycoinJNI.coin__UxHead_BkSeq_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoUint64_ getBkSeq() {
-    return new SWIGTYPE_p_GoUint64_(skycoinJNI.coin__UxHead_BkSeq_get(swigCPtr, this), true);
+  public java.math.BigInteger getBkSeq() {
+    return skycoinJNI.coin__UxHead_BkSeq_get(swigCPtr, this);
   }
 
   public coin__UxHead() {

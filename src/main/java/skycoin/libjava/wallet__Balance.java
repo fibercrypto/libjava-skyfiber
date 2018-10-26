@@ -35,20 +35,20 @@ public class wallet__Balance {
     }
   }
 
-  public void setCoins(SWIGTYPE_p_GoUint64_ value) {
-    skycoinJNI.wallet__Balance_Coins_set(swigCPtr, this, SWIGTYPE_p_GoUint64_.getCPtr(value));
+  public void setCoins(java.math.BigInteger value) {
+    skycoinJNI.wallet__Balance_Coins_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoUint64_ getCoins() {
-    return new SWIGTYPE_p_GoUint64_(skycoinJNI.wallet__Balance_Coins_get(swigCPtr, this), true);
+  public java.math.BigInteger getCoins() {
+    return skycoinJNI.wallet__Balance_Coins_get(swigCPtr, this);
   }
 
-  public void setHours(SWIGTYPE_p_GoUint64_ value) {
-    skycoinJNI.wallet__Balance_Hours_set(swigCPtr, this, SWIGTYPE_p_GoUint64_.getCPtr(value));
+  public void setHours(java.math.BigInteger value) {
+    skycoinJNI.wallet__Balance_Hours_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoUint64_ getHours() {
-    return new SWIGTYPE_p_GoUint64_(skycoinJNI.wallet__Balance_Hours_get(swigCPtr, this), true);
+  public java.math.BigInteger getHours() {
+    return skycoinJNI.wallet__Balance_Hours_get(swigCPtr, this);
   }
 
   public wallet__Balance() {

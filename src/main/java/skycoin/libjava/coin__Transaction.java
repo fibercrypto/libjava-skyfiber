@@ -43,20 +43,20 @@ public class coin__Transaction {
     return skycoinJNI.coin__Transaction_setInnerHash(swigCPtr, this, cipher_SHA256.getCPtr(h), h);
   }
 
-  public void setLength(SWIGTYPE_p_GoInt32_ value) {
-    skycoinJNI.coin__Transaction_Length_set(swigCPtr, this, SWIGTYPE_p_GoInt32_.getCPtr(value));
+  public void setLength(int value) {
+    skycoinJNI.coin__Transaction_Length_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt32_ getLength() {
-    return new SWIGTYPE_p_GoInt32_(skycoinJNI.coin__Transaction_Length_get(swigCPtr, this), true);
+  public int getLength() {
+    return skycoinJNI.coin__Transaction_Length_get(swigCPtr, this);
   }
 
-  public void setType(SWIGTYPE_p_GoInt8_ value) {
-    skycoinJNI.coin__Transaction_Type_set(swigCPtr, this, SWIGTYPE_p_GoInt8_.getCPtr(value));
+  public void setType(byte value) {
+    skycoinJNI.coin__Transaction_Type_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_GoInt8_ getType() {
-    return new SWIGTYPE_p_GoInt8_(skycoinJNI.coin__Transaction_Type_get(swigCPtr, this), true);
+  public byte getType() {
+    return skycoinJNI.coin__Transaction_Type_get(swigCPtr, this);
   }
 
   public void setInnerHash(SWIGTYPE_p_GoUint8_ value) {
