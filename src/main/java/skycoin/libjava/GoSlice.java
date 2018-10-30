@@ -43,7 +43,7 @@ public class GoSlice {
     skycoinJNI.GoSlice_convertString(swigCPtr, this, _GoString_.getCPtr(data), data);
   }
 
-  public void setAtChar(char p, java.math.BigInteger i) {
+  public void setAtChar(char p, long i) {
     skycoinJNI.GoSlice_setAtChar(swigCPtr, this, p, i);
   }
 

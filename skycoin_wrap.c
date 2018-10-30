@@ -2743,7 +2743,7 @@ SWIGINTERN void GoSlice_convertString(GoSlice *self,_GoString_ data){
 		self->len = strlen(data.p);
 		self->cap = self->len;
 	}
-SWIGINTERN void GoSlice_setAtChar(GoSlice *self,char p,unsigned long long i){
+SWIGINTERN void GoSlice_setAtChar(GoSlice *self,char p,long long i){
 		((char *) self->data)[i] = p;
 	}
 SWIGINTERN void GoSlice_getString(GoSlice *self,_GoString_ *out){
@@ -8641,42 +8641,17 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_GoSlice_1convertString(J
 }
 
 
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_GoSlice_1setAtChar(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jchar jarg2, jobject jarg3) {
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_GoSlice_1setAtChar(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jchar jarg2, jlong jarg3) {
   GoSlice *arg1 = (GoSlice *) 0 ;
   char arg2 ;
-  unsigned long long arg3 ;
+  long long arg3 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(GoSlice **)&jarg1; 
   arg2 = (char)jarg2; 
-  {
-    jclass clazz;
-    jmethodID mid;
-    jbyteArray ba;
-    jbyte* bae;
-    jsize sz;
-    int i;
-    
-    if (!jarg3) {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "BigInteger null");
-      return ;
-    }
-    clazz = (*jenv)->GetObjectClass(jenv, jarg3);
-    mid = (*jenv)->GetMethodID(jenv, clazz, "toByteArray", "()[B");
-    ba = (jbyteArray)(*jenv)->CallObjectMethod(jenv, jarg3, mid);
-    bae = (*jenv)->GetByteArrayElements(jenv, ba, 0);
-    sz = (*jenv)->GetArrayLength(jenv, ba);
-    arg3 = 0;
-    if (sz > 0) {
-      arg3 = (unsigned long long)(signed char)bae[0];
-      for(i=1; i<sz; i++) {
-        arg3 = (arg3 << 8) | (unsigned long long)(unsigned char)bae[i];
-      }
-    }
-    (*jenv)->ReleaseByteArrayElements(jenv, ba, bae, 0);
-  }
+  arg3 = (long long)jarg3; 
   GoSlice_setAtChar(arg1,arg2,arg3);
 }
 

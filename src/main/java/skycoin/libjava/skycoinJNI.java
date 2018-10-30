@@ -357,7 +357,7 @@ public class skycoinJNI {
   public final static native void delete_GoInterface(long jarg1);
   public final static native int GoSlice_isEqual(long jarg1, GoSlice jarg1_, long jarg2, GoSlice jarg2_);
   public final static native void GoSlice_convertString(long jarg1, GoSlice jarg1_, long jarg2, _GoString_ jarg2_);
-  public final static native void GoSlice_setAtChar(long jarg1, GoSlice jarg1_, char jarg2, java.math.BigInteger jarg3);
+  public final static native void GoSlice_setAtChar(long jarg1, GoSlice jarg1_, char jarg2, long jarg3);
   public final static native void GoSlice_getString(long jarg1, GoSlice jarg1_, long jarg2, _GoString_ jarg2_);
   public final static native void GoSlice_data_set(long jarg1, GoSlice jarg1_, long jarg2);
   public final static native long GoSlice_data_get(long jarg1, GoSlice jarg1_);
