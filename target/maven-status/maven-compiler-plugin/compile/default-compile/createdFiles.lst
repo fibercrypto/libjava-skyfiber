@@ -48,6 +48,7 @@ skycoin/libjava/api__RichlistParams.class
 skycoin/libjava/SWIGTYPE_p_Transactions__Handle.class
 skycoin/libjava/SWIGTYPE_p_Hash_Handle.class
 skycoin/libjava/SWIGTYPE_p_unsigned_short.class
+skycoin/libjava/skycoin.class
 skycoin/libjava/coin__Block.class
 skycoin/libjava/SWIGTYPE_p_SortableTransactionResult_Handle.class
 skycoin/libjava/SWIGTYPE_p_p_coin__Transaction.class
