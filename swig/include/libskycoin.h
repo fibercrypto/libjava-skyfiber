@@ -498,7 +498,7 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 
 #line 1 "cgo-generated-wrapper"
 
-#line 9 "cipher.secp256k1-go.secp256k1-go2.field.go"
+#line 10 "cipher.secp256k1-go.secp256k1-go2.field.go"
 
 
   #include <string.h>

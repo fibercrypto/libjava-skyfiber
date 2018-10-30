@@ -235,6 +235,7 @@ public class skycoinJNI {
   public final static native long SKY_coin_BlockBody_Hash__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_BlockHeader_Hash__SWIG_0(long jarg1, coin__BlockHeader jarg1_, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_Block_HashBody__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
+  public final static native long SKY_secp256k1go_Field_SetHex__SWIG_0(long jarg1, secp256k1go__Field jarg1_, String jarg2);
   public final static native int cipher_PubKey_isEqual(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
   public final static native void cipher_PubKey_assignFrom(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
   public final static native void cipher_PubKey_assignTo(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
@@ -744,7 +745,7 @@ public class skycoinJNI {
   public final static native long SKY_secp256k1go_Field_Print(long jarg1, secp256k1go__Field jarg1_, long jarg2, _GoString_ jarg2_);
   public final static native long SKY_secp256k1go_Field_SetB32(long jarg1, secp256k1go__Field jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_secp256k1go_Field_SetBytes(long jarg1, secp256k1go__Field jarg1_, long jarg2, GoSlice jarg2_);
-  public final static native long SKY_secp256k1go_Field_SetHex(long jarg1, secp256k1go__Field jarg1_, long jarg2, _GoString_ jarg2_);
+  public final static native long SKY_secp256k1go_Field_SetHex__SWIG_1(long jarg1, secp256k1go__Field jarg1_, long jarg2, _GoString_ jarg2_);
   public final static native long SKY_secp256k1go_Field_IsOdd(long jarg1, secp256k1go__Field jarg1_, long jarg2);
   public final static native long SKY_secp256k1go_Field_IsZero(long jarg1, secp256k1go__Field jarg1_, long jarg2);
   public final static native long SKY_secp256k1go_Field_SetInt(long jarg1, secp256k1go__Field jarg1_, long jarg2);

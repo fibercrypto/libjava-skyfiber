@@ -2519,6 +2519,13 @@ memcpy(__out->data, __in, 32);
 	}
 
 
+	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_secp256k1go_Field_SetHex(secp256k1go__Field* p0, char * p1){
+        GoString str = { p1,strlen(p1) };
+		GoUint32 result = SKY_secp256k1go_Field_SetHex(p0,  str);
+		return result;
+	}
+
+
 
 GoUint32_ _WrapperFeeCalculator(Transaction__Handle handle, GoUint64_* pFee, void* context){
 	FeeCalcFunc* feeCalc = (FeeCalcFunc*)context;
@@ -6793,6 +6800,29 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Block_1HashB
   arg2 = *(cipher_SHA256 **)&jarg2; 
   result = (GoUint32)Java_skycoin_libjava_skycoinJNI_SKY_coin_Block_HashBody(arg1,arg2);
   jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetHex_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  jlong jresult = 0 ;
+  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
+  char *arg2 = (char *) 0 ;
+  GoUint32 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(secp256k1go__Field **)&jarg1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)(*jenv)->GetStringUTFChars(jenv, jarg2, 0);
+    if (!arg2) return 0;
+  }
+  result = (GoUint32)Java_skycoin_libjava_skycoinJNI_SKY_secp256k1go_Field_SetHex(arg1,arg2);
+  jresult = (jlong)result; 
+  
+  if (arg2) (*jenv)->ReleaseStringUTFChars(jenv, jarg2, (const char *)arg2);
   return jresult;
 }
 
@@ -18905,7 +18935,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetHex(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetHex_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
   GoString arg2 ;
