@@ -964,6 +964,10 @@ long tmps = _GoString_.getCPtr (s);
     return skycoinJNI.SKY_secp256k1go_Field_SetHex__SWIG_0(secp256k1go__Field.getCPtr(p0), p0, p1);
   }
 
+  public static long SKY_secp256k1go_Number_SetHex(SWIGTYPE_p_Number_Handle p0, String p1) {
+    return skycoinJNI.SKY_secp256k1go_Number_SetHex__SWIG_0(SWIGTYPE_p_Number_Handle.getCPtr(p0), p1);
+  }
+
   public static long SKY_coin_NewBlock(SWIGTYPE_p_Block__Handle p0, java.math.BigInteger p1, cipher_SecKey p2, SWIGTYPE_p_Transactions__Handle p3, SWIGTYPE_p_FeeCalculator p4, SWIGTYPE_p_Block__Handle p5) {
 long tmpp2 = cipher_SecKey.getCPtr (p2);
     {
@@ -2379,7 +2383,7 @@ long tmpp3 = _GoString_.getCPtr (p3);
   }
 
   public static long SKY_secp256k1go_Number_SetHex(SWIGTYPE_p_Number_Handle p0, _GoString_ p1) {
-    return skycoinJNI.SKY_secp256k1go_Number_SetHex(SWIGTYPE_p_Number_Handle.getCPtr(p0), _GoString_.getCPtr(p1), p1);
+    return skycoinJNI.SKY_secp256k1go_Number_SetHex__SWIG_1(SWIGTYPE_p_Number_Handle.getCPtr(p0), _GoString_.getCPtr(p1), p1);
   }
 
   public static long SKY_secp256k1go_Number_IsOdd(SWIGTYPE_p_Number_Handle p0, SWIGTYPE_p_unsigned_char p1) {

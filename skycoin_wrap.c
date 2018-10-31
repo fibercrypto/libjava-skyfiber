@@ -2526,6 +2526,13 @@ memcpy(__out->data, __in, 32);
 	}
 
 
+	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_secp256k1go_Number_SetHex(Number_Handle p0, char * p1){
+        GoString str = { p1,strlen(p1) };
+		GoUint32 result = SKY_secp256k1go_Number_SetHex(p0,  str);
+		return result;
+	}
+
+
 
 GoUint32_ _WrapperFeeCalculator(Transaction__Handle handle, GoUint64_* pFee, void* context){
 	FeeCalcFunc* feeCalc = (FeeCalcFunc*)context;
@@ -6820,6 +6827,34 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field
     if (!arg2) return 0;
   }
   result = (GoUint32)Java_skycoin_libjava_skycoinJNI_SKY_secp256k1go_Field_SetHex(arg1,arg2);
+  jresult = (jlong)result; 
+  
+  if (arg2) (*jenv)->ReleaseStringUTFChars(jenv, jarg2, (const char *)arg2);
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1SetHex_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
+  jlong jresult = 0 ;
+  Number_Handle arg1 ;
+  char *arg2 = (char *) 0 ;
+  Number_Handle *argp1 ;
+  GoUint32 result;
+  
+  (void)jenv;
+  (void)jcls;
+  argp1 = *(Number_Handle **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
+    return 0;
+  }
+  arg1 = *argp1; 
+  arg2 = 0;
+  if (jarg2) {
+    arg2 = (char *)(*jenv)->GetStringUTFChars(jenv, jarg2, 0);
+    if (!arg2) return 0;
+  }
+  result = (GoUint32)Java_skycoin_libjava_skycoinJNI_SKY_secp256k1go_Number_SetHex(arg1,arg2);
   jresult = (jlong)result; 
   
   if (arg2) (*jenv)->ReleaseStringUTFChars(jenv, jarg2, (const char *)arg2);
@@ -16434,7 +16469,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Numbe
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1SetHex(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1SetHex_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   Number_Handle arg1 ;
   GoString arg2 ;
