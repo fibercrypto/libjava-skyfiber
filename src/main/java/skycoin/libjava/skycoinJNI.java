@@ -237,6 +237,7 @@ public class skycoinJNI {
   public final static native long SKY_coin_Block_HashBody__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_secp256k1go_Field_SetHex__SWIG_0(long jarg1, secp256k1go__Field jarg1_, String jarg2);
   public final static native long SKY_secp256k1go_Number_SetHex__SWIG_0(long jarg1, String jarg2);
+  public final static native long SKY_base58_String2Hex__SWIG_0(String jarg1, long jarg2, GoSlice jarg2_);
   public final static native int cipher_PubKey_isEqual(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
   public final static native void cipher_PubKey_assignFrom(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
   public final static native void cipher_PubKey_assignTo(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
@@ -426,10 +427,6 @@ public class skycoinJNI {
   public final static native long SKY_api_Client_NewSeed(long jarg1, long jarg2, long jarg3, _GoString_ jarg3_);
   public final static native long SKY_api_Client_WalletSeed(long jarg1, long jarg2, _GoString_ jarg2_, long jarg3, _GoString_ jarg3_, long jarg4, _GoString_ jarg4_);
   public final static native long SKY_api_Client_NetworkConnection(long jarg1, long jarg2, _GoString_ jarg2_, long jarg3);
-  public final static native long SKY_api_Client_NetworkConnections(long jarg1, long jarg2);
-  public final static native long SKY_api_Client_NetworkDefaultConnections(long jarg1, long jarg2);
-  public final static native long SKY_api_Client_NetworkTrustedConnections(long jarg1, long jarg2);
-  public final static native long SKY_api_Client_NetworkExchangeableConnections(long jarg1, long jarg2);
   public final static native long SKY_api_Client_PendingTransactions(long jarg1, long jarg2);
   public final static native long SKY_api_Client_Transaction(long jarg1, long jarg2, _GoString_ jarg2_, long jarg3);
   public final static native long SKY_api_Client_Transactions(long jarg1, long jarg2, GoSlice jarg2_, long jarg3);
@@ -499,7 +496,7 @@ public class skycoinJNI {
   public final static native long SKY_secp256k1go_GeneratePublicKey(long jarg1, GoSlice jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_secp256k1go_SeckeyIsValid(long jarg1, GoSlice jarg1_, long jarg2);
   public final static native long SKY_secp256k1go_PubkeyIsValid(long jarg1, GoSlice jarg1_, long jarg2);
-  public final static native long SKY_base58_String2Hex(long jarg1, _GoString_ jarg1_, long jarg2, GoSlice jarg2_);
+  public final static native long SKY_base58_String2Hex__SWIG_1(long jarg1, _GoString_ jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_base58_Base58_ToInt(long jarg1, _GoString_ jarg1_, long jarg2);
   public final static native long SKY_base58_Base58_ToHex(long jarg1, _GoString_ jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_base58_Base58_Base582Int(long jarg1, _GoString_ jarg1_, long jarg2);
@@ -1098,7 +1095,6 @@ public class skycoinJNI {
   public final static native int SKY_ErrNotExternalIP_get();
   public final static native int SKY_ErrPortTooLow_get();
   public final static native int SKY_ErrBlacklistedAddress_get();
-  public final static native int SKY_ErrDisconnectReadFailed_get();
   public final static native int SKY_ErrDisconnectWriteFailed_get();
   public final static native int SKY_ErrDisconnectSetReadDeadlineFailed_get();
   public final static native int SKY_ErrDisconnectInvalidMessageLength_get();

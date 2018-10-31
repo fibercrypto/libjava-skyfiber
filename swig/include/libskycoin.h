@@ -700,14 +700,6 @@ extern GoUint32 SKY_api_Client_WalletSeed(Client__Handle p0, GoString p1, GoStri
 
 extern GoUint32 SKY_api_Client_NetworkConnection(Client__Handle p0, GoString p1, Handle* p2);
 
-extern GoUint32 SKY_api_Client_NetworkConnections(Client__Handle p0, Handle* p1);
-
-extern GoUint32 SKY_api_Client_NetworkDefaultConnections(Client__Handle p0, Handle* p1);
-
-extern GoUint32 SKY_api_Client_NetworkTrustedConnections(Client__Handle p0, Handle* p1);
-
-extern GoUint32 SKY_api_Client_NetworkExchangeableConnections(Client__Handle p0, Handle* p1);
-
 extern GoUint32 SKY_api_Client_PendingTransactions(Client__Handle p0, Handle* p1);
 
 extern GoUint32 SKY_api_Client_Transaction(Client__Handle p0, GoString p1, Handle* p2);

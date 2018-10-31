@@ -96,7 +96,6 @@ public interface skycoinConstants {
   public final static int SKY_ErrNotExternalIP = skycoinJNI.SKY_ErrNotExternalIP_get();
   public final static int SKY_ErrPortTooLow = skycoinJNI.SKY_ErrPortTooLow_get();
   public final static int SKY_ErrBlacklistedAddress = skycoinJNI.SKY_ErrBlacklistedAddress_get();
-  public final static int SKY_ErrDisconnectReadFailed = skycoinJNI.SKY_ErrDisconnectReadFailed_get();
   public final static int SKY_ErrDisconnectWriteFailed = skycoinJNI.SKY_ErrDisconnectWriteFailed_get();
   public final static int SKY_ErrDisconnectSetReadDeadlineFailed = skycoinJNI.SKY_ErrDisconnectSetReadDeadlineFailed_get();
   public final static int SKY_ErrDisconnectInvalidMessageLength = skycoinJNI.SKY_ErrDisconnectInvalidMessageLength_get();

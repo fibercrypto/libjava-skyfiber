@@ -968,6 +968,10 @@ long tmps = _GoString_.getCPtr (s);
     return skycoinJNI.SKY_secp256k1go_Number_SetHex__SWIG_0(SWIGTYPE_p_Number_Handle.getCPtr(p0), p1);
   }
 
+  public static long SKY_base58_String2Hex(String p1, GoSlice p2) {
+    return skycoinJNI.SKY_base58_String2Hex__SWIG_0(p1, GoSlice.getCPtr (p2), p2);
+  }
+
   public static long SKY_coin_NewBlock(SWIGTYPE_p_Block__Handle p0, java.math.BigInteger p1, cipher_SecKey p2, SWIGTYPE_p_Transactions__Handle p3, SWIGTYPE_p_FeeCalculator p4, SWIGTYPE_p_Block__Handle p5) {
 long tmpp2 = cipher_SecKey.getCPtr (p2);
     {
@@ -1242,22 +1246,6 @@ long tmpp3 = _GoString_.getCPtr (p3);
 
   public static long SKY_api_Client_NetworkConnection(SWIGTYPE_p_Client__Handle p0, _GoString_ p1, SWIGTYPE_p_Handle p2) {
     return skycoinJNI.SKY_api_Client_NetworkConnection(SWIGTYPE_p_Client__Handle.getCPtr(p0), _GoString_.getCPtr(p1), p1, SWIGTYPE_p_Handle.getCPtr(p2));
-  }
-
-  public static long SKY_api_Client_NetworkConnections(SWIGTYPE_p_Client__Handle p0, SWIGTYPE_p_Handle p1) {
-    return skycoinJNI.SKY_api_Client_NetworkConnections(SWIGTYPE_p_Client__Handle.getCPtr(p0), SWIGTYPE_p_Handle.getCPtr(p1));
-  }
-
-  public static long SKY_api_Client_NetworkDefaultConnections(SWIGTYPE_p_Client__Handle p0, SWIGTYPE_p_Handle p1) {
-    return skycoinJNI.SKY_api_Client_NetworkDefaultConnections(SWIGTYPE_p_Client__Handle.getCPtr(p0), SWIGTYPE_p_Handle.getCPtr(p1));
-  }
-
-  public static long SKY_api_Client_NetworkTrustedConnections(SWIGTYPE_p_Client__Handle p0, SWIGTYPE_p_Handle p1) {
-    return skycoinJNI.SKY_api_Client_NetworkTrustedConnections(SWIGTYPE_p_Client__Handle.getCPtr(p0), SWIGTYPE_p_Handle.getCPtr(p1));
-  }
-
-  public static long SKY_api_Client_NetworkExchangeableConnections(SWIGTYPE_p_Client__Handle p0, SWIGTYPE_p_Handle p1) {
-    return skycoinJNI.SKY_api_Client_NetworkExchangeableConnections(SWIGTYPE_p_Client__Handle.getCPtr(p0), SWIGTYPE_p_Handle.getCPtr(p1));
   }
 
   public static long SKY_api_Client_PendingTransactions(SWIGTYPE_p_Client__Handle p0, SWIGTYPE_p_Handle p1) {
@@ -1558,7 +1546,7 @@ long tmpp1 = _GoString_.getCPtr (p1);
   }
 
   public static long SKY_base58_String2Hex(_GoString_ p0, GoSlice p1) {
-    return skycoinJNI.SKY_base58_String2Hex(_GoString_.getCPtr(p0), p0, GoSlice.getCPtr (p1), p1);
+    return skycoinJNI.SKY_base58_String2Hex__SWIG_1(_GoString_.getCPtr(p0), p0, GoSlice.getCPtr (p1), p1);
   }
 
   public static long SKY_base58_Base58_ToInt(_GoString_ p0, SWIGTYPE_p_long_long p1) {
