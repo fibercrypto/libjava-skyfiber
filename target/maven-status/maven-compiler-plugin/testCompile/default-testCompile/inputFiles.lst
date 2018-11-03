@@ -4,6 +4,7 @@
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/test/java/skycoin/libjava/coin_blockTest.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/test/java/skycoin/libjava/cipher_addressTest.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/test/java/skycoin/libjava/cipher_bip39Test.java
+/home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/test/java/skycoin/libjava/coin_mathTest.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/test/java/skycoin/libjava/transutils.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/test/java/skycoin/libjava/cipher_cryptoTest.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/test/java/skycoin/libjava/cipher_hashTest.java
