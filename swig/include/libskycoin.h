@@ -38,7 +38,7 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 
 #line 1 "cgo-generated-wrapper"
 
-#line 9 "api.client.go"
+#line 12 "api.client.go"
 
 
   #include <string.h>
@@ -699,6 +699,14 @@ extern GoUint32 SKY_api_Client_NewSeed(Client__Handle p0, GoInt p1, GoString_* p
 extern GoUint32 SKY_api_Client_WalletSeed(Client__Handle p0, GoString p1, GoString p2, GoString_* p3);
 
 extern GoUint32 SKY_api_Client_NetworkConnection(Client__Handle p0, GoString p1, Handle* p2);
+
+extern GoUint32 SKY_api_Client_NetworkConnections(Client__Handle p0, api__NetworkConnectionsFilter* p1, Handle* p2);
+
+extern GoUint32 SKY_api_Client_NetworkDefaultPeers(Client__Handle p0, coin__UxArray* p1);
+
+extern GoUint32 SKY_api_Client_NetworkTrustedPeers(Client__Handle p0, coin__UxArray* p1);
+
+extern GoUint32 SKY_api_Client_NetworkExchangedPeers(Client__Handle p0, coin__UxArray* p1);
 
 extern GoUint32 SKY_api_Client_PendingTransactions(Client__Handle p0, Handle* p1);
 

@@ -10610,6 +10610,102 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1api_1Client_1Netwo
 }
 
 
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1api_1Client_1NetworkConnections(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jlong jarg3) {
+  jlong jresult = 0 ;
+  Client__Handle arg1 ;
+  api__NetworkConnectionsFilter *arg2 = (api__NetworkConnectionsFilter *) 0 ;
+  Handle *arg3 = (Handle *) 0 ;
+  Client__Handle *argp1 ;
+  GoUint32 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  argp1 = *(Client__Handle **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Client__Handle");
+    return 0;
+  }
+  arg1 = *argp1; 
+  arg2 = *(api__NetworkConnectionsFilter **)&jarg2; 
+  {
+    jarg3 =  (jlong*)&arg3;
+  }
+  result = (GoUint32)SKY_api_Client_NetworkConnections(arg1,arg2,arg3);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1api_1Client_1NetworkDefaultPeers(JNIEnv *jenv, jclass jcls, jlong jarg1, GoSlice_ * jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  Client__Handle arg1 ;
+  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
+  Client__Handle *argp1 ;
+  GoUint32 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  argp1 = *(Client__Handle **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Client__Handle");
+    return 0;
+  }
+  arg1 = *argp1; 
+  arg2 = *(coin__UxArray **)&jarg2; 
+  result = (GoUint32)SKY_api_Client_NetworkDefaultPeers(arg1,arg2);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1api_1Client_1NetworkTrustedPeers(JNIEnv *jenv, jclass jcls, jlong jarg1, GoSlice_ * jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  Client__Handle arg1 ;
+  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
+  Client__Handle *argp1 ;
+  GoUint32 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  argp1 = *(Client__Handle **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Client__Handle");
+    return 0;
+  }
+  arg1 = *argp1; 
+  arg2 = *(coin__UxArray **)&jarg2; 
+  result = (GoUint32)SKY_api_Client_NetworkTrustedPeers(arg1,arg2);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1api_1Client_1NetworkExchangedPeers(JNIEnv *jenv, jclass jcls, jlong jarg1, GoSlice_ * jarg2, jobject jarg2_) {
+  jlong jresult = 0 ;
+  Client__Handle arg1 ;
+  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
+  Client__Handle *argp1 ;
+  GoUint32 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg2_;
+  argp1 = *(Client__Handle **)&jarg1; 
+  if (!argp1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Client__Handle");
+    return 0;
+  }
+  arg1 = *argp1; 
+  arg2 = *(coin__UxArray **)&jarg2; 
+  result = (GoUint32)SKY_api_Client_NetworkExchangedPeers(arg1,arg2);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1api_1Client_1PendingTransactions(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   jlong jresult = 0 ;
   Client__Handle arg1 ;
@@ -20746,6 +20842,104 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1api_1_1RichlistP
 }
 
 
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_api_1_1NetworkConnectionsFilter_1States_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  api__NetworkConnectionsFilter *arg1 = (api__NetworkConnectionsFilter *) 0 ;
+  GoString_ arg2 ;
+  GoString_ *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(api__NetworkConnectionsFilter **)&jarg1; 
+  argp2 = *(GoString_ **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoString_");
+    return ;
+  }
+  arg2 = *argp2; 
+  if (arg1) (arg1)->States = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_api_1_1NetworkConnectionsFilter_1States_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  api__NetworkConnectionsFilter *arg1 = (api__NetworkConnectionsFilter *) 0 ;
+  GoString_ result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(api__NetworkConnectionsFilter **)&jarg1; 
+  result =  ((arg1)->States);
+  {
+    GoString_ * resultptr = (GoString_ *) malloc(sizeof(GoString_));
+    memmove(resultptr, &result, sizeof(GoString_));
+    *(GoString_ **)&jresult = resultptr;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_api_1_1NetworkConnectionsFilter_1Direction_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  api__NetworkConnectionsFilter *arg1 = (api__NetworkConnectionsFilter *) 0 ;
+  GoString_ arg2 ;
+  GoString_ *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(api__NetworkConnectionsFilter **)&jarg1; 
+  argp2 = *(GoString_ **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoString_");
+    return ;
+  }
+  arg2 = *argp2; 
+  if (arg1) (arg1)->Direction = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_api_1_1NetworkConnectionsFilter_1Direction_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  api__NetworkConnectionsFilter *arg1 = (api__NetworkConnectionsFilter *) 0 ;
+  GoString_ result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(api__NetworkConnectionsFilter **)&jarg1; 
+  result =  ((arg1)->Direction);
+  {
+    GoString_ * resultptr = (GoString_ *) malloc(sizeof(GoString_));
+    memmove(resultptr, &result, sizeof(GoString_));
+    *(GoString_ **)&jresult = resultptr;
+  }
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_new_1api_1_1NetworkConnectionsFilter(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  api__NetworkConnectionsFilter *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (api__NetworkConnectionsFilter *)calloc(1, sizeof(api__NetworkConnectionsFilter));
+  *(api__NetworkConnectionsFilter **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1api_1_1NetworkConnectionsFilter(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  api__NetworkConnectionsFilter *arg1 = (api__NetworkConnectionsFilter *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(api__NetworkConnectionsFilter **)&jarg1; 
+  free((char *) arg1);
+}
+
+
 SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_cipher_1_1Address_1isEqual(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jint jresult = 0 ;
   cipher__Address *arg1 = (cipher__Address *) 0 ;
@@ -24565,7 +24759,7 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidSig_1get(
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrSHA256orMissingPassword_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrMissingPassword_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   
@@ -24577,7 +24771,7 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrSHA256orMissingP
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrLenghtDataOverflowMaxUint32_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrDataTooLarge_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   
@@ -24601,7 +24795,7 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidChecksumL
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidDataChecksumNotMatched_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidChecksum_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   
@@ -24625,7 +24819,7 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidNonceLeng
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidBlockSizeMultiple32Bytes_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidBlockSize_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   
@@ -24637,7 +24831,7 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidBlockSize
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrReadDataHashFailedLength_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrReadDataHashFailed_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   
@@ -24649,7 +24843,7 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrReadDataHashFail
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrSHA256orInvalidPassword_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidPassword_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   
@@ -24961,18 +25155,6 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrDisconnectUnknow
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrDisconnectUnexpectedError_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (int)(0x0600000C);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrConnectionPoolClosed_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
@@ -25045,18 +25227,6 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrDisconnectIntrod
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrDisconnectVersionSendFailed_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (int)(0x06000013);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrDisconnectIsBlacklisted_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
@@ -25124,18 +25294,6 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrDisconnectIPLimi
   (void)jenv;
   (void)jcls;
   result = (int)(0x06000019);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrDisconnectIncomprehensibleError_1get(JNIEnv *jenv, jclass jcls) {
-  jint jresult = 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (int)(0x0600001A);
   jresult = (jint)result; 
   return jresult;
 }
@@ -25489,7 +25647,7 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrWalletNotEncrypt
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrMissingPassword_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrWalletMissingPassword_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   
@@ -25513,7 +25671,7 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrMissingEncrypt_1
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidPassword_1get(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrWalletInvalidPassword_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
   

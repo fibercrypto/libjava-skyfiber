@@ -1248,6 +1248,22 @@ long tmpp3 = _GoString_.getCPtr (p3);
     return skycoinJNI.SKY_api_Client_NetworkConnection(SWIGTYPE_p_Client__Handle.getCPtr(p0), _GoString_.getCPtr(p1), p1, SWIGTYPE_p_Handle.getCPtr(p2));
   }
 
+  public static long SKY_api_Client_NetworkConnections(SWIGTYPE_p_Client__Handle p0, api__NetworkConnectionsFilter p1, SWIGTYPE_p_Handle p2) {
+    return skycoinJNI.SKY_api_Client_NetworkConnections(SWIGTYPE_p_Client__Handle.getCPtr(p0), api__NetworkConnectionsFilter.getCPtr(p1), p1, SWIGTYPE_p_Handle.getCPtr(p2));
+  }
+
+  public static long SKY_api_Client_NetworkDefaultPeers(SWIGTYPE_p_Client__Handle p0, GoSlice p1) {
+    return skycoinJNI.SKY_api_Client_NetworkDefaultPeers(SWIGTYPE_p_Client__Handle.getCPtr(p0), GoSlice.getCPtr (p1), p1);
+  }
+
+  public static long SKY_api_Client_NetworkTrustedPeers(SWIGTYPE_p_Client__Handle p0, GoSlice p1) {
+    return skycoinJNI.SKY_api_Client_NetworkTrustedPeers(SWIGTYPE_p_Client__Handle.getCPtr(p0), GoSlice.getCPtr (p1), p1);
+  }
+
+  public static long SKY_api_Client_NetworkExchangedPeers(SWIGTYPE_p_Client__Handle p0, GoSlice p1) {
+    return skycoinJNI.SKY_api_Client_NetworkExchangedPeers(SWIGTYPE_p_Client__Handle.getCPtr(p0), GoSlice.getCPtr (p1), p1);
+  }
+
   public static long SKY_api_Client_PendingTransactions(SWIGTYPE_p_Client__Handle p0, SWIGTYPE_p_Handle p1) {
     return skycoinJNI.SKY_api_Client_PendingTransactions(SWIGTYPE_p_Client__Handle.getCPtr(p0), SWIGTYPE_p_Handle.getCPtr(p1));
   }
