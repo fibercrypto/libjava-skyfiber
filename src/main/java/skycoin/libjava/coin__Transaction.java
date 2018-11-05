@@ -43,6 +43,10 @@ public class coin__Transaction {
     return skycoinJNI.coin__Transaction_setInnerHash(swigCPtr, this, cipher_SHA256.getCPtr(h), h);
   }
 
+  public cipher_SHA256 GetInnerHash() {
+    return new cipher_SHA256(skycoinJNI.coin__Transaction_GetInnerHash(swigCPtr, this), true);
+  }
+
   public void setLength(int value) {
     skycoinJNI.coin__Transaction_Length_set(swigCPtr, this, value);
   }

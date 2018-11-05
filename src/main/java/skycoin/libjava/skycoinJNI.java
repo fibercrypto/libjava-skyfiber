@@ -889,6 +889,7 @@ public class skycoinJNI {
   public final static native void delete_cli__SendAmount(long jarg1);
   public final static native int coin__Transaction_isEqual(long jarg1, coin__Transaction jarg1_, long jarg2, coin__Transaction jarg2_);
   public final static native int coin__Transaction_setInnerHash(long jarg1, coin__Transaction jarg1_, long jarg2, cipher_SHA256 jarg2_);
+  public final static native long coin__Transaction_GetInnerHash(long jarg1, coin__Transaction jarg1_);
   public final static native void coin__Transaction_Length_set(long jarg1, coin__Transaction jarg1_, int jarg2);
   public final static native int coin__Transaction_Length_get(long jarg1, coin__Transaction jarg1_);
   public final static native void coin__Transaction_Type_set(long jarg1, coin__Transaction jarg1_, byte jarg2);

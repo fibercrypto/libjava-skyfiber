@@ -2791,6 +2791,12 @@ SWIGINTERN int coin__Transaction_setInnerHash(coin__Transaction *self,cipher_SHA
 			cipher_SHA256_assignFrom(self->InnerHash,&h);
 			return 0;
     }
+SWIGINTERN cipher_SHA256 coin__Transaction_GetInnerHash(coin__Transaction *self){
+		cipher_SHA256 h;
+memset(&h, 0, sizeof(cipher__SHA256));
+			cipher_SHA256_assignFrom(&h,&self->InnerHash);
+			return h;
+	}
 SWIGINTERN int coin__TransactionOutput_isEqual(coin__TransactionOutput *self,coin__TransactionOutput *t){
 		if( self->Coins != t->Coins ||
 			self->Hours != t->Hours ){
@@ -21722,6 +21728,25 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_coin_1_1Transaction_1set
   arg2 = *argp2; 
   result = (int)coin__Transaction_setInnerHash(arg1,arg2);
   jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_coin_1_1Transaction_1GetInnerHash(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  coin__Transaction *arg1 = (coin__Transaction *) 0 ;
+  cipher_SHA256 result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(coin__Transaction **)&jarg1; 
+  result = coin__Transaction_GetInnerHash(arg1);
+  {
+    cipher_SHA256 * resultptr = (cipher_SHA256 *) malloc(sizeof(cipher_SHA256));
+    memmove(resultptr, &result, sizeof(cipher_SHA256));
+    *(cipher_SHA256 **)&jresult = resultptr;
+  }
   return jresult;
 }
 
