@@ -8,9 +8,7 @@ import org.junit.Test;
 import skycoin.libjava.skycoin;
 
 public class transutils extends skycoin {
-  static {
-    System.loadLibrary("skycoin");
-  }
+  static { System.loadLibrary("skycoin"); }
 
   public cipher__Address makeAddress() {
     cipher_PubKey pubkey = new cipher_PubKey();
@@ -29,7 +27,8 @@ public class transutils extends skycoin {
     return txn;
   }
 
-  public SWIGTYPE_p_Transaction__Handle copyTransaction(SWIGTYPE_p_Transaction__Handle handle) {
+  public SWIGTYPE_p_Transaction__Handle
+  copyTransaction(SWIGTYPE_p_Transaction__Handle handle) {
     SWIGTYPE_p_Transaction__Handle handle2 = new_Transaction__HandlePtr();
     long err = SKY_coin_Transaction_Verify(handle);
     assertEquals(err, SKY_OK);
@@ -38,8 +37,9 @@ public class transutils extends skycoin {
     return handle2;
   }
 
-  public void makeTransactionFromUxOut(coin__UxOut ux, cipher_SecKey s, SWIGTYPE_p_Transaction__Handle handle,
-      coin__Transaction ptx) {
+  public void makeTransactionFromUxOut(coin__UxOut ux, cipher_SecKey s,
+                                       SWIGTYPE_p_Transaction__Handle handle,
+                                       coin__Transaction ptx) {
     handle = makeEmptyTransaction();
     cipher_SHA256 h = new cipher_SHA256();
     assertEquals(SKY_cipher_SecKey_Verify(s), SKY_OK);
@@ -48,10 +48,12 @@ public class transutils extends skycoin {
     SWIGTYPE_p_unsigned_short r = new_GoUint16Ptr();
     SKY_coin_Transaction_PushInput(handle, h, r);
     assertEquals(err, SKY_OK);
-    err = SKY_coin_Transaction_PushOutput(handle, makeAddress(), BigDecimal.valueOf(1e6).toBigInteger(),
+    err = SKY_coin_Transaction_PushOutput(
+        handle, makeAddress(), BigDecimal.valueOf(1e6).toBigInteger(),
         BigDecimal.valueOf(50).toBigInteger());
     assertEquals(err, SKY_OK);
-    err = SKY_coin_Transaction_PushOutput(handle, makeAddress(), BigDecimal.valueOf(5e6).toBigInteger(),
+    err = SKY_coin_Transaction_PushOutput(
+        handle, makeAddress(), BigDecimal.valueOf(5e6).toBigInteger(),
         BigDecimal.valueOf(50).toBigInteger());
     assertEquals(err, SKY_OK);
     cipher_SecKeys seckeys = new cipher_SecKeys();
@@ -91,7 +93,8 @@ public class transutils extends skycoin {
   // uxOut.setHead(uxHead);
   // }
 
-  public void makeTransaction(SWIGTYPE_p_Transaction__Handle handle, coin__Transaction ptx) {
+  public void makeTransaction(SWIGTYPE_p_Transaction__Handle handle,
+                              coin__Transaction ptx) {
     cipher_SecKey s = new cipher_SecKey();
     coin__UxOut ux = new coin__UxOut();
     makeUxOutWithSecret(ux, s);
@@ -160,7 +163,12 @@ public class transutils extends skycoin {
   public SWIGTYPE_p_FeeCalculator calc = calcCalc();
   public SWIGTYPE_p_FeeCalculator overflow = overflow();
 
-  public BigInteger bigIntegerMaxValue = BigDecimal.valueOf(1.8446744073709552e20).toBigInteger();
+  public BigInteger bigIntegerMaxValue =
+      BigDecimal.valueOf(1.8446744073709552e20).toBigInteger();
 
   public long MaxValue16 = 65535;
+
+  public BigInteger toBigInteger(double num) {
+    return BigDecimal.valueOf(num).toBigInteger();
+  }
 }

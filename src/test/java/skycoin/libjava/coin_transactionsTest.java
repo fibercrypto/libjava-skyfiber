@@ -509,450 +509,431 @@ public class coin_transactionsTest extends skycoin {
     assertEquals(err, SKY_OK);
   }
 
-  // @Test
+  @Test
 
-  // public void
-  // TestTransactionsSize() {
-  // var handle = new_Transactions__Handlep();
-  // long err = (uint)makeTransactions(10, handle);
-  // var size = (long)0;
-  // for (int i = 0; i < 10; i++) {
-  // SWIGTYPE_p_Transaction__Handle tx = utils.makeEmptyTransaction();
-  // err = SKY_coin_Transactions_GetAt(handle, i, tx);
-  // assertEquals(err, SKY_OK);
-  // GoSlice b = new GoSlice();
-  // err = SKY_coin_Transaction_Serialize(tx, b);
-  // assertEquals(err, SKY_OK);
-  // size += b.len;
-  // }
-  // Assert.AreNotEqual(size, 0);
-  // var sizetx = new_Gointp();
-  // err = SKY_coin_Transactions_Size(handle, sizetx);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(sizetx), size);
-  // }
+  public void TestTransactionsSize() {
+    SWIGTYPE_p_Transactions__Handle handle = new_Transactions__HandlePtr();
+    long err = makeTransactions(10, handle);
+    long size = (long)0;
+    for (int i = 0; i < 10; i++) {
+      SWIGTYPE_p_Transaction__Handle tx = utils.makeEmptyTransaction();
+      err = SKY_coin_Transactions_GetAt(handle, i, tx);
+      assertEquals(err, SKY_OK);
+      GoSlice b = new GoSlice();
+      err = SKY_coin_Transaction_Serialize(tx, b);
+      assertEquals(err, SKY_OK);
+      size += b.getLen();
+    }
+    assertNotEquals(size, 0);
+    SWIGTYPE_p_long_long sizetx = new_GointPtr();
+    err = SKY_coin_Transactions_Size(handle, sizetx);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(sizetx), size);
+  }
 
-  // @Test
+  @Test
 
-  // public void
-  // TestTransactionsHashes() {
-  // var handle = new_Transactions__Handlep();
-  // makeTransactions(4, handle);
-  // var hashes = new cipher_SHA256s();
-  // long err = SKY_coin_Transactions_Hashes(handle, hashes);
-  // assertEquals(err, SKY_OK);
-  // var len_hashes = hashes.count;
-  // assertEquals(len_hashes, 4);
-  // for (int i = 0; i < len_hashes; i++) {
-  // var tx = new_Transaction__Handlep();
-  // err = SKY_coin_Transactions_GetAt(handle, i, tx);
-  // assertEquals(err, SKY_OK);
-  // cipher_SHA256 h = new cipher_SHA256();
-  // err = SKY_coin_Transaction_Hash(tx, h);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(h.isEqual(hashes.getAt(i)), 1);
-  // }
-  // }
+  public void TestTransactionsHashes() {
+    SWIGTYPE_p_Transactions__Handle handle = new_Transactions__HandlePtr();
+    makeTransactions(4, handle);
+    cipher_SHA256s hashes = new cipher_SHA256s();
+    long err = SKY_coin_Transactions_Hashes(handle, hashes);
+    assertEquals(err, SKY_OK);
+    long len_hashes = hashes.getCount();
+    assertEquals(len_hashes, 4);
+    for (int i = 0; i < len_hashes; i++) {
+      SWIGTYPE_p_Transaction__Handle tx = new_Transaction__HandlePtr();
+      err = SKY_coin_Transactions_GetAt(handle, i, tx);
+      assertEquals(err, SKY_OK);
+      cipher_SHA256 h = new cipher_SHA256();
+      err = SKY_coin_Transaction_Hash(tx, h);
+      assertEquals(err, SKY_OK);
+      assertEquals(h.isEqual(hashes.getAt(i)), 1);
+    }
+  }
 
-  // @Test
+  @Test
 
-  // public void TestTransactionsTruncateBytesTo() {
-  // var handles = new_Transactions__Handlep();
-  // long err = (uint) makeTransactions(10, handles);
-  // var trunc = (long) 0;
-  // var count = new_Gointp();
-  // var len_tnxs = new_Gointp();
-  // err = SKY_coin_Transactions_Length(handles, len_tnxs);
-  // long len_tnxs_value = Gointp_value(len_tnxs);
-  // for (long i = 0; i < (len_tnxs_value / 2); i++) {
-  // count = new_Gointp();
-  // SWIGTYPE_p_Transaction__Handle handle = new_Transaction__HandlePtr();
-  // err = SKY_coin_Transactions_GetAt(handles, (long) i, handle);
-  // assertEquals(err, SKY_OK);
-  // err = SKY_coin_Transaction_Size(handle, count);
-  // assertEquals(err, SKY_OK);
-  // trunc += Gointp_value(count);
-  // }
-  // // Trucating halfway
-  // var tnxs2 = new_Transactions__Handlep();
-  // err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
-  // assertEquals(err, SKY_OK);
-  // var len_tnxs2 = new_Gointp();
+  public void TestTransactionsTruncateBytesTo() {
+    SWIGTYPE_p_Transactions__Handle handles = new_Transactions__HandlePtr();
+    long err = makeTransactions(10, handles);
+    long trunc = (long)0;
+    SWIGTYPE_p_long_long count = new_GointPtr();
+    SWIGTYPE_p_long_long len_tnxs = new_GointPtr();
+    err = SKY_coin_Transactions_Length(handles, len_tnxs);
+    long len_tnxs_value = GointPtr_value(len_tnxs);
+    for (long i = 0; i < (len_tnxs_value / 2); i++) {
+      count = new_GointPtr();
+      SWIGTYPE_p_Transaction__Handle handle = new_Transaction__HandlePtr();
+      err = SKY_coin_Transactions_GetAt(handles, (long)i, handle);
+      assertEquals(err, SKY_OK);
+      err = SKY_coin_Transaction_Size(handle, count);
+      assertEquals(err, SKY_OK);
+      trunc += GointPtr_value(count);
+    }
+    // Trucating halfway
+    SWIGTYPE_p_Transactions__Handle tnxs2 = new_Transactions__HandlePtr();
+    err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
+    assertEquals(err, SKY_OK);
+    SWIGTYPE_p_long_long len_tnxs2 = new_GointPtr();
 
-  // err = SKY_coin_Transactions_Length(tnxs2, len_tnxs2);
-  // assertEquals(err, SKY_OK);
+    err = SKY_coin_Transactions_Length(tnxs2, len_tnxs2);
+    assertEquals(err, SKY_OK);
 
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(len_tnxs2), len_tnxs_value / 2);
-  // count = new_Gointp();
-  // err = SKY_coin_Transactions_Size(tnxs2, count);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(count), trunc);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(len_tnxs2), len_tnxs_value / 2);
+    count = new_GointPtr();
+    err = SKY_coin_Transactions_Size(tnxs2, count);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(count), trunc);
 
-  // // Stepping into next boundary has same cutoff, must exceed
-  // trunc += 1;
-  // err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
-  // assertEquals(err, SKY_OK);
-  // err = SKY_coin_Transactions_Length(tnxs2, count);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(count), len_tnxs_value / 2);
-  // err = SKY_coin_Transactions_Size(tnxs2, count);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(count), trunc - 1);
+    // Stepping into next boundary has same cutoff, must exceed
+    trunc += 1;
+    err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
+    assertEquals(err, SKY_OK);
+    err = SKY_coin_Transactions_Length(tnxs2, count);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(count), len_tnxs_value / 2);
+    err = SKY_coin_Transactions_Size(tnxs2, count);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(count), trunc - 1);
 
-  // // Moving to 1 before next level
-  // var tnxs_5 = utils.makeEmptyTransaction();
-  // err = SKY_coin_Transactions_GetAt(handles, 5, tnxs_5);
-  // assertEquals(err, SKY_OK);
-  // count = new_Gointp();
-  // err = SKY_coin_Transaction_Size(tnxs_5, count);
-  // assertEquals(err, SKY_OK);
-  // trunc += (Gointp_value(count) - 2);
-  // err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
-  // assertEquals(err, SKY_OK);
-  // err = SKY_coin_Transactions_Length(tnxs2, count);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(count), 5);
-  // err = SKY_coin_Transactions_Size(tnxs2, count);
-  // assertEquals(err, SKY_OK);
-  // var count_tnxs5 = new_Gointp();
-  // err = SKY_coin_Transaction_Size(tnxs_5, count_tnxs5);
-  // assertEquals(err, SKY_OK);
-  // assertEquals((trunc - Gointp_value(count_tnxs5) + 1), Gointp_value(count));
+    // Moving to 1 before next level
+    SWIGTYPE_p_Transaction__Handle tnxs_5 = utils.makeEmptyTransaction();
+    err = SKY_coin_Transactions_GetAt(handles, 5, tnxs_5);
+    assertEquals(err, SKY_OK);
+    count = new_GointPtr();
+    err = SKY_coin_Transaction_Size(tnxs_5, count);
+    assertEquals(err, SKY_OK);
+    trunc += (GointPtr_value(count) - 2);
+    err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
+    assertEquals(err, SKY_OK);
+    err = SKY_coin_Transactions_Length(tnxs2, count);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(count), 5);
+    err = SKY_coin_Transactions_Size(tnxs2, count);
+    assertEquals(err, SKY_OK);
+    SWIGTYPE_p_long_long count_tnxs5 = new_GointPtr();
+    err = SKY_coin_Transaction_Size(tnxs_5, count_tnxs5);
+    assertEquals(err, SKY_OK);
+    assertEquals((trunc - GointPtr_value(count_tnxs5) + 1),
+                 GointPtr_value(count));
 
-  // // Moving to next level
-  // trunc += 1;
-  // err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
-  // assertEquals(err, SKY_OK);
-  // err = SKY_coin_Transactions_Length(tnxs2, count);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(count), 6);
-  // err = SKY_coin_Transactions_Size(tnxs2, count);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(count), trunc);
+    // Moving to next level
+    trunc += 1;
+    err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
+    assertEquals(err, SKY_OK);
+    err = SKY_coin_Transactions_Length(tnxs2, count);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(count), 6);
+    err = SKY_coin_Transactions_Size(tnxs2, count);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(count), trunc);
 
-  // // Truncating to full available amt
-  // var trunc1 = new_Gointp();
-  // err = SKY_coin_Transactions_Size(handles, trunc1);
-  // assertEquals(err, SKY_OK);
-  // err = SKY_coin_Transactions_TruncateBytesTo(handles, Gointp_value(trunc1),
-  // tnxs2);
-  // assertEquals(err, SKY_OK);
-  // err = SKY_coin_Transactions_Size(tnxs2, count);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(count), Gointp_value(trunc1));
+    // Truncating to full available amt
+    SWIGTYPE_p_long_long trunc1 = new_GointPtr();
+    err = SKY_coin_Transactions_Size(handles, trunc1);
+    assertEquals(err, SKY_OK);
+    err = SKY_coin_Transactions_TruncateBytesTo(handles, GointPtr_value(trunc1),
+                                                tnxs2);
+    assertEquals(err, SKY_OK);
+    err = SKY_coin_Transactions_Size(tnxs2, count);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(count), GointPtr_value(trunc1));
 
-  // // Truncating to 0
-  // trunc = 0;
-  // err = SKY_coin_Transactions_TruncateBytesTo(handles, 0, tnxs2);
-  // assertEquals(err, SKY_OK);
-  // err = SKY_coin_Transactions_Length(tnxs2, count);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(count), 0);
-  // err = SKY_coin_Transactions_Size(tnxs2, count);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(Gointp_value(count), trunc);
-  // }
+    // Truncating to 0
+    trunc = 0;
+    err = SKY_coin_Transactions_TruncateBytesTo(handles, 0, tnxs2);
+    assertEquals(err, SKY_OK);
+    err = SKY_coin_Transactions_Length(tnxs2, count);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(count), 0);
+    err = SKY_coin_Transactions_Size(tnxs2, count);
+    assertEquals(err, SKY_OK);
+    assertEquals(GointPtr_value(count), trunc);
+  }
 
-  // struct ux
-  // {
-  // public ulong coins;
-  // public ulong hours;}
-  // struct StrTest{
-  // public string name;
-  // public ux[] inUxs;
-  // public ux[] outUxs;
-  // public int err;
-  // public ulong headTime;}
+  class ux {
+    public BigInteger coins;
+    public BigInteger hours;
 
-  // StrTest[] cases;
+    public void setCoin(double arg) {
+      coins = BigDecimal.valueOf(arg).toBigInteger();
+    }
 
-  // public void FullCases() {
-  // cases = new StrTest[5];
+    public void setHours(double arg) {
+      hours = BigDecimal.valueOf(arg).toBigInteger();
+    }
 
-  // var c = new StrTest();
-  // c.name = "Input coins overflow";
-  // c.err = SKY_ERROR;
-  // c.inUxs = new ux[2];
-  // c.inUxs[0].coins = (ulong)(ulong.MaxValue - 1e6 + 1);
-  // c.inUxs[0].hours = 10;
-  // c.inUxs[1].coins = (ulong)1e6;
-  // c.inUxs[1].hours = 0;
-  // c.outUxs = new ux[0];
-  // c.headTime = 0;
-  // cases[0] = c;
+    public ux() {
+      hours = BigDecimal.valueOf(0).toBigInteger();
+      coins = BigDecimal.valueOf(0).toBigInteger();
+    }
+  }
 
-  // c = new StrTest();
-  // c.name = "Output coins overflow";
-  // c.err = SKY_ERROR;
-  // c.inUxs = new ux[1];
-  // c.inUxs[0].coins = (ulong)10e6;
-  // c.inUxs[0].hours = 10;
-  // c.outUxs = new ux[2];
-  // c.outUxs[0].coins = (ulong)(ulong.MaxValue - 10e6 + 1);
-  // c.outUxs[0].coins = 0;
-  // c.outUxs[1].coins = (ulong)20e6;
-  // c.outUxs[1].hours = 1;
-  // c.headTime = 0;
-  // cases[1] = c;
+  class StrTest {
+    public String name;
+    public ux[] inUxs;
+    public ux[] outUxs;
+    public long err;
+    public BigInteger headTime;
 
-  // c = new StrTest();
-  // c.name = "Insufficient coins";
-  // c.err = SKY_ERROR;
-  // // c.headTime = 0;
-  // c.inUxs = new ux[2];
-  // c.inUxs[0].coins = (ulong)10e6;
-  // c.inUxs[0].hours = 10;
-  // c.inUxs[1].coins = (ulong)15e6;
-  // c.inUxs[1].hours = 10;
-  // c.outUxs = new ux[2];
-  // c.outUxs[0].coins = (ulong)20e6;
-  // c.outUxs[0].coins = 1;
-  // c.outUxs[1].coins = (ulong)10e6;
-  // c.outUxs[1].hours = 1;
-  // cases[2] = c;
+    public void setHeadTime(double arg) {
+      headTime = BigDecimal.valueOf(arg).toBigInteger();
+    }
 
-  // c = new StrTest();
-  // c.name = "Destroyed coins";
-  // c.err = SKY_ERROR;
-  // c.inUxs = new ux[2];
-  // c.inUxs[0].coins = (ulong)10e6;
-  // c.inUxs[0].hours = 10;
-  // c.inUxs[1].coins = (ulong)15e6;
-  // c.inUxs[1].hours = 10;
-  // c.outUxs = new ux[2];
-  // c.outUxs[0].coins = (ulong)5e6;
-  // c.outUxs[0].coins = 1;
-  // c.outUxs[1].coins = (ulong)10e6;
-  // c.outUxs[1].hours = 1;
-  // c.headTime = 0;
-  // cases[3] = c;
+    public StrTest(int inLength, int outLength) {
+      inUxs = new ux[inLength];
+      outUxs = new ux[outLength];
+      err = SKY_OK;
+      headTime = BigDecimal.valueOf(0).toBigInteger();
+    }
 
-  // c = new StrTest();
-  // c.name = "valid";
-  // c.inUxs = new ux[2];
-  // c.inUxs[0].coins = (ulong)10e6;
-  // c.inUxs[0].hours = 10;
-  // c.inUxs[1].coins = (ulong)15e6;
-  // c.inUxs[1].hours = 10;
-  // c.outUxs = new ux[3];
-  // c.outUxs[0].coins = (ulong)10e6;
-  // c.outUxs[0].hours = 11;
-  // c.outUxs[1].coins = (ulong)10e6;
-  // c.outUxs[1].hours = 1;
-  // c.outUxs[2].coins = (ulong)5e6;
-  // c.outUxs[2].hours = 0;
-  // c.headTime = 0;
-  // c.err = SKY_OK;
-  // cases[4] = c;
-  // }
+    public void setinUxs(int i, double coins, double hours) {
+      ux tmp = new ux();
+      tmp.setCoin(coins);
+      tmp.setHours(hours);
+      inUxs[i] = tmp;
+    }
 
-  // @Test
+    public void setoutUxs(int i, double coins, double hours) {
+      ux tmp = new ux();
+      tmp.setCoin(coins);
+      tmp.setHours(hours);
+      outUxs[i] = tmp;
+    }
 
-  // public void TestVerifyTransactionCoinsSpending() {
-  // FullCases();
-  // for (int i = 0; i < cases.Length; i++) {
-  // var tc = cases[i];
-  // var uxIn = new coin_UxOutArray();
-  // var uxOut = new coin_UxOutArray();
+    public BigInteger getHeadTime() { return headTime; }
 
-  // uxIn.allocate(tc.inUxs.Length);
-  // uxOut.allocate(tc.outUxs.Length);
-  // for (int j = 0; j < tc.inUxs.Length; j++) {
-  // var ch = tc.inUxs[j];
-  // var puxIn = new coin__UxOut();
-  // puxIn.Body.Coins = ch.coins;
-  // puxIn.Body.Hours = ch.hours;
-  // uxIn.setAt(j, puxIn);
-  // }
-  // for (int j = 0; j < tc.outUxs.Length; j++) {
-  // var ch = tc.outUxs[j];
-  // var puxOut = new coin__UxOut();
-  // puxOut.Body.Coins = ch.coins;
-  // puxOut.Body.Hours = ch.hours;
-  // uxOut.setAt(j, puxOut);
-  // }
-  // assertEquals(tc.inUxs.Length, uxIn.count);
-  // assertEquals(tc.outUxs.Length, uxOut.count);
-  // long err = SKY_coin_VerifyTransactionCoinsSpending(uxIn, uxOut);
-  // assertEquals(err, tc.err, "Iteration " + i.ToString() + tc.name);
-  // }
-  // }
+    public void setError(long error) { err = error; }
+  }
 
-  // public void FullCases2() {
+  StrTest[] cases;
 
-  // cases = new StrTest[7];
-  // var c = new StrTest();
-  // c.name = "Input coins overflow";
-  // c.err = SKY_ERROR;
-  // c.inUxs = new ux[2];
-  // c.inUxs[0].hours = (ulong)(ulong.MaxValue - 1e6 + 1);
-  // c.inUxs[0].coins = (ulong)3e6;
-  // c.inUxs[1].coins = (ulong)1e6;
-  // c.inUxs[1].hours = (ulong)1e6;
-  // c.outUxs = new ux[0];
-  // cases[0] = c;
+  private void FullCases() {
+    cases = new StrTest[5];
+    StrTest c = new StrTest(2, 0);
+    c.name = "Input coins overflow";
+    c.setError(SKY_ERROR);
+    c.setinUxs(0, 1.8446744073709552e20 - 1e6 + 1, 10);
+    c.setinUxs(1, 1e6, 0);
+    c.setHeadTime(0);
+    cases[0] = c;
 
-  // c = new StrTest();
-  // c.name = "Insufficient coin hours";
-  // c.inUxs = new ux[2];
-  // c.inUxs[0].coins = (ulong)10e6;
-  // c.inUxs[0].hours = 10;
-  // c.inUxs[1].coins = (ulong)15e6;
-  // c.inUxs[1].hours = 10;
-  // c.outUxs = new ux[2];
-  // c.outUxs[0].coins = (ulong)15e6;
-  // c.outUxs[0].hours = 10;
-  // c.outUxs[1].coins = (ulong)10e6;
-  // c.outUxs[1].hours = 11;
-  // c.headTime = 0;
-  // c.err = SKY_ERROR;
-  // cases[1] = c;
+    c = new StrTest(1, 2);
+    c.name = "Output coins overflow";
+    c.err = SKY_ERROR;
+    c.setinUxs(0, 1.8446744073709552e20 - 1e6 + 1, 10);
+    c.setoutUxs(0, 0, 0);
+    c.setoutUxs(1, 20e6, 1);
+    c.setHeadTime(0);
+    cases[1] = c;
 
-  // c = new StrTest();
-  // c.name = "coin hours time calculation overflow";
-  // c.err = SKY_ERROR;
-  // c.inUxs = new ux[2];
-  // c.inUxs[0].coins = (ulong)10e6;
-  // c.inUxs[0].hours = 10;
-  // c.inUxs[1].coins = (ulong)15e6;
-  // c.inUxs[1].hours = 10;
-  // c.outUxs = new ux[3];
-  // c.outUxs[0].coins = (ulong)10e6;
-  // c.outUxs[0].hours = 11;
-  // c.outUxs[1].coins = (ulong)10e6;
-  // c.outUxs[1].hours = 1;
-  // c.outUxs[2].coins = (ulong)5e6;
-  // c.outUxs[2].hours = 0;
-  // c.headTime = ulong.MaxValue;
-  // cases[2] = c;
+    c = new StrTest(2, 2);
+    c.name = "Insufficient coins";
+    c.err = SKY_ERROR;
+    c.setHeadTime(0);
+    c.setinUxs(0, 10e6, 10);
+    c.setinUxs(1, 15e6, 10);
+    c.setoutUxs(0, 20e6, 1);
+    c.setoutUxs(1, 10e6, 1);
+    cases[2] = c;
 
-  // c = new StrTest();
-  // c.name =
-  // "Invalid (coin hours overflow when adding earned hours, which is treated as
-  // 0, and now enough coin hours)";
-  // c.err = SKY_ERROR;
-  // c.inUxs = new ux[1];
-  // c.inUxs[0].coins = (ulong)10e6;
-  // c.inUxs[0].hours = ulong.MaxValue;
-  // c.outUxs = new ux[1];
-  // c.outUxs[0].coins = (ulong)10e6;
-  // c.outUxs[0].hours = 1;
-  // c.headTime = (long)1e6;
-  // cases[3] = c;
+    c = new StrTest(2, 2);
+    c.name = "Destroyed coins";
+    c.err = SKY_ERROR;
+    c.setinUxs(0, 10e6, 10);
+    c.setinUxs(1, 15e6, 10);
+    c.setoutUxs(0, 5e6, 1);
+    c.setoutUxs(1, 10e6, 1);
+    c.setHeadTime(0);
+    cases[3] = c;
 
-  // c = new StrTest();
-  // c.name =
-  // "Valid (coin hours overflow when adding earned hours, which is treated as
-  // 0, but not sending any hours)"; c.inUxs = new ux[1]; c.inUxs[0].coins =
-  // (ulong)10e6; c.inUxs[0].hours = ulong.MaxValue; c.outUxs = new ux[1];
-  // c.outUxs[0].coins = (ulong)10e6;
-  // c.outUxs[0].hours = 0;
-  // c.headTime = (long)1e6;
-  // cases[4] = c;
+    c = new StrTest(2, 3);
+    c.name = "valid";
+    c.setinUxs(0, 10e6, 10);
+    c.setinUxs(1, 15e6, 10);
+    c.setoutUxs(0, 10e6, 11);
+    c.setoutUxs(1, 10e6, 1);
+    c.setoutUxs(2, 5e6, 0);
+    c.setHeadTime(0);
+    c.err = SKY_OK;
+    cases[4] = c;
+  }
 
-  // c = new StrTest();
-  // c.name =
-  // "Valid (base inputs have insufficient coin hours, but have sufficient after
-  // adjusting coinhours by headTime)";
-  // c.inUxs = new ux[2];
-  // c.inUxs[0].coins = (ulong)10e6;
-  // c.inUxs[0].hours = 10;
-  // c.inUxs[1].coins = (ulong)15e6;
-  // c.inUxs[1].hours = 10;
-  // c.outUxs = new ux[2];
-  // c.outUxs[0].coins = (ulong)15e6;
-  // c.outUxs[0].hours = 10;
-  // c.outUxs[1].coins = (ulong)10e6;
-  // c.outUxs[1].hours = 11;
-  // c.headTime = 1492707255;
-  // cases[5] = c;
+  @Test
 
-  // c = new StrTest();
-  // c.name = "valid";
-  // c.inUxs = new ux[2];
-  // c.inUxs[0].coins = (ulong)10e6;
-  // c.inUxs[0].hours = 10;
-  // c.inUxs[1].coins = (ulong)15e6;
-  // c.inUxs[1].hours = 10;
-  // c.outUxs = new ux[3];
-  // c.outUxs[0].coins = (ulong)10e6;
-  // c.outUxs[0].hours = 11;
-  // c.outUxs[1].coins = (ulong)10e6;
-  // c.outUxs[1].hours = 1;
-  // c.outUxs[2].coins = (ulong)5e6;
-  // c.outUxs[2].hours = 0;
-  // cases[6] = c;
-  // }
+  public void TestVerifyTransactionCoinsSpending() {
+    FullCases();
+    for (int i = 0; i < cases.length; i++) {
+      StrTest tc = cases[i];
+      coin_UxOutArray uxIn = new coin_UxOutArray();
+      coin_UxOutArray uxOut = new coin_UxOutArray();
 
-  // @Test
+      uxIn.allocate(tc.inUxs.length);
+      uxOut.allocate(tc.outUxs.length);
+      for (int j = 0; j < tc.inUxs.length; j++) {
+        ux ch = tc.inUxs[j];
+        coin__UxOut puxIn = new coin__UxOut();
+        coin__UxBody body = new coin__UxBody();
+        body.setCoins(ch.coins);
+        body.setHours(ch.hours);
+        puxIn.setBody(body);
+        uxIn.setAt(j, puxIn);
+      }
+      for (int j = 0; j < tc.outUxs.length; j++) {
+        ux ch = tc.outUxs[j];
+        coin__UxOut puxOut = new coin__UxOut();
+        coin__UxBody body = new coin__UxBody();
+        body.setCoins(ch.coins);
+        body.setHours(ch.hours);
+        puxOut.setBody(body);
+        uxOut.setAt(j, puxOut);
+      }
+      assertEquals(tc.inUxs.length, uxIn.getCount());
+      assertEquals(tc.outUxs.length, uxOut.getCount());
+      long err = SKY_coin_VerifyTransactionCoinsSpending(uxIn, uxOut);
+      assertEquals(tc.name, err, tc.err);
+    }
+  }
 
-  // public void
-  // TestVerifyTransactionHoursSpending() {
-  // FullCases2();
+  private void FullCases2() {
 
-  // for (int i = 0; i < cases.Length; i++) {
-  // var tc = cases[i];
-  // var uxIn = new coin_UxOutArray();
-  // var uxOut = new coin_UxOutArray();
+    cases = new StrTest[7];
+    StrTest c = new StrTest(2, 0);
+    c.name = "Input coins overflow";
+    c.setinUxs(0, 1.8446744073709552e20 - 1e6 + 1, 3e6);
+    c.setinUxs(1, 1e6, 1e6);
+    cases[0] = c;
 
-  // uxIn.allocate(tc.inUxs.Length);
-  // uxOut.allocate(tc.outUxs.Length);
-  // for (int j = 0; j < tc.inUxs.Length; j++) {
-  // var ch = tc.inUxs[j];
-  // var puxIn = new coin__UxOut();
-  // puxIn.Body.Coins = ch.coins;
-  // puxIn.Body.Hours = ch.hours;
-  // uxIn.setAt(j, puxIn);
-  // }
-  // for (int j = 0; j < tc.outUxs.Length; j++) {
-  // var ch = tc.outUxs[j];
-  // var puxOut = new coin__UxOut();
-  // puxOut.Body.Coins = ch.coins;
-  // puxOut.Body.Hours = ch.hours;
-  // uxOut.setAt(j, puxOut);
-  // }
-  // assertEquals(tc.inUxs.Length, uxIn.count);
-  // assertEquals(tc.outUxs.Length, uxOut.count);
-  // long err =
-  // SKY_coin_VerifyTransactionHoursSpending(tc.headTime, uxIn, uxOut);
-  // assertEquals(err, tc.err);
-  // }
-  // }
+    c = new StrTest(2, 2);
+    c.name = "Insufficient coin hours";
+    c.setinUxs(0, 10e6, 10);
+    c.setinUxs(1, 15e6, 10);
+    c.setoutUxs(0, 15e6, 10);
+    c.setoutUxs(1, 10e6, 11);
+    c.err = SKY_ERROR;
+    cases[1] = c;
 
-  // @Test
+    c = new StrTest(2, 3);
+    c.name = "coin hours time calculation overflow";
+    c.err = SKY_ERROR;
+    c.setinUxs(0, 10e6, 10);
+    c.setinUxs(1, 15e6, 10);
+    c.setoutUxs(0, 10e6, 11);
+    c.setoutUxs(1, 10e6, 1);
+    c.setoutUxs(2, 5e6, 0);
+    c.setHeadTime(1.8446744073709552e20);
+    cases[2] = c;
 
-  // public void TestTransactionsFees() {
-  // var txns = new_Transactions__Handlep();
-  // SKY_coin_Create_Transactions(txns);
+    c = new StrTest(1, 1);
+    c.name =
+        "Invalid (coin hours overflow when adding earned hours, which is treated as 0, and now enough coin hours)";
+    c.setinUxs(0, 10e6, 1.8446744073709552e20);
+    c.setoutUxs(0, 10e6, 1);
+    c.setHeadTime(1e6);
+    cases[3] = c;
 
-  // // Nil txns
-  // var fee = new_GoUint64p();
-  // long err = SKY_coin_Transactions_Fees(txns, utils.calc, fee);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(GoUint64p_value(fee), 0);
+    c = new StrTest(1, 1);
+    c.name =
+        "Valid (coin hours overflow when adding earned hours, which is treated as 0, but not sending any hours)";
+    c.setinUxs(0, 10e6, 1.8446744073709552e20);
+    c.setoutUxs(0, 10e6, 0);
+    c.setHeadTime(1e6);
+    cases[4] = c;
 
-  // var txn = new_Transaction__Handlep();
-  // SKY_coin_Create_Transaction(txn);
-  // err = SKY_coin_Transactions_Add(txns, txn);
-  // assertEquals(err, SKY_OK);
-  // err = SKY_coin_Transactions_Add(txns, txn);
-  // assertEquals(err, SKY_OK);
+    c = new StrTest(2, 2);
+    c.name =
+        "Valid (base inputs have insufficient coin hours, but have sufficient    after adjusting coinhours by headTime)";
+    c.setinUxs(0, 10e6, 10);
+    c.setinUxs(1, 15e6, 10);
+    c.setoutUxs(0, 15e6, 10);
+    c.setoutUxs(1, 10e6, 11);
+    c.setHeadTime(1492707255);
+    cases[5] = c;
 
-  // // 2 transactions, calc() always returns 1
-  // fee = new_GoUint64p();
-  // err = SKY_coin_Transactions_Fees(txns, utils.calc, fee);
-  // assertEquals(err, SKY_OK);
-  // assertEquals(GoUint64p_value(fee), 2);
+    c = new StrTest(2, 3);
+    c.name = "valid";
+    c.setinUxs(0, 10e6, 10);
+    c.setinUxs(1, 15e6, 10);
+    c.setoutUxs(0, 10e6, 11);
+    c.setoutUxs(1, 10e6, 1);
+    c.setoutUxs(2, 5e6, 0);
+    cases[6] = c;
+  }
 
-  // // calc error
-  // fee = new_GoUint64p();
-  // err = SKY_coin_Transactions_Fees(txns, utils.badCalc, fee);
-  // assertEquals(err, SKY_ERROR);
+  @Test
 
-  // // summing of calculated fees overflows
-  // fee = new_GoUint64p();
-  // err = SKY_coin_Transactions_Fees(txns, utils.overflow, fee);
-  // assertEquals(err, SKY_ERROR);
-  // }
+  public void TestVerifyTransactionHoursSpending() {
+    FullCases2();
+
+    for (int i = 0; i < cases.length; i++) {
+      StrTest tc = cases[i];
+      System.out.println(i);
+      coin_UxOutArray uxIn = new coin_UxOutArray();
+      coin_UxOutArray uxOut = new coin_UxOutArray();
+
+      uxIn.allocate(tc.inUxs.length);
+      uxOut.allocate(tc.outUxs.length);
+      for (int j = 0; j < tc.inUxs.length; j++) {
+        ux ch = tc.inUxs[j];
+        coin__UxOut puxOut = new coin__UxOut();
+        coin__UxBody body = new coin__UxBody();
+        body.setCoins(ch.coins);
+        body.setHours(ch.hours);
+        puxOut.setBody(body);
+        uxIn.setAt(j, puxOut);
+      }
+      for (int j = 0; j < tc.outUxs.length; j++) {
+        ux ch = tc.outUxs[j];
+        coin__UxOut puxOut = new coin__UxOut();
+        coin__UxBody body = new coin__UxBody();
+        body.setCoins(ch.coins);
+        body.setHours(ch.hours);
+        puxOut.setBody(body);
+        uxOut.setAt(j, puxOut);
+      }
+      assertEquals(tc.inUxs.length, uxIn.getCount());
+      assertEquals(tc.outUxs.length, uxOut.getCount());
+      long err = SKY_coin_VerifyTransactionHoursSpending(tc.getHeadTime(), uxIn,
+                                                         uxOut);
+      assertEquals(tc.name, err, tc.err);
+    }
+  }
+
+  @Test
+
+  public void TestTransactionsFees() {
+    SWIGTYPE_p_Transactions__Handle txns = new_Transactions__HandlePtr();
+    SKY_coin_Create_Transactions(txns);
+
+    // Nil txns
+    SWIGTYPE_p_unsigned_long_long fee = new_GoUint64Ptr();
+    long err = SKY_coin_Transactions_Fees(txns, utils.calc, fee);
+    assertEquals(err, SKY_OK);
+    assertEquals(GoUint64Ptr_value(fee), utils.toBigInteger(0));
+
+    SWIGTYPE_p_Transaction__Handle txn = new_Transaction__HandlePtr();
+    SKY_coin_Create_Transaction(txn);
+    err = SKY_coin_Transactions_Add(txns, txn);
+    assertEquals(err, SKY_OK);
+    err = SKY_coin_Transactions_Add(txns, txn);
+    assertEquals(err, SKY_OK);
+
+    // 2 transactions, calc() always returns 1
+    fee = new_GoUint64Ptr();
+    err = SKY_coin_Transactions_Fees(txns, utils.calc, fee);
+    assertEquals(err, SKY_OK);
+    assertEquals(GoUint64Ptr_value(fee), utils.toBigInteger(2));
+
+    // calc error
+    fee = new_GoUint64Ptr();
+    err = SKY_coin_Transactions_Fees(txns, utils.badCalc, fee);
+    assertEquals(err, SKY_ERROR);
+
+    // summing of calculated fees overflows
+    fee = new_GoUint64Ptr();
+    err = SKY_coin_Transactions_Fees(txns, utils.overflow, fee);
+    assertEquals(err, SKY_ERROR);
+  }
 }
