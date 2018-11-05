@@ -2,9 +2,7 @@ package skycoin.libjava;
 
 import static org.junit.Assert.*;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.MathContext;
+import java.math.*;
 
 import org.junit.Test;
 import skycoin.libjava.skycoin;
@@ -14,18 +12,18 @@ import skycoin.libjava.transutils;
  * Unit test for simple App.
  */
 public class coin_mathTest extends skycoin {
-  static { System.loadLibrary("skycoin"); }
+  static {
+    System.loadLibrary("skycoin");
+  }
 
   transutils utils = new transutils();
 
-  BigInteger MaxBigInteger =
-      BigDecimal.valueOf(1.8446744073709552e20).toBigInteger();
+  BigInteger MaxBigInteger = BigDecimal.valueOf(1.8446744073709552e20).toBigInteger();
 
   @Test
   public void TestAddUint64() {
     SWIGTYPE_p_unsigned_long_long r = new_GoUint64Ptr();
-    long err =
-        SKY_coin_AddUint64(BigInteger.valueOf(10), BigInteger.valueOf(11), r);
+    long err = SKY_coin_AddUint64(BigInteger.valueOf(10), BigInteger.valueOf(11), r);
     assertEquals(err, SKY_OK);
     assertEquals(GoUint64Ptr_value(r), BigInteger.valueOf(21));
     err = SKY_coin_AddUint64(MaxBigInteger, BigInteger.valueOf(1), r);
