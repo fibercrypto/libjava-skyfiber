@@ -24,6 +24,7 @@ public interface skycoinConstants {
   public final static int SKY_PKG_UTIL = skycoinJNI.SKY_PKG_UTIL_get();
   public final static int SKY_PKG_VISOR = skycoinJNI.SKY_PKG_VISOR_get();
   public final static int SKY_PKG_WALLET = skycoinJNI.SKY_PKG_WALLET_get();
+  public final static int SKY_PKG_PARAMS = skycoinJNI.SKY_PKG_PARAMS_get();
   public final static int SKY_PKG_LIBCGO = skycoinJNI.SKY_PKG_LIBCGO_get();
   public final static int SKY_ErrAddressInvalidLength = skycoinJNI.SKY_ErrAddressInvalidLength_get();
   public final static int SKY_ErrAddressInvalidChecksum = skycoinJNI.SKY_ErrAddressInvalidChecksum_get();
@@ -90,6 +91,8 @@ public interface skycoinConstants {
   public final static int SKY_ErrUint32AddOverflow = skycoinJNI.SKY_ErrUint32AddOverflow_get();
   public final static int SKY_ErrUint64OverflowsInt64 = skycoinJNI.SKY_ErrUint64OverflowsInt64_get();
   public final static int SKY_ErrInt64UnderflowsUint64 = skycoinJNI.SKY_ErrInt64UnderflowsUint64_get();
+  public final static int SKY_ErrIntUnderflowsUint32 = skycoinJNI.SKY_ErrIntUnderflowsUint32_get();
+  public final static int SKY_ErrIntOverflowsUint32 = skycoinJNI.SKY_ErrIntOverflowsUint32_get();
   public final static int SKY_ErrPeerlistFull = skycoinJNI.SKY_ErrPeerlistFull_get();
   public final static int SKY_ErrInvalidAddress = skycoinJNI.SKY_ErrInvalidAddress_get();
   public final static int SKY_ErrNoLocalhost = skycoinJNI.SKY_ErrNoLocalhost_get();
@@ -180,4 +183,5 @@ public interface skycoinConstants {
   public final static int SKY_ErrVerifySignatureInvalidInputsNils = skycoinJNI.SKY_ErrVerifySignatureInvalidInputsNils_get();
   public final static int SKY_ErrVerifySignatureInvalidSigLength = skycoinJNI.SKY_ErrVerifySignatureInvalidSigLength_get();
   public final static int SKY_ErrVerifySignatureInvalidPubkeysLength = skycoinJNI.SKY_ErrVerifySignatureInvalidPubkeysLength_get();
+  public final static int SKY_ErrInvalidDecimals = skycoinJNI.SKY_ErrInvalidDecimals_get();
 }

@@ -35,12 +35,12 @@ public class coin__Transaction {
     }
   }
 
-  public int isEqual(coin__Transaction t) {
-    return skycoinJNI.coin__Transaction_isEqual(swigCPtr, this, coin__Transaction.getCPtr(t), t);
-  }
-
   public int setInnerHash(cipher_SHA256 h) {
     return skycoinJNI.coin__Transaction_setInnerHash(swigCPtr, this, cipher_SHA256.getCPtr(h), h);
+  }
+
+  public int isEqual(coin__Transaction t) {
+    return skycoinJNI.coin__Transaction_isEqual(swigCPtr, this, coin__Transaction.getCPtr(t), t);
   }
 
   public cipher_SHA256 GetInnerHash() {

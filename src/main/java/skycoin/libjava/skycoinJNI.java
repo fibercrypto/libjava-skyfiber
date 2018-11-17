@@ -9,11 +9,6 @@
 package skycoin.libjava;
 
 public class skycoinJNI {
-  public final static native void destroy_cipher_SecKeys(long jarg1, cipher_SecKeys jarg1_);
-  public final static native int equalSlices(long jarg1, GoSlice jarg1_, long jarg2, GoSlice jarg2_, int jarg3);
-  public final static native int equalTransactions(long jarg1, coin__Transaction jarg1_, long jarg2, coin__Transaction jarg2_);
-  public final static native int equalTransactionsArrays(long jarg1, long jarg2);
-  public final static native int equalBlockHeaders(long jarg1, coin__BlockHeader jarg1_, long jarg2, coin__BlockHeader jarg2_);
   public final static native long new_GoSlicePtr();
   public final static native long copy_GoSlicePtr(long jarg1, GoSlice jarg1_);
   public final static native void delete_GoSlicePtr(long jarg1, GoSlice jarg1_);
@@ -235,9 +230,11 @@ public class skycoinJNI {
   public final static native long SKY_coin_BlockBody_Hash__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_BlockHeader_Hash__SWIG_0(long jarg1, coin__BlockHeader jarg1_, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_Block_HashBody__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
-  public final static native long SKY_secp256k1go_Field_SetHex__SWIG_0(long jarg1, secp256k1go__Field jarg1_, String jarg2);
-  public final static native long SKY_secp256k1go_Number_SetHex__SWIG_0(long jarg1, String jarg2);
-  public final static native long SKY_base58_String2Hex__SWIG_0(String jarg1, long jarg2, GoSlice jarg2_);
+  public final static native int equalSlices(long jarg1, GoSlice jarg1_, long jarg2, GoSlice jarg2_, int jarg3);
+  public final static native int equalTransactions(long jarg1, coin__Transaction jarg1_, long jarg2, coin__Transaction jarg2_);
+  public final static native int equalTransactionsArrays(long jarg1, GoSlice jarg1_, long jarg2, GoSlice jarg2_);
+  public final static native int equalBlockHeaders(long jarg1, coin__BlockHeader jarg1_, long jarg2, coin__BlockHeader jarg2_);
+  public final static native void destroy_cipher_SecKeys(long jarg1, cipher_SecKeys jarg1_);
   public final static native int cipher_PubKey_isEqual(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
   public final static native void cipher_PubKey_assignFrom(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
   public final static native void cipher_PubKey_assignTo(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
@@ -268,10 +265,10 @@ public class skycoinJNI {
   public final static native short[] cipher_Sig_data_get(long jarg1, cipher_Sig jarg1_);
   public final static native long new_cipher_Sig();
   public final static native void delete_cipher_Sig(long jarg1);
+  public final static native long cipher_SHA256_getStr(long jarg1, cipher_SHA256 jarg1_);
   public final static native int cipher_SHA256_isEqual(long jarg1, cipher_SHA256 jarg1_, long jarg2, cipher_SHA256 jarg2_);
   public final static native void cipher_SHA256_assignFrom(long jarg1, cipher_SHA256 jarg1_, long jarg2, cipher_SHA256 jarg2_);
   public final static native void cipher_SHA256_assignTo(long jarg1, cipher_SHA256 jarg1_, long jarg2, cipher_SHA256 jarg2_);
-  public final static native long cipher_SHA256_getStr(long jarg1, cipher_SHA256 jarg1_);
   public final static native void cipher_SHA256_data_set(long jarg1, cipher_SHA256 jarg1_, short[] jarg2);
   public final static native short[] cipher_SHA256_data_get(long jarg1, cipher_SHA256 jarg1_);
   public final static native long new_cipher_SHA256();
@@ -339,12 +336,12 @@ public class skycoinJNI {
   public final static native int cipher_Addresses_count_get(long jarg1, cipher_Addresses jarg1_);
   public final static native long new_cipher_Addresses();
   public final static native void delete_cipher_Addresses(long jarg1);
-  public final static native void FeeCalculator__callback_set(long jarg1, FeeCalculator_ jarg1_, long jarg2);
-  public final static native long FeeCalculator__callback_get(long jarg1, FeeCalculator_ jarg1_);
-  public final static native void FeeCalculator__context_set(long jarg1, FeeCalculator_ jarg1_, long jarg2);
-  public final static native long FeeCalculator__context_get(long jarg1, FeeCalculator_ jarg1_);
-  public final static native long new_FeeCalculator_();
-  public final static native void delete_FeeCalculator_(long jarg1);
+  public final static native void Fee_Calculator_callback_set(long jarg1, Fee_Calculator jarg1_, long jarg2);
+  public final static native long Fee_Calculator_callback_get(long jarg1, Fee_Calculator jarg1_);
+  public final static native void Fee_Calculator_context_set(long jarg1, Fee_Calculator jarg1_, long jarg2);
+  public final static native long Fee_Calculator_context_get(long jarg1, Fee_Calculator jarg1_);
+  public final static native long new_Fee_Calculator();
+  public final static native void delete_Fee_Calculator(long jarg1);
   public final static native int _GoString__SetString(long jarg1, _GoString_ jarg1_, String jarg2);
   public final static native void _GoString__p_set(long jarg1, _GoString_ jarg1_, String jarg2);
   public final static native String _GoString__p_get(long jarg1, _GoString_ jarg1_);
@@ -500,7 +497,7 @@ public class skycoinJNI {
   public final static native long SKY_secp256k1go_GeneratePublicKey(long jarg1, GoSlice jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_secp256k1go_SeckeyIsValid(long jarg1, GoSlice jarg1_, long jarg2);
   public final static native long SKY_secp256k1go_PubkeyIsValid(long jarg1, GoSlice jarg1_, long jarg2);
-  public final static native long SKY_base58_String2Hex__SWIG_1(long jarg1, _GoString_ jarg1_, long jarg2, GoSlice jarg2_);
+  public final static native long SKY_base58_String2Hex(long jarg1, _GoString_ jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_base58_Base58_ToInt(long jarg1, _GoString_ jarg1_, long jarg2);
   public final static native long SKY_base58_Base58_ToHex(long jarg1, _GoString_ jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_base58_Base58_Base582Int(long jarg1, _GoString_ jarg1_, long jarg2);
@@ -656,7 +653,7 @@ public class skycoinJNI {
   public final static native long SKY_ripemd160_Sum(long jarg1, long jarg2, GoSlice jarg2_, long jarg3, GoSlice jarg3_);
   public final static native long SKY_secp256k1go_Number_Create(long jarg1);
   public final static native long SKY_secp256k1go_Number_Print(long jarg1, long jarg2, _GoString_ jarg2_);
-  public final static native long SKY_secp256k1go_Number_SetHex__SWIG_1(long jarg1, long jarg2, _GoString_ jarg2_);
+  public final static native long SKY_secp256k1go_Number_SetHex(long jarg1, long jarg2, _GoString_ jarg2_);
   public final static native long SKY_secp256k1go_Number_IsOdd(long jarg1, long jarg2);
   public final static native long SKY_secp256k1go_Number_IsEqual(long jarg1, long jarg2, long jarg3);
   public final static native long SKY_coin_UxOut_Hash__SWIG_1(long jarg1, coin__UxOut jarg1_, long jarg2, cipher_SecKey jarg2_);
@@ -747,7 +744,7 @@ public class skycoinJNI {
   public final static native long SKY_secp256k1go_Field_Print(long jarg1, secp256k1go__Field jarg1_, long jarg2, _GoString_ jarg2_);
   public final static native long SKY_secp256k1go_Field_SetB32(long jarg1, secp256k1go__Field jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_secp256k1go_Field_SetBytes(long jarg1, secp256k1go__Field jarg1_, long jarg2, GoSlice jarg2_);
-  public final static native long SKY_secp256k1go_Field_SetHex__SWIG_1(long jarg1, secp256k1go__Field jarg1_, long jarg2, _GoString_ jarg2_);
+  public final static native long SKY_secp256k1go_Field_SetHex(long jarg1, secp256k1go__Field jarg1_, long jarg2, _GoString_ jarg2_);
   public final static native long SKY_secp256k1go_Field_IsOdd(long jarg1, secp256k1go__Field jarg1_, long jarg2);
   public final static native long SKY_secp256k1go_Field_IsZero(long jarg1, secp256k1go__Field jarg1_, long jarg2);
   public final static native long SKY_secp256k1go_Field_SetInt(long jarg1, secp256k1go__Field jarg1_, long jarg2);
@@ -887,8 +884,8 @@ public class skycoinJNI {
   public final static native long cli__SendAmount_Coins_get(long jarg1, cli__SendAmount jarg1_);
   public final static native long new_cli__SendAmount();
   public final static native void delete_cli__SendAmount(long jarg1);
-  public final static native int coin__Transaction_isEqual(long jarg1, coin__Transaction jarg1_, long jarg2, coin__Transaction jarg2_);
   public final static native int coin__Transaction_setInnerHash(long jarg1, coin__Transaction jarg1_, long jarg2, cipher_SHA256 jarg2_);
+  public final static native int coin__Transaction_isEqual(long jarg1, coin__Transaction jarg1_, long jarg2, coin__Transaction jarg2_);
   public final static native long coin__Transaction_GetInnerHash(long jarg1, coin__Transaction jarg1_);
   public final static native void coin__Transaction_Length_set(long jarg1, coin__Transaction jarg1_, int jarg2);
   public final static native int coin__Transaction_Length_get(long jarg1, coin__Transaction jarg1_);
@@ -1034,6 +1031,7 @@ public class skycoinJNI {
   public final static native int SKY_PKG_UTIL_get();
   public final static native int SKY_PKG_VISOR_get();
   public final static native int SKY_PKG_WALLET_get();
+  public final static native int SKY_PKG_PARAMS_get();
   public final static native int SKY_PKG_LIBCGO_get();
   public final static native int SKY_ErrAddressInvalidLength_get();
   public final static native int SKY_ErrAddressInvalidChecksum_get();
@@ -1100,6 +1098,8 @@ public class skycoinJNI {
   public final static native int SKY_ErrUint32AddOverflow_get();
   public final static native int SKY_ErrUint64OverflowsInt64_get();
   public final static native int SKY_ErrInt64UnderflowsUint64_get();
+  public final static native int SKY_ErrIntUnderflowsUint32_get();
+  public final static native int SKY_ErrIntOverflowsUint32_get();
   public final static native int SKY_ErrPeerlistFull_get();
   public final static native int SKY_ErrInvalidAddress_get();
   public final static native int SKY_ErrNoLocalhost_get();
@@ -1190,4 +1190,5 @@ public class skycoinJNI {
   public final static native int SKY_ErrVerifySignatureInvalidInputsNils_get();
   public final static native int SKY_ErrVerifySignatureInvalidSigLength_get();
   public final static native int SKY_ErrVerifySignatureInvalidPubkeysLength_get();
+  public final static native int SKY_ErrInvalidDecimals_get();
 }

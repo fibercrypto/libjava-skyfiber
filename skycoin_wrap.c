@@ -212,62 +212,6 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 	#include "skyerrors.h"
 
 
-	void destroy_cipher_SecKeys(cipher_SecKeys* p){
-		if( p != NULL ){
-			if( p->data != NULL ){
-				free( p->data );
-			}
-		}
-	}
-
-
-	int equalSlices(GoSlice* slice1, GoSlice* slice2, int elem_size){
-	  if(slice1->len != slice2->len)
-		return 0;
-	  return memcmp(slice1->data, slice2->data, slice1->len * elem_size) == 0;
-	}
-	int equalTransactions(coin__Transaction* t1, coin__Transaction* t2){
-		if( t1->Length != t2->Length || t1->Type != t2->Type ){
-			return 0;
-		}
-		if( memcmp(&t1->InnerHash, &t2->InnerHash, sizeof(cipher__SHA256)) != 0 )
-			return 0;
-		if(!equalSlices((GoSlice*)&t1->Sigs, (GoSlice*)&t2->Sigs, sizeof(cipher__Sig)))
-			return 0;
-		if(!equalSlices((GoSlice*)&t1->In, (GoSlice*)&t2->In, sizeof(cipher__SHA256)))
-			return 0;
-		if(!equalSlices((GoSlice*)&t1->Out, (GoSlice*)&t2->Out, sizeof(coin__TransactionOutput)))
-			return 0;
-		return 1;
-	}
-	int equalTransactionsArrays(coin__Transactions* pTxs1, coin__Transactions* pTxs2){
-		if( pTxs1->len != pTxs2->len )
-			return 0;
-		coin__Transaction* pTx1 = pTxs1->data;
-		coin__Transaction* pTx2 = pTxs2->data;
-		int i;
-		for(i = 0; i < pTxs1->len; i++){
-			if(!equalTransactions(pTx1, pTx2))
-				return 0;
-			pTx1++;
-			pTx2++;
-		}
-		return 1;
-	}
-	int equalBlockHeaders(coin__BlockHeader* bh1, coin__BlockHeader* bh2){
-		if( bh1->Version != bh2->Version || bh1->Time != bh2->Time || 
-			bh1->BkSeq != bh2->BkSeq || bh1->Fee != bh2->Fee)
-			return 0;
-		if( memcmp( &bh1->PrevHash, bh2->PrevHash, sizeof(bh2->PrevHash) ) != 0 )
-			return 0;
-		if( memcmp( &bh1->BodyHash, bh2->PrevHash, sizeof(bh2->BodyHash) ) != 0 )
-			return 0;
-		if( memcmp( &bh1->UxHash, bh2->PrevHash, sizeof(bh2->UxHash) ) != 0 )
-			return 0;
-		return 1;
-	}
-
-
 static GoSlice *new_GoSlicePtr() { 
   return (GoSlice *) calloc(1,sizeof(GoSlice)); 
 }
@@ -2519,27 +2463,6 @@ memcpy(__out->data, __in, 32);
 	}
 
 
-	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_secp256k1go_Field_SetHex(secp256k1go__Field* p0, char * p1){
-        GoString str = { p1,strlen(p1) };
-		GoUint32 result = SKY_secp256k1go_Field_SetHex(p0,  str);
-		return result;
-	}
-
-
-	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_secp256k1go_Number_SetHex(Number_Handle p0, char * p1){
-        GoString str = { p1,strlen(p1) };
-		GoUint32 result = SKY_secp256k1go_Number_SetHex(p0,  str);
-		return result;
-	}
-
-
-	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_base58_String2Hex(char * p1,GoSlice_ * p2){
-        GoString str = { p1,strlen(p1) };
-		GoUint32 result = SKY_base58_String2Hex(str,  p2);
-		return result;
-	}
-
-
 
 GoUint32_ _WrapperFeeCalculator(Transaction__Handle handle, GoUint64_* pFee, void* context){
 	FeeCalcFunc* feeCalc = (FeeCalcFunc*)context;
@@ -2549,6 +2472,62 @@ GoUint32_ _WrapperFeeCalculator(Transaction__Handle handle, GoUint64_* pFee, voi
 		return error;
   return 0;
 }
+
+
+	int equalSlices(GoSlice* slice1, GoSlice* slice2, int elem_size){
+	  if(slice1->len != slice2->len)
+		return 0;
+	  return memcmp(slice1->data, slice2->data, slice1->len * elem_size) == 0;
+	}
+	int equalTransactions(coin__Transaction* t1, coin__Transaction* t2){
+		if( t1->Length != t2->Length || t1->Type != t2->Type ){
+			return 0;
+		}
+		if( memcmp(&t1->InnerHash, &t2->InnerHash, sizeof(cipher__SHA256)) != 0 )
+			return 0;
+		if(!equalSlices((GoSlice*)&t1->Sigs, (GoSlice*)&t2->Sigs, sizeof(cipher__Sig)))
+			return 0;
+		if(!equalSlices((GoSlice*)&t1->In, (GoSlice*)&t2->In, sizeof(cipher__SHA256)))
+			return 0;
+		if(!equalSlices((GoSlice*)&t1->Out, (GoSlice*)&t2->Out, sizeof(coin__TransactionOutput)))
+			return 0;
+		return 1;
+	}
+	int equalTransactionsArrays(coin__Transactions* pTxs1, coin__Transactions* pTxs2){
+		if( pTxs1->len != pTxs2->len )
+			return 0;
+		coin__Transaction* pTx1 = pTxs1->data;
+		coin__Transaction* pTx2 = pTxs2->data;
+		int i;
+		for(i = 0; i < pTxs1->len; i++){
+			if(!equalTransactions(pTx1, pTx2))
+				return 0;
+			pTx1++;
+			pTx2++;
+		}
+		return 1;
+	}
+	int equalBlockHeaders(coin__BlockHeader* bh1, coin__BlockHeader* bh2){
+		if( bh1->Version != bh2->Version || bh1->Time != bh2->Time || 
+			bh1->BkSeq != bh2->BkSeq || bh1->Fee != bh2->Fee)
+			return 0;
+		if( memcmp( &bh1->PrevHash, bh2->PrevHash, sizeof(bh2->PrevHash) ) != 0 )
+			return 0;
+		if( memcmp( &bh1->BodyHash, bh2->PrevHash, sizeof(bh2->BodyHash) ) != 0 )
+			return 0;
+		if( memcmp( &bh1->UxHash, bh2->PrevHash, sizeof(bh2->UxHash) ) != 0 )
+			return 0;
+		return 1;
+	}
+
+
+	void destroy_cipher_SecKeys(cipher_SecKeys* p){
+		if( p != NULL ){
+			if( p->data != NULL ){
+				free( p->data );
+			}
+		}
+	}
 
 SWIGINTERN int cipher_PubKey_isEqual(cipher_PubKey *self,cipher_PubKey *a){
 		return memcmp(self->data, a->data, sizeof(a->data)) == 0;
@@ -2593,6 +2572,12 @@ SWIGINTERN void cipher_Sig_assignFrom(cipher_Sig *self,void *data){
 SWIGINTERN void cipher_Sig_assignTo(cipher_Sig *self,void *data){
 		memcpy(data, &self->data, sizeof(self->data));
 	}
+SWIGINTERN _GoString_ cipher_SHA256_getStr(cipher_SHA256 *self){
+		_GoString_ str;
+		str.p = (const char*)self->data;
+		str.n = strlen(str.p);
+		return str;
+    }
 SWIGINTERN int cipher_SHA256_isEqual(cipher_SHA256 *self,cipher_SHA256 *a){
 		return memcmp(self->data, a->data, sizeof(a->data)) == 0;
 	}
@@ -2602,12 +2587,6 @@ SWIGINTERN void cipher_SHA256_assignFrom(cipher_SHA256 *self,cipher_SHA256 *data
 SWIGINTERN void cipher_SHA256_assignTo(cipher_SHA256 *self,cipher_SHA256 *data){
 		memcpy(data->data, &self->data, sizeof(self->data));
 	}
-SWIGINTERN _GoString_ cipher_SHA256_getStr(cipher_SHA256 *self){
-		_GoString_ str;
-		str.p = (const char*)self->data;
-		str.n = strlen(str.p);
-		return str;
-    }
 SWIGINTERN int cipher_Checksum_isEqual(cipher_Checksum *self,cipher_Checksum *a){
 		return memcmp(self->data, a->data, sizeof(a->data)) == 0;
 	}
@@ -2783,19 +2762,18 @@ SWIGINTERN int cipher__BitcoinAddress_isEqual(cipher__BitcoinAddress *self,ciphe
 		}
 		return 0;
 	}
-SWIGINTERN int coin__Transaction_isEqual(coin__Transaction *self,coin__Transaction *t){
-		return equalTransactions(self, t);
-	}
 SWIGINTERN int coin__Transaction_setInnerHash(coin__Transaction *self,cipher_SHA256 h){
 		memset(self->InnerHash, 0, sizeof(cipher__SHA256));
 			cipher_SHA256_assignFrom(self->InnerHash,&h);
 			return 0;
     }
+SWIGINTERN int coin__Transaction_isEqual(coin__Transaction *self,coin__Transaction *t){
+		return equalTransactions(self, t);
+	}
 SWIGINTERN cipher_SHA256 coin__Transaction_GetInnerHash(coin__Transaction *self){
 		cipher_SHA256 h;
-memset(&h, 0, sizeof(cipher__SHA256));
-			cipher_SHA256_assignFrom(&h,&self->InnerHash);
-			return h;
+		cipher_SHA256_assignFrom(&h,self->InnerHash);
+		return h;
 	}
 SWIGINTERN int coin__TransactionOutput_isEqual(coin__TransactionOutput *self,coin__TransactionOutput *t){
 		if( self->Coins != t->Coins ||
@@ -2824,89 +2802,6 @@ SWIGINTERN int coin__UxOut_isEqual(coin__UxOut *self,coin__UxOut *u){
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_destroy_1cipher_1SecKeys(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  cipher_SecKeys *arg1 = (cipher_SecKeys *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(cipher_SecKeys **)&jarg1; 
-  destroy_cipher_SecKeys(arg1);
-}
-
-
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalSlices(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
-  jint jresult = 0 ;
-  GoSlice *arg1 = (GoSlice *) 0 ;
-  GoSlice *arg2 = (GoSlice *) 0 ;
-  int arg3 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(GoSlice **)&jarg1; 
-  arg2 = *(GoSlice **)&jarg2; 
-  arg3 = (int)jarg3; 
-  result = (int)equalSlices(arg1,arg2,arg3);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalTransactions(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jint jresult = 0 ;
-  coin__Transaction *arg1 = (coin__Transaction *) 0 ;
-  coin__Transaction *arg2 = (coin__Transaction *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(coin__Transaction **)&jarg1; 
-  arg2 = *(coin__Transaction **)&jarg2; 
-  result = (int)equalTransactions(arg1,arg2);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalTransactionsArrays(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-  jint jresult = 0 ;
-  coin__Transactions *arg1 = (coin__Transactions *) 0 ;
-  coin__Transactions *arg2 = (coin__Transactions *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(coin__Transactions **)&jarg1; 
-  arg2 = *(coin__Transactions **)&jarg2; 
-  result = (int)equalTransactionsArrays(arg1,arg2);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalBlockHeaders(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jint jresult = 0 ;
-  coin__BlockHeader *arg1 = (coin__BlockHeader *) 0 ;
-  coin__BlockHeader *arg2 = (coin__BlockHeader *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(coin__BlockHeader **)&jarg1; 
-  arg2 = *(coin__BlockHeader **)&jarg2; 
-  result = (int)equalBlockHeaders(arg1,arg2);
-  jresult = (jint)result; 
-  return jresult;
-}
-
 
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_new_1GoSlicePtr(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
@@ -4333,18 +4228,12 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_new_1FeeCalcFuncPtr(JNI
 
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_copy_1FeeCalcFuncPtr(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
-  FeeCalcFunc arg1 ;
-  FeeCalcFunc *argp1 ;
+  FeeCalcFunc arg1 = (FeeCalcFunc) 0 ;
   FeeCalcFunc *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  argp1 = *(FeeCalcFunc **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null FeeCalcFunc");
-    return 0;
-  }
-  arg1 = *argp1; 
+  arg1 = *(FeeCalcFunc *)&jarg1; 
   result = (FeeCalcFunc *)copy_FeeCalcFuncPtr(arg1);
   *(FeeCalcFunc **)&jresult = result; 
   return jresult;
@@ -4363,18 +4252,12 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1FeeCalcFuncPtr(J
 
 SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_FeeCalcFuncPtr_1assign(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   FeeCalcFunc *arg1 = (FeeCalcFunc *) 0 ;
-  FeeCalcFunc arg2 ;
-  FeeCalcFunc *argp2 ;
+  FeeCalcFunc arg2 = (FeeCalcFunc) 0 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(FeeCalcFunc **)&jarg1; 
-  argp2 = *(FeeCalcFunc **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null FeeCalcFunc");
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = *(FeeCalcFunc *)&jarg2; 
   FeeCalcFuncPtr_assign(arg1,arg2);
 }
 
@@ -4387,12 +4270,8 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_FeeCalcFuncPtr_1value(J
   (void)jenv;
   (void)jcls;
   arg1 = *(FeeCalcFunc **)&jarg1; 
-  result = FeeCalcFuncPtr_value(arg1);
-  {
-    FeeCalcFunc * resultptr = (FeeCalcFunc *) malloc(sizeof(FeeCalcFunc));
-    memmove(resultptr, &result, sizeof(FeeCalcFunc));
-    *(FeeCalcFunc **)&jresult = resultptr;
-  }
+  result = (FeeCalcFunc)FeeCalcFuncPtr_value(arg1);
+  *(FeeCalcFunc *)&jresult = result; 
   return jresult;
 }
 
@@ -6824,77 +6703,88 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Block_1HashB
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetHex_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  char *arg2 = (char *) 0 ;
-  GoUint32 result;
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalSlices(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
+  jint jresult = 0 ;
+  GoSlice *arg1 = (GoSlice *) 0 ;
+  GoSlice *arg2 = (GoSlice *) 0 ;
+  int arg3 ;
+  int result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)(*jenv)->GetStringUTFChars(jenv, jarg2, 0);
-    if (!arg2) return 0;
-  }
-  result = (GoUint32)Java_skycoin_libjava_skycoinJNI_SKY_secp256k1go_Field_SetHex(arg1,arg2);
-  jresult = (jlong)result; 
-  
-  if (arg2) (*jenv)->ReleaseStringUTFChars(jenv, jarg2, (const char *)arg2);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1SetHex_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jstring jarg2) {
-  jlong jresult = 0 ;
-  Number_Handle arg1 ;
-  char *arg2 = (char *) 0 ;
-  Number_Handle *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  argp1 = *(Number_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = 0;
-  if (jarg2) {
-    arg2 = (char *)(*jenv)->GetStringUTFChars(jenv, jarg2, 0);
-    if (!arg2) return 0;
-  }
-  result = (GoUint32)Java_skycoin_libjava_skycoinJNI_SKY_secp256k1go_Number_SetHex(arg1,arg2);
-  jresult = (jlong)result; 
-  
-  if (arg2) (*jenv)->ReleaseStringUTFChars(jenv, jarg2, (const char *)arg2);
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1base58_1String2Hex_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jstring jarg1, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  char *arg1 = (char *) 0 ;
-  GoSlice_ *arg2 = (GoSlice_ *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
   (void)jarg2_;
-  arg1 = 0;
-  if (jarg1) {
-    arg1 = (char *)(*jenv)->GetStringUTFChars(jenv, jarg1, 0);
-    if (!arg1) return 0;
-  }
-  arg2 = *(GoSlice_ **)&jarg2; 
-  result = (GoUint32)Java_skycoin_libjava_skycoinJNI_SKY_base58_String2Hex(arg1,arg2);
-  jresult = (jlong)result; 
-  
-  if (arg1) (*jenv)->ReleaseStringUTFChars(jenv, jarg1, (const char *)arg1);
+  arg1 = *(GoSlice **)&jarg1; 
+  arg2 = *(GoSlice **)&jarg2; 
+  arg3 = (int)jarg3; 
+  result = (int)equalSlices(arg1,arg2,arg3);
+  jresult = (jint)result; 
   return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalTransactions(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  coin__Transaction *arg1 = (coin__Transaction *) 0 ;
+  coin__Transaction *arg2 = (coin__Transaction *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(coin__Transaction **)&jarg1; 
+  arg2 = *(coin__Transaction **)&jarg2; 
+  result = (int)equalTransactions(arg1,arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalTransactionsArrays(JNIEnv *jenv, jclass jcls, GoSlice_ * jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  coin__Transactions *arg1 = (coin__Transactions *) 0 ;
+  coin__Transactions *arg2 = (coin__Transactions *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(coin__Transactions **)&jarg1; 
+  arg2 = *(coin__Transactions **)&jarg2; 
+  result = (int)equalTransactionsArrays(arg1,arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalBlockHeaders(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  coin__BlockHeader *arg1 = (coin__BlockHeader *) 0 ;
+  coin__BlockHeader *arg2 = (coin__BlockHeader *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(coin__BlockHeader **)&jarg1; 
+  arg2 = *(coin__BlockHeader **)&jarg2; 
+  result = (int)equalBlockHeaders(arg1,arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_destroy_1cipher_1SecKeys(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  cipher_SecKeys *arg1 = (cipher_SecKeys *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(cipher_SecKeys **)&jarg1; 
+  destroy_cipher_SecKeys(arg1);
 }
 
 
@@ -7359,6 +7249,25 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1cipher_1Sig(JNIE
 }
 
 
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_cipher_1SHA256_1getStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  cipher_SHA256 *arg1 = (cipher_SHA256 *) 0 ;
+  _GoString_ result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(cipher_SHA256 **)&jarg1; 
+  result = cipher_SHA256_getStr(arg1);
+  {
+    _GoString_ * resultptr = (_GoString_ *) malloc(sizeof(_GoString_));
+    memmove(resultptr, &result, sizeof(_GoString_));
+    *(_GoString_ **)&jresult = resultptr;
+  }
+  return jresult;
+}
+
+
 SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_cipher_1SHA256_1isEqual(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jint jresult = 0 ;
   cipher_SHA256 *arg1 = (cipher_SHA256 *) 0 ;
@@ -7402,25 +7311,6 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_cipher_1SHA256_1assignTo
   arg1 = *(cipher_SHA256 **)&jarg1; 
   arg2 = *(cipher_SHA256 **)&jarg2; 
   cipher_SHA256_assignTo(arg1,arg2);
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_cipher_1SHA256_1getStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  cipher_SHA256 *arg1 = (cipher_SHA256 *) 0 ;
-  _GoString_ result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(cipher_SHA256 **)&jarg1; 
-  result = cipher_SHA256_getStr(arg1);
-  {
-    _GoString_ * resultptr = (_GoString_ *) malloc(sizeof(_GoString_));
-    memmove(resultptr, &result, sizeof(_GoString_));
-    *(_GoString_ **)&jresult = resultptr;
-  }
-  return jresult;
 }
 
 
@@ -8394,120 +8284,80 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1cipher_1Addresse
 }
 
 
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_FeeCalculator_1_1callback_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FeeCalculator_ *arg1 = (FeeCalculator_ *) 0 ;
-  FeeCalcFunc arg2 ;
-  FeeCalculator temp1 ;
-  FeeCalcFunc *argp2 ;
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_Fee_1Calculator_1callback_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  Fee_Calculator *arg1 = (Fee_Calculator *) 0 ;
+  FeeCalcFunc arg2 = (FeeCalcFunc) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  {
-    if (!PyCallable_Check(jarg1)) return ;
-    temp1.callback = _WrapperFeeCalculator;
-    temp1.context = jarg1;
-    arg1 = &temp1;
-  }
-  argp2 = *(FeeCalcFunc **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null FeeCalcFunc");
-    return ;
-  }
-  arg2 = *argp2; 
+  arg1 = *(Fee_Calculator **)&jarg1; 
+  arg2 = *(FeeCalcFunc *)&jarg2; 
   if (arg1) (arg1)->callback = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_FeeCalculator_1_1callback_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_Fee_1Calculator_1callback_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  FeeCalculator_ *arg1 = (FeeCalculator_ *) 0 ;
-  FeeCalculator temp1 ;
+  Fee_Calculator *arg1 = (Fee_Calculator *) 0 ;
   FeeCalcFunc result;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  {
-    if (!PyCallable_Check(jarg1)) return ;
-    temp1.callback = _WrapperFeeCalculator;
-    temp1.context = jarg1;
-    arg1 = &temp1;
-  }
-  result =  ((arg1)->callback);
-  {
-    FeeCalcFunc * resultptr = (FeeCalcFunc *) malloc(sizeof(FeeCalcFunc));
-    memmove(resultptr, &result, sizeof(FeeCalcFunc));
-    *(FeeCalcFunc **)&jresult = resultptr;
-  }
+  arg1 = *(Fee_Calculator **)&jarg1; 
+  result = (FeeCalcFunc) ((arg1)->callback);
+  *(FeeCalcFunc *)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_FeeCalculator_1_1context_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FeeCalculator_ *arg1 = (FeeCalculator_ *) 0 ;
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_Fee_1Calculator_1context_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  Fee_Calculator *arg1 = (Fee_Calculator *) 0 ;
   void *arg2 = (void *) 0 ;
-  FeeCalculator temp1 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  {
-    if (!PyCallable_Check(jarg1)) return ;
-    temp1.callback = _WrapperFeeCalculator;
-    temp1.context = jarg1;
-    arg1 = &temp1;
-  }
+  arg1 = *(Fee_Calculator **)&jarg1; 
   arg2 = *(void **)&jarg2; 
   if (arg1) (arg1)->context = arg2;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_FeeCalculator_1_1context_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_Fee_1Calculator_1context_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   jlong jresult = 0 ;
-  FeeCalculator_ *arg1 = (FeeCalculator_ *) 0 ;
-  FeeCalculator temp1 ;
+  Fee_Calculator *arg1 = (Fee_Calculator *) 0 ;
   void *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  {
-    if (!PyCallable_Check(jarg1)) return ;
-    temp1.callback = _WrapperFeeCalculator;
-    temp1.context = jarg1;
-    arg1 = &temp1;
-  }
+  arg1 = *(Fee_Calculator **)&jarg1; 
   result = (void *) ((arg1)->context);
   *(void **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_new_1FeeCalculator_1(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_new_1Fee_1Calculator(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
-  FeeCalculator_ *result = 0 ;
+  Fee_Calculator *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  result = (FeeCalculator_ *)calloc(1, sizeof(FeeCalculator_));
-  *(FeeCalculator_ **)&jresult = result; 
+  result = (Fee_Calculator *)calloc(1, sizeof(Fee_Calculator));
+  *(Fee_Calculator **)&jresult = result; 
   return jresult;
 }
 
 
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1FeeCalculator_1(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  FeeCalculator_ *arg1 = (FeeCalculator_ *) 0 ;
-  FeeCalculator temp1 ;
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1Fee_1Calculator(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  Fee_Calculator *arg1 = (Fee_Calculator *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  {
-    if (!PyCallable_Check(jarg1)) return ;
-    temp1.callback = _WrapperFeeCalculator;
-    temp1.context = jarg1;
-    arg1 = &temp1;
-  }
+  arg1 = *(Fee_Calculator **)&jarg1; 
   free((char *) arg1);
 }
 
@@ -12750,7 +12600,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Pubke
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1base58_1String2Hex_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1base58_1String2Hex(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   GoString arg1 ;
   coin__UxArray *arg2 = (coin__UxArray *) 0 ;
@@ -16505,7 +16355,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Numbe
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1SetHex_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1SetHex(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   Number_Handle arg1 ;
   GoString arg2 ;
@@ -19006,7 +18856,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetHex_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetHex(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
   GoString arg2 ;
@@ -21690,24 +21540,6 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1cli_1_1SendAmoun
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_coin_1_1Transaction_1isEqual(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jint jresult = 0 ;
-  coin__Transaction *arg1 = (coin__Transaction *) 0 ;
-  coin__Transaction *arg2 = (coin__Transaction *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(coin__Transaction **)&jarg1; 
-  arg2 = *(coin__Transaction **)&jarg2; 
-  result = (int)coin__Transaction_isEqual(arg1,arg2);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_coin_1_1Transaction_1setInnerHash(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jint jresult = 0 ;
   coin__Transaction *arg1 = (coin__Transaction *) 0 ;
@@ -21727,6 +21559,24 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_coin_1_1Transaction_1set
   }
   arg2 = *argp2; 
   result = (int)coin__Transaction_setInnerHash(arg1,arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_coin_1_1Transaction_1isEqual(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  coin__Transaction *arg1 = (coin__Transaction *) 0 ;
+  coin__Transaction *arg2 = (coin__Transaction *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(coin__Transaction **)&jarg1; 
+  arg2 = *(coin__Transaction **)&jarg2; 
+  result = (int)coin__Transaction_isEqual(arg1,arg2);
   jresult = (jint)result; 
   return jresult;
 }
@@ -24256,6 +24106,18 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1PKG_1WALLET_1get(JN
 }
 
 
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1PKG_1PARAMS_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (int)(0x0C000000);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1PKG_1LIBCGO_1get(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   int result;
@@ -25043,6 +24905,30 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInt64UnderflowsU
   (void)jenv;
   (void)jcls;
   result = (int)(0x04000005);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrIntUnderflowsUint32_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (int)(0x04000006);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrIntOverflowsUint32_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (int)(0x04000007);
   jresult = (jint)result; 
   return jresult;
 }
@@ -26123,6 +26009,18 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrVerifySignatureI
   (void)jenv;
   (void)jcls;
   result = (int)(0x0B000035);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ErrInvalidDecimals_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (int)(0x0C000000);
   jresult = (jint)result; 
   return jresult;
 }

@@ -35,6 +35,10 @@ public class cipher_SHA256 {
     }
   }
 
+  public _GoString_ getStr() {
+    return new _GoString_(skycoinJNI.cipher_SHA256_getStr(swigCPtr, this), true);
+  }
+
   public int isEqual(cipher_SHA256 a) {
     return skycoinJNI.cipher_SHA256_isEqual(swigCPtr, this, cipher_SHA256.getCPtr(a), a);
   }
@@ -45,10 +49,6 @@ public class cipher_SHA256 {
 
   public void assignTo(cipher_SHA256 data) {
     skycoinJNI.cipher_SHA256_assignTo(swigCPtr, this, cipher_SHA256.getCPtr(data), data);
-  }
-
-  public _GoString_ getStr() {
-    return new _GoString_(skycoinJNI.cipher_SHA256_getStr(swigCPtr, this), true);
   }
 
   public void setData(short[] value) {

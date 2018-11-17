@@ -4,12 +4,11 @@ SKYCOIN_DIR = gopath/src/github.com/skycoin/skycoin
 SKYBUILD_DIR = $(SKYCOIN_DIR)/build
 BUILDLIBC_DIR = $(SKYBUILD_DIR)/libskycoin
 LIBC_DIR = $(SKYCOIN_DIR)/lib/cgo
-LIBSWIG_DIR = $(SKYCOIN_DIR)/lib/swig
+LIBSWIG_DIR = swig
 BUILD_DIR = build
 BIN_DIR = $(SKYCOIN_DIR)/bin
 INCLUDE_DIR = $(SKYCOIN_DIR)/include
 FULL_PATH_LIB = $(PWD)/$(BUILDLIBC_DIR)
-LD_LIBRARY_PATH=.:/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/usr/lib:
 
 LIB_FILES = $(shell find $(SKYCOIN_DIR)/lib/cgo -type f -name "*.go")
 SRC_FILES = $(shell find $(SKYCOIN_DIR)/src -type f -name "*.go")
@@ -25,14 +24,13 @@ $(BUILDLIBC_DIR)/libskycoin.a: $(LIB_FILES) $(SRC_FILES) $(HEADER_FILES)
 	GOPATH="$(GOPATH_DIR)" make -C $(SKYCOIN_DIR) build-libc-static
 	ls $(BUILDLIBC_DIR)
 	rm -f swig/include/libskycoin.h
-	mkdir -p swig
 	mkdir -p swig/include
 	grep -v _Complex $(INCLUDE_DIR)/libskycoin.h > swig/include/libskycoin.h
 
 ## Build libskycoin C client library
 build-libc: configure $(BUILDLIBC_DIR)/libskycoin.a
 
-build-swig: build-libc
+build-swig:
 	#Generate structs.i from skytypes.gen.h
 	rm -f $(LIBSWIG_DIR)/structs.i
 	cp $(INCLUDE_DIR)/skytypes.gen.h $(LIBSWIG_DIR)/structs.i
@@ -44,9 +42,9 @@ build-swig: build-libc
 			sed -i 's/#/%/g' $(LIBSWIG_DIR)/structs.i ;\
 		fi \
 	}
-	# rm -rfv src/main/java/skycoin/libjava/
-	# mkdir -p  src/main/java/skycoin/libjava/
-	rm -f skycoin_wrap.c
+	rm -f swig/include/swig.h
+	rm -f skycoinnet_wrap.c
+	cp -v gopath/src/github.com/skycoin/skycoin/include/swig.h swig/include/
 	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
  
 build-libjava: build-swig
