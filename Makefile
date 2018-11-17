@@ -54,4 +54,4 @@ build-libjava: build-swig
 	
 	
 test: build-libjava
-	mvn test
+	mvn test -e
