@@ -45,9 +45,7 @@
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/main/java/skycoin/libjava/cipher_Sig.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/main/java/skycoin/libjava/SWIGTYPE_p_TransactionResult_Handle.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/main/java/skycoin/libjava/SWIGTYPE_p_Hash_Handle.java
-/home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/main/java/skycoin/libjava/FeeCalculator_.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/main/java/skycoin/libjava/skycoinConstants.java
-/home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/main/java/skycoin/libjava/SWIGTYPE_p_FeeCalcFunc.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/main/java/skycoin/libjava/wallet__ReadableNote.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/main/java/skycoin/libjava/coin__SignedBlock.java
 /home/maykel/go/src/github.com/skycoin/libjava-skycoin/src/main/java/skycoin/libjava/coin__BlockBody.java

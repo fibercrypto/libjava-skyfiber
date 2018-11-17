@@ -45,6 +45,8 @@ build-swig:
 	rm -f swig/include/swig.h
 	rm -f skycoinnet_wrap.c
 	cp -v gopath/src/github.com/skycoin/skycoin/include/swig.h swig/include/
+	rm -rfv src/main/java/skycoin/libjava
+	mkdir -p src/main/java/skycoin/libjava
 	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
  
 build-libjava: build-swig
