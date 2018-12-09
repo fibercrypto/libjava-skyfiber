@@ -91,10 +91,6 @@
   if ($1->data) free($1->data);
 }
 
-%{
-typedef unsigned long long* GoIntPtr2; 
-%}
-
 // Array
 %include "arrays_java.i"
 %apply int[] {int *};
