@@ -18,13 +18,17 @@ public class utils_dropletTest extends skycoin {
   class droplet_TestStr {
     public String s;
     public BigInteger n;
-    public int e;
+    public long e;
+
+    public droplet_TestStr() { this.e = 0; }
+
+    public String GetS() { return this.s; }
   }
 
   droplet_TestStr cases[];
 
   private void FullCases() {
-    cases = new droplet_TestStr[30];
+    cases = new droplet_TestStr[29];
 
     droplet_TestStr cas = new droplet_TestStr();
 
@@ -114,90 +118,152 @@ public class utils_dropletTest extends skycoin {
     cases[16] = cas;
 
     cas = new droplet_TestStr();
-    cas.s = "9223372036854.775807";
-    cas.n = utils.toBigInteger(9223372036854775807.0);
-    cases[17] = cas;
-
-    cas = new droplet_TestStr();
     cas.s = "-9223372036854.775807";
     cas.e = SKY_ErrNegativeValue;
-    cases[18] = cas;
+    cases[17] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "9223372036854775808";
     cas.e = SKY_ErrTooLarge;
-    cases[19] = cas;
+    cases[18] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "9223372036854775807.000001";
     cas.e = SKY_ErrTooLarge;
-    cases[20] = cas;
+    cases[19] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "9223372036854775807";
     cas.e = SKY_ErrTooLarge;
-    cases[21] = cas;
+    cases[20] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "9223372036854775806.000001";
     cas.e = SKY_ErrTooLarge;
-    cases[22] = cas;
+    cases[21] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "1.1";
     cas.n = utils.toBigInteger(1e6 + 1e5);
-    cases[23] = cas;
+    cases[22] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "1.01";
     cas.n = utils.toBigInteger(1e6 + 1e4);
-    cases[24] = cas;
+    cases[23] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "1.001";
     cas.n = utils.toBigInteger(1e6 + 1e3);
-    cases[25] = cas;
+    cases[24] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "1.0001";
     cas.n = utils.toBigInteger(1e6 + 1e2);
-    cases[26] = cas;
+    cases[25] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "1.00001";
     cas.n = utils.toBigInteger(1e6 + 1e1);
-    cases[27] = cas;
+    cases[26] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "1.000001";
     cas.n = utils.toBigInteger(1e6 + 1e0);
-    cases[28] = cas;
+    cases[27] = cas;
 
     cas = new droplet_TestStr();
     cas.s = "1.0000001";
     cas.e = SKY_ErrTooManyDecimals;
-    cases[29] = cas;
+    cases[28] = cas;
   }
 
   @Test
-  public void TestFromString () {
-    FullCases ();
-      for (int i = 0; i < cases.length; i++) {
-          droplet_TestStr tc = cases[i];
-          SWIGTYPE_p_unsigned_long_long  n =  new_GoUint64Ptr();
-          
-          _GoString_ strtest = new _GoString_();
-          strtest.SetString(tc.s);
-          long err = SKY_droplet_FromString (strtest, n);
-          BigInteger n_v = GoUint64Ptr_value(n);
-          if (tc.e == SKY_OK) {
-              assertEquals (err, SKY_OK);
+  public void TestFromString() {
+    FullCases();
+    for (int i = 0; i < cases.length; i++) {
+      droplet_TestStr tc = cases[i];
+      SWIGTYPE_p_unsigned_long_long n = new_GoUint64Ptr();
 
-              assertEquals (tc.n, n_v);
-          } else {
-              assertEquals (tc.e, err);
-              assertEquals (0, n_v);
-          }
+      _GoString_ strtest = new _GoString_();
+      strtest.setP(tc.GetS());
+      strtest.setN(tc.GetS().length());
+      long err = SKY_droplet_FromString(strtest, n);
+      BigInteger n_v = GoUint64Ptr_value(n);
+      if (tc.e == SKY_OK) {
+        assertEquals(err, SKY_OK);
+
+        assertEquals("Not equal tc.n != n_v", tc.n.longValue(),
+                     n_v.longValue());
+      } else {
+        assertEquals(tc.e, err);
+        assertEquals(utils.toBigInteger(0), n_v);
       }
+    }
+  }
+
+  public void FullTestStr1() {
+    cases = new droplet_TestStr[9];
+    droplet_TestStr cas = new droplet_TestStr();
+    cas.n = utils.toBigInteger(0);
+    cas.s = "0.000000";
+    cases[0] = cas;
+
+    cas = new droplet_TestStr();
+    cas.n = utils.toBigInteger(1);
+    cas.s = "0.000001";
+    cases[1] = cas;
+
+    cas = new droplet_TestStr();
+    cas.n = utils.toBigInteger(1e6);
+    cas.s = "1.000000";
+    cases[2] = cas;
+
+    cas = new droplet_TestStr();
+    cas.n = utils.toBigInteger(100100);
+    cas.s = "0.100100";
+    cases[3] = cas;
+
+    cas = new droplet_TestStr();
+    cas.n = utils.toBigInteger(1001000);
+    cas.s = "1.001000";
+    cases[4] = cas;
+
+    cas = new droplet_TestStr();
+    cas.n = utils.toBigInteger(999);
+    cas.s = "0.000999";
+    cases[5] = cas;
+
+    cas = new droplet_TestStr();
+    cas.n = utils.toBigInteger(999000000);
+    cas.s = "999.000000";
+    cases[6] = cas;
+
+    cas = new droplet_TestStr();
+    cas.n = utils.toBigInteger(123000456);
+    cas.s = "123.000456";
+    cases[7] = cas;
+
+    cas = new droplet_TestStr();
+    cas.n = utils.toBigInteger(9223372036854775808.0);
+    cas.e = SKY_ErrTooLarge;
+    cases[8] = cas;
+  }
+
+  @Test
+  public void TestToString() {
+    FullTestStr1();
+    for (int i = 0; i < cases.length; i++) {
+      droplet_TestStr tc = cases[i];
+      _GoString_ s = new _GoString_();
+      long err = SKY_droplet_ToString(tc.n, s);
+      if (tc.e == SKY_OK) {
+        assertEquals(err, SKY_OK);
+        assertEquals(tc.s, s.getP());
+      } else {
+        assertEquals(tc.e, err);
+        assertEquals(null, s.getP());
+      }
+    }
   }
 }
