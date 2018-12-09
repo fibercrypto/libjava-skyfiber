@@ -49,11 +49,13 @@ build-swig:
 	mkdir -p src/main/java/skycoin/libjava
 	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
  
-build-libjava: build-swig
+ build-libc-swig: build-libc build-swig
+
+build-libjava:
 	gcc -c -fpic -I /usr/lib/jvm/java-8-openjdk-amd64/include/  -I /usr/lib/jvm/java-8-openjdk-amd64/include/linux -I swig/include -I$(INCLUDE_DIR) skycoin_wrap.c
 	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o libskycoin.so
 	sudo cp libskycoin.so /lib
 	
 	
-test: build-libjava
+test: build-libc build-swig build-libjava
 	mvn test -e

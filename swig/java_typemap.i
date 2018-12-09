@@ -17,6 +17,7 @@
 %pointer_functions(unsigned long long, GoUint64Ptr);
 %pointer_functions(long long, GointPtr);
 %pointer_functions(unsigned short, GoUint16Ptr);
+%pointer_functions(unsigned int, GoUint32Ptr);
 %pointer_functions(cipher__Address, cipher__AddressPtr);
 %pointer_functions(Transactions__Handle, Transactions__HandlePtr);
 %pointer_functions(Transaction__Handle, Transaction__HandlePtr);

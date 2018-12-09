@@ -525,10 +525,10 @@ public class coin_transactionsTest extends skycoin {
       size += b.getLen();
     }
     assertNotEquals(size, 0);
-    SWIGTYPE_p_long_long sizetx = new_GointPtr();
+    SWIGTYPE_p_unsigned_int sizetx = new_GoUint32Ptr();
     err = SKY_coin_Transactions_Size(handle, sizetx);
     assertEquals(err, SKY_OK);
-    assertEquals(GointPtr_value(sizetx), size);
+    assertEquals(GoUint32Ptr_value(sizetx), size);
   }
 
   @Test
@@ -558,18 +558,18 @@ public class coin_transactionsTest extends skycoin {
     SWIGTYPE_p_Transactions__Handle handles = new_Transactions__HandlePtr();
     long err = makeTransactions(10, handles);
     long trunc = (long)0;
-    SWIGTYPE_p_long_long count = new_GointPtr();
+    SWIGTYPE_p_unsigned_int count = new_GoUint32Ptr();
     SWIGTYPE_p_long_long len_tnxs = new_GointPtr();
     err = SKY_coin_Transactions_Length(handles, len_tnxs);
     long len_tnxs_value = GointPtr_value(len_tnxs);
     for (long i = 0; i < (len_tnxs_value / 2); i++) {
-      count = new_GointPtr();
+      count = new_GoUint32Ptr();
       SWIGTYPE_p_Transaction__Handle handle = new_Transaction__HandlePtr();
       err = SKY_coin_Transactions_GetAt(handles, (long)i, handle);
       assertEquals(err, SKY_OK);
       err = SKY_coin_Transaction_Size(handle, count);
       assertEquals(err, SKY_OK);
-      trunc += GointPtr_value(count);
+      trunc += GoUint32Ptr_value(count);
     }
     // Trucating halfway
     SWIGTYPE_p_Transactions__Handle tnxs2 = new_Transactions__HandlePtr();
@@ -582,75 +582,76 @@ public class coin_transactionsTest extends skycoin {
 
     assertEquals(err, SKY_OK);
     assertEquals(GointPtr_value(len_tnxs2), len_tnxs_value / 2);
-    count = new_GointPtr();
+    count = new_GoUint32Ptr();
     err = SKY_coin_Transactions_Size(tnxs2, count);
     assertEquals(err, SKY_OK);
-    assertEquals(GointPtr_value(count), trunc);
+    assertEquals(GoUint32Ptr_value(count), trunc);
 
     // Stepping into next boundary has same cutoff, must exceed
     trunc += 1;
     err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
     assertEquals(err, SKY_OK);
-    err = SKY_coin_Transactions_Length(tnxs2, count);
+    SWIGTYPE_p_long_long len = new_GointPtr();
+    err = SKY_coin_Transactions_Length(tnxs2, len);
     assertEquals(err, SKY_OK);
-    assertEquals(GointPtr_value(count), len_tnxs_value / 2);
+    assertEquals(GointPtr_value(len), len_tnxs_value / 2);
     err = SKY_coin_Transactions_Size(tnxs2, count);
     assertEquals(err, SKY_OK);
-    assertEquals(GointPtr_value(count), trunc - 1);
+    assertEquals(GoUint32Ptr_value(count), trunc - 1);
 
     // Moving to 1 before next level
     SWIGTYPE_p_Transaction__Handle tnxs_5 = utils.makeEmptyTransaction();
     err = SKY_coin_Transactions_GetAt(handles, 5, tnxs_5);
     assertEquals(err, SKY_OK);
-    count = new_GointPtr();
+    count = new_GoUint32Ptr();
     err = SKY_coin_Transaction_Size(tnxs_5, count);
     assertEquals(err, SKY_OK);
-    trunc += (GointPtr_value(count) - 2);
+    trunc += (GoUint32Ptr_value(count) - 2);
     err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
     assertEquals(err, SKY_OK);
-    err = SKY_coin_Transactions_Length(tnxs2, count);
+    err = SKY_coin_Transactions_Length(tnxs2, len);
     assertEquals(err, SKY_OK);
-    assertEquals(GointPtr_value(count), 5);
+    assertEquals(GoUint32Ptr_value(count), 5);
     err = SKY_coin_Transactions_Size(tnxs2, count);
     assertEquals(err, SKY_OK);
-    SWIGTYPE_p_long_long count_tnxs5 = new_GointPtr();
+    SWIGTYPE_p_unsigned_int count_tnxs5 = new_GoUint32Ptr();
     err = SKY_coin_Transaction_Size(tnxs_5, count_tnxs5);
     assertEquals(err, SKY_OK);
-    assertEquals((trunc - GointPtr_value(count_tnxs5) + 1),
-                 GointPtr_value(count));
+    assertEquals((trunc - GoUint32Ptr_value(count_tnxs5) + 1),
+    		GoUint32Ptr_value(count));
 
     // Moving to next level
     trunc += 1;
     err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
     assertEquals(err, SKY_OK);
-    err = SKY_coin_Transactions_Length(tnxs2, count);
+    err = SKY_coin_Transactions_Length(tnxs2, len);
     assertEquals(err, SKY_OK);
-    assertEquals(GointPtr_value(count), 6);
+    assertEquals(GoUint32Ptr_value(count), 6);
     err = SKY_coin_Transactions_Size(tnxs2, count);
     assertEquals(err, SKY_OK);
-    assertEquals(GointPtr_value(count), trunc);
+    assertEquals(GoUint32Ptr_value(count), trunc);
 
     // Truncating to full available amt
-    SWIGTYPE_p_long_long trunc1 = new_GointPtr();
+    SWIGTYPE_p_unsigned_int trunc1 = new_GoUint32Ptr();
     err = SKY_coin_Transactions_Size(handles, trunc1);
     assertEquals(err, SKY_OK);
-    err = SKY_coin_Transactions_TruncateBytesTo(handles, GointPtr_value(trunc1),
+    err = SKY_coin_Transactions_TruncateBytesTo(handles, GoUint32Ptr_value(trunc1),
                                                 tnxs2);
     assertEquals(err, SKY_OK);
     err = SKY_coin_Transactions_Size(tnxs2, count);
     assertEquals(err, SKY_OK);
-    assertEquals(GointPtr_value(count), GointPtr_value(trunc1));
+    assertEquals(GoUint32Ptr_value(count), GoUint32Ptr_value(trunc1));
 
     // Truncating to 0
     trunc = 0;
     err = SKY_coin_Transactions_TruncateBytesTo(handles, 0, tnxs2);
     assertEquals(err, SKY_OK);
-    err = SKY_coin_Transactions_Length(tnxs2, count);
+    err = SKY_coin_Transactions_Length(tnxs2, len);
     assertEquals(err, SKY_OK);
-    assertEquals(GointPtr_value(count), 0);
+    assertEquals(GoUint32Ptr_value(count), 0);
     err = SKY_coin_Transactions_Size(tnxs2, count);
     assertEquals(err, SKY_OK);
-    assertEquals(GointPtr_value(count), trunc);
+    assertEquals(GoUint32Ptr_value(count), trunc);
   }
 
   class ux {

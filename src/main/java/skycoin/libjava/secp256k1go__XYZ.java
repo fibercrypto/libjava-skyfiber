@@ -62,12 +62,12 @@ public class secp256k1go__XYZ {
     return (cPtr == 0) ? null : new secp256k1go__Field(cPtr, false);
   }
 
-  public void setInfinity(SWIGTYPE_p_BOOL value) {
-    skycoinJNI.secp256k1go__XYZ_Infinity_set(swigCPtr, this, SWIGTYPE_p_BOOL.getCPtr(value));
+  public void setInfinity(long value) {
+    skycoinJNI.secp256k1go__XYZ_Infinity_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_BOOL getInfinity() {
-    return new SWIGTYPE_p_BOOL(skycoinJNI.secp256k1go__XYZ_Infinity_get(swigCPtr, this), true);
+  public long getInfinity() {
+    return skycoinJNI.secp256k1go__XYZ_Infinity_get(swigCPtr, this);
   }
 
   public secp256k1go__XYZ() {

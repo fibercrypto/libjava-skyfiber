@@ -31,7 +31,6 @@ skycoin/libjava/SWIGTYPE_p_Wallet__Handle.class
 skycoin/libjava/SWIGTYPE_p_CreatedTransactionInput__Handle.class
 skycoin/libjava/wallet__Entry.class
 skycoin/libjava/SWIGTYPE_p_unsigned_int.class
-skycoin/libjava/SWIGTYPE_p_BOOL.class
 skycoin/libjava/SWIGTYPE_p_ReadableUnspentOutputsSummary_Handle.class
 skycoin/libjava/SWIGTYPE_p_Options__Handle.class
 skycoin/libjava/cipher__Address.class
@@ -39,7 +38,6 @@ skycoin/libjava/SWIGTYPE_p_void.class
 skycoin/libjava/api__RichlistParams.class
 skycoin/libjava/SWIGTYPE_p_Transactions__Handle.class
 skycoin/libjava/api__NetworkConnectionsFilter.class
-skycoin/libjava/SWIGTYPE_p_Hash_Handle.class
 skycoin/libjava/SWIGTYPE_p_unsigned_short.class
 skycoin/libjava/skycoin.class
 skycoin/libjava/coin__Block.class

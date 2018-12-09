@@ -212,6 +212,62 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 	#include "skyerrors.h"
 
 
+	int equalSlices(GoSlice* slice1, GoSlice* slice2, int elem_size){
+	  if(slice1->len != slice2->len)
+		return 0;
+	  return memcmp(slice1->data, slice2->data, slice1->len * elem_size) == 0;
+	}
+	int equalTransactions(coin__Transaction* t1, coin__Transaction* t2){
+		if( t1->Length != t2->Length || t1->Type != t2->Type ){
+			return 0;
+		}
+		if( memcmp(&t1->InnerHash, &t2->InnerHash, sizeof(cipher__SHA256)) != 0 )
+			return 0;
+		if(!equalSlices((GoSlice*)&t1->Sigs, (GoSlice*)&t2->Sigs, sizeof(cipher__Sig)))
+			return 0;
+		if(!equalSlices((GoSlice*)&t1->In, (GoSlice*)&t2->In, sizeof(cipher__SHA256)))
+			return 0;
+		if(!equalSlices((GoSlice*)&t1->Out, (GoSlice*)&t2->Out, sizeof(coin__TransactionOutput)))
+			return 0;
+		return 1;
+	}
+	int equalTransactionsArrays(coin__Transactions* pTxs1, coin__Transactions* pTxs2){
+		if( pTxs1->len != pTxs2->len )
+			return 0;
+		coin__Transaction* pTx1 = pTxs1->data;
+		coin__Transaction* pTx2 = pTxs2->data;
+		int i;
+		for(i = 0; i < pTxs1->len; i++){
+			if(!equalTransactions(pTx1, pTx2))
+				return 0;
+			pTx1++;
+			pTx2++;
+		}
+		return 1;
+	}
+	int equalBlockHeaders(coin__BlockHeader* bh1, coin__BlockHeader* bh2){
+		if( bh1->Version != bh2->Version || bh1->Time != bh2->Time || 
+			bh1->BkSeq != bh2->BkSeq || bh1->Fee != bh2->Fee)
+			return 0;
+		if( memcmp( &bh1->PrevHash, bh2->PrevHash, sizeof(bh2->PrevHash) ) != 0 )
+			return 0;
+		if( memcmp( &bh1->BodyHash, bh2->PrevHash, sizeof(bh2->BodyHash) ) != 0 )
+			return 0;
+		if( memcmp( &bh1->UxHash, bh2->PrevHash, sizeof(bh2->UxHash) ) != 0 )
+			return 0;
+		return 1;
+	}
+
+
+	void destroy_cipher_SecKeys(cipher_SecKeys* p){
+		if( p != NULL ){
+			if( p->data != NULL ){
+				free( p->data );
+			}
+		}
+	}
+
+
 static GoSlice *new_GoSlicePtr() { 
   return (GoSlice *) calloc(1,sizeof(GoSlice)); 
 }
@@ -415,6 +471,29 @@ static void GoUint16Ptr_assign(unsigned short *obj, unsigned short value) {
 }
 
 static unsigned short GoUint16Ptr_value(unsigned short *obj) {
+  return *obj;
+}
+
+
+static unsigned int *new_GoUint32Ptr() { 
+  return (unsigned int *) calloc(1,sizeof(unsigned int)); 
+}
+
+static unsigned int *copy_GoUint32Ptr(unsigned int value) { 
+  unsigned int *obj = (unsigned int *) calloc(1,sizeof(unsigned int));
+  *obj = value;
+  return obj; 
+}
+
+static void delete_GoUint32Ptr(unsigned int *obj) { 
+  if (obj) free(obj); 
+}
+
+static void GoUint32Ptr_assign(unsigned int *obj, unsigned int value) {
+  *obj = value;
+}
+
+static unsigned int GoUint32Ptr_value(unsigned int *obj) {
   return *obj;
 }
 
@@ -2473,62 +2552,6 @@ GoUint32_ _WrapperFeeCalculator(Transaction__Handle handle, GoUint64_* pFee, voi
   return 0;
 }
 
-
-	int equalSlices(GoSlice* slice1, GoSlice* slice2, int elem_size){
-	  if(slice1->len != slice2->len)
-		return 0;
-	  return memcmp(slice1->data, slice2->data, slice1->len * elem_size) == 0;
-	}
-	int equalTransactions(coin__Transaction* t1, coin__Transaction* t2){
-		if( t1->Length != t2->Length || t1->Type != t2->Type ){
-			return 0;
-		}
-		if( memcmp(&t1->InnerHash, &t2->InnerHash, sizeof(cipher__SHA256)) != 0 )
-			return 0;
-		if(!equalSlices((GoSlice*)&t1->Sigs, (GoSlice*)&t2->Sigs, sizeof(cipher__Sig)))
-			return 0;
-		if(!equalSlices((GoSlice*)&t1->In, (GoSlice*)&t2->In, sizeof(cipher__SHA256)))
-			return 0;
-		if(!equalSlices((GoSlice*)&t1->Out, (GoSlice*)&t2->Out, sizeof(coin__TransactionOutput)))
-			return 0;
-		return 1;
-	}
-	int equalTransactionsArrays(coin__Transactions* pTxs1, coin__Transactions* pTxs2){
-		if( pTxs1->len != pTxs2->len )
-			return 0;
-		coin__Transaction* pTx1 = pTxs1->data;
-		coin__Transaction* pTx2 = pTxs2->data;
-		int i;
-		for(i = 0; i < pTxs1->len; i++){
-			if(!equalTransactions(pTx1, pTx2))
-				return 0;
-			pTx1++;
-			pTx2++;
-		}
-		return 1;
-	}
-	int equalBlockHeaders(coin__BlockHeader* bh1, coin__BlockHeader* bh2){
-		if( bh1->Version != bh2->Version || bh1->Time != bh2->Time || 
-			bh1->BkSeq != bh2->BkSeq || bh1->Fee != bh2->Fee)
-			return 0;
-		if( memcmp( &bh1->PrevHash, bh2->PrevHash, sizeof(bh2->PrevHash) ) != 0 )
-			return 0;
-		if( memcmp( &bh1->BodyHash, bh2->PrevHash, sizeof(bh2->BodyHash) ) != 0 )
-			return 0;
-		if( memcmp( &bh1->UxHash, bh2->PrevHash, sizeof(bh2->UxHash) ) != 0 )
-			return 0;
-		return 1;
-	}
-
-
-	void destroy_cipher_SecKeys(cipher_SecKeys* p){
-		if( p != NULL ){
-			if( p->data != NULL ){
-				free( p->data );
-			}
-		}
-	}
-
 SWIGINTERN int cipher_PubKey_isEqual(cipher_PubKey *self,cipher_PubKey *a){
 		return memcmp(self->data, a->data, sizeof(a->data)) == 0;
 	}
@@ -2572,12 +2595,6 @@ SWIGINTERN void cipher_Sig_assignFrom(cipher_Sig *self,void *data){
 SWIGINTERN void cipher_Sig_assignTo(cipher_Sig *self,void *data){
 		memcpy(data, &self->data, sizeof(self->data));
 	}
-SWIGINTERN _GoString_ cipher_SHA256_getStr(cipher_SHA256 *self){
-		_GoString_ str;
-		str.p = (const char*)self->data;
-		str.n = strlen(str.p);
-		return str;
-    }
 SWIGINTERN int cipher_SHA256_isEqual(cipher_SHA256 *self,cipher_SHA256 *a){
 		return memcmp(self->data, a->data, sizeof(a->data)) == 0;
 	}
@@ -2587,6 +2604,12 @@ SWIGINTERN void cipher_SHA256_assignFrom(cipher_SHA256 *self,cipher_SHA256 *data
 SWIGINTERN void cipher_SHA256_assignTo(cipher_SHA256 *self,cipher_SHA256 *data){
 		memcpy(data->data, &self->data, sizeof(self->data));
 	}
+SWIGINTERN _GoString_ cipher_SHA256_getStr(cipher_SHA256 *self){
+		_GoString_ str;
+		str.p = (const char*)self->data;
+		str.n = strlen(str.p);
+		return str;
+    }
 SWIGINTERN int cipher_Checksum_isEqual(cipher_Checksum *self,cipher_Checksum *a){
 		return memcmp(self->data, a->data, sizeof(a->data)) == 0;
 	}
@@ -2762,11 +2785,6 @@ SWIGINTERN int cipher__BitcoinAddress_isEqual(cipher__BitcoinAddress *self,ciphe
 		}
 		return 0;
 	}
-SWIGINTERN int coin__Transaction_setInnerHash(coin__Transaction *self,cipher_SHA256 h){
-		memset(self->InnerHash, 0, sizeof(cipher__SHA256));
-			cipher_SHA256_assignFrom(self->InnerHash,&h);
-			return 0;
-    }
 SWIGINTERN int coin__Transaction_isEqual(coin__Transaction *self,coin__Transaction *t){
 		return equalTransactions(self, t);
 	}
@@ -2775,6 +2793,11 @@ SWIGINTERN cipher_SHA256 coin__Transaction_GetInnerHash(coin__Transaction *self)
 		cipher_SHA256_assignFrom(&h,self->InnerHash);
 		return h;
 	}
+SWIGINTERN int coin__Transaction_setInnerHash(coin__Transaction *self,cipher_SHA256 h){
+		memset(self->InnerHash, 0, sizeof(cipher__SHA256));
+			cipher_SHA256_assignFrom(self->InnerHash,&h);
+			return 0;
+    }
 SWIGINTERN int coin__TransactionOutput_isEqual(coin__TransactionOutput *self,coin__TransactionOutput *t){
 		if( self->Coins != t->Coins ||
 			self->Hours != t->Hours ){
@@ -2802,6 +2825,89 @@ SWIGINTERN int coin__UxOut_isEqual(coin__UxOut *self,coin__UxOut *u){
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalSlices(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
+  jint jresult = 0 ;
+  GoSlice *arg1 = (GoSlice *) 0 ;
+  GoSlice *arg2 = (GoSlice *) 0 ;
+  int arg3 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(GoSlice **)&jarg1; 
+  arg2 = *(GoSlice **)&jarg2; 
+  arg3 = (int)jarg3; 
+  result = (int)equalSlices(arg1,arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalTransactions(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  coin__Transaction *arg1 = (coin__Transaction *) 0 ;
+  coin__Transaction *arg2 = (coin__Transaction *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(coin__Transaction **)&jarg1; 
+  arg2 = *(coin__Transaction **)&jarg2; 
+  result = (int)equalTransactions(arg1,arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalTransactionsArrays(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  jint jresult = 0 ;
+  coin__Transactions *arg1 = (coin__Transactions *) 0 ;
+  coin__Transactions *arg2 = (coin__Transactions *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(coin__Transactions **)&jarg1; 
+  arg2 = *(coin__Transactions **)&jarg2; 
+  result = (int)equalTransactionsArrays(arg1,arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalBlockHeaders(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  coin__BlockHeader *arg1 = (coin__BlockHeader *) 0 ;
+  coin__BlockHeader *arg2 = (coin__BlockHeader *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(coin__BlockHeader **)&jarg1; 
+  arg2 = *(coin__BlockHeader **)&jarg2; 
+  result = (int)equalBlockHeaders(arg1,arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_destroy_1cipher_1SecKeys(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  cipher_SecKeys *arg1 = (cipher_SecKeys *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(cipher_SecKeys **)&jarg1; 
+  destroy_cipher_SecKeys(arg1);
+}
+
 
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_new_1GoSlicePtr(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
@@ -2898,20 +3004,14 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_new_1GoUint8Ptr(JNIEnv 
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_copy_1GoUint8Ptr(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_copy_1GoUint8Ptr(JNIEnv *jenv, jclass jcls, jshort jarg1) {
   jlong jresult = 0 ;
   GoUint8_ arg1 ;
-  GoUint8_ *argp1 ;
   GoUint8_ *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  argp1 = *(GoUint8_ **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoUint8_");
-    return 0;
-  }
-  arg1 = *argp1; 
+  arg1 = (GoUint8_)jarg1; 
   result = (GoUint8_ *)copy_GoUint8Ptr(arg1);
   *(GoUint8_ **)&jresult = result; 
   return jresult;
@@ -2928,26 +3028,20 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1GoUint8Ptr(JNIEn
 }
 
 
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_GoUint8Ptr_1assign(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_GoUint8Ptr_1assign(JNIEnv *jenv, jclass jcls, jlong jarg1, jshort jarg2) {
   GoUint8_ *arg1 = (GoUint8_ *) 0 ;
   GoUint8_ arg2 ;
-  GoUint8_ *argp2 ;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(GoUint8_ **)&jarg1; 
-  argp2 = *(GoUint8_ **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoUint8_");
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (GoUint8_)jarg2; 
   GoUint8Ptr_assign(arg1,arg2);
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_GoUint8Ptr_1value(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
+SWIGEXPORT jshort JNICALL Java_skycoin_libjava_skycoinJNI_GoUint8Ptr_1value(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jshort jresult = 0 ;
   GoUint8_ *arg1 = (GoUint8_ *) 0 ;
   GoUint8_ result;
   
@@ -2955,11 +3049,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_GoUint8Ptr_1value(JNIEn
   (void)jcls;
   arg1 = *(GoUint8_ **)&jarg1; 
   result = GoUint8Ptr_value(arg1);
-  {
-    GoUint8_ * resultptr = (GoUint8_ *) malloc(sizeof(GoUint8_));
-    memmove(resultptr, &result, sizeof(GoUint8_));
-    *(GoUint8_ **)&jresult = resultptr;
-  }
+  jresult = (jshort)result; 
   return jresult;
 }
 
@@ -3519,6 +3609,68 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_GoUint16Ptr_1value(JNIEn
   arg1 = *(unsigned short **)&jarg1; 
   result = (unsigned short)GoUint16Ptr_value(arg1);
   jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_new_1GoUint32Ptr(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  unsigned int *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (unsigned int *)new_GoUint32Ptr();
+  *(unsigned int **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_copy_1GoUint32Ptr(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  unsigned int arg1 ;
+  unsigned int *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (unsigned int)jarg1; 
+  result = (unsigned int *)copy_GoUint32Ptr(arg1);
+  *(unsigned int **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1GoUint32Ptr(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  unsigned int *arg1 = (unsigned int *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(unsigned int **)&jarg1; 
+  delete_GoUint32Ptr(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_GoUint32Ptr_1assign(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  unsigned int *arg1 = (unsigned int *) 0 ;
+  unsigned int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(unsigned int **)&jarg1; 
+  arg2 = (unsigned int)jarg2; 
+  GoUint32Ptr_assign(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_GoUint32Ptr_1value(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  unsigned int *arg1 = (unsigned int *) 0 ;
+  unsigned int result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(unsigned int **)&jarg1; 
+  result = (unsigned int)GoUint32Ptr_value(arg1);
+  jresult = (jlong)result; 
   return jresult;
 }
 
@@ -6703,91 +6855,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Block_1HashB
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalSlices(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3) {
-  jint jresult = 0 ;
-  GoSlice *arg1 = (GoSlice *) 0 ;
-  GoSlice *arg2 = (GoSlice *) 0 ;
-  int arg3 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(GoSlice **)&jarg1; 
-  arg2 = *(GoSlice **)&jarg2; 
-  arg3 = (int)jarg3; 
-  result = (int)equalSlices(arg1,arg2,arg3);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalTransactions(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jint jresult = 0 ;
-  coin__Transaction *arg1 = (coin__Transaction *) 0 ;
-  coin__Transaction *arg2 = (coin__Transaction *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(coin__Transaction **)&jarg1; 
-  arg2 = *(coin__Transaction **)&jarg2; 
-  result = (int)equalTransactions(arg1,arg2);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalTransactionsArrays(JNIEnv *jenv, jclass jcls, GoSlice_ * jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jint jresult = 0 ;
-  coin__Transactions *arg1 = (coin__Transactions *) 0 ;
-  coin__Transactions *arg2 = (coin__Transactions *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(coin__Transactions **)&jarg1; 
-  arg2 = *(coin__Transactions **)&jarg2; 
-  result = (int)equalTransactionsArrays(arg1,arg2);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_equalBlockHeaders(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jint jresult = 0 ;
-  coin__BlockHeader *arg1 = (coin__BlockHeader *) 0 ;
-  coin__BlockHeader *arg2 = (coin__BlockHeader *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(coin__BlockHeader **)&jarg1; 
-  arg2 = *(coin__BlockHeader **)&jarg2; 
-  result = (int)equalBlockHeaders(arg1,arg2);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_destroy_1cipher_1SecKeys(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  cipher_SecKeys *arg1 = (cipher_SecKeys *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(cipher_SecKeys **)&jarg1; 
-  destroy_cipher_SecKeys(arg1);
-}
-
-
 SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_cipher_1PubKey_1isEqual(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jint jresult = 0 ;
   cipher_PubKey *arg1 = (cipher_PubKey *) 0 ;
@@ -7249,25 +7316,6 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1cipher_1Sig(JNIE
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_cipher_1SHA256_1getStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  cipher_SHA256 *arg1 = (cipher_SHA256 *) 0 ;
-  _GoString_ result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(cipher_SHA256 **)&jarg1; 
-  result = cipher_SHA256_getStr(arg1);
-  {
-    _GoString_ * resultptr = (_GoString_ *) malloc(sizeof(_GoString_));
-    memmove(resultptr, &result, sizeof(_GoString_));
-    *(_GoString_ **)&jresult = resultptr;
-  }
-  return jresult;
-}
-
-
 SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_cipher_1SHA256_1isEqual(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jint jresult = 0 ;
   cipher_SHA256 *arg1 = (cipher_SHA256 *) 0 ;
@@ -7311,6 +7359,25 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_cipher_1SHA256_1assignTo
   arg1 = *(cipher_SHA256 **)&jarg1; 
   arg2 = *(cipher_SHA256 **)&jarg2; 
   cipher_SHA256_assignTo(arg1,arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_cipher_1SHA256_1getStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  cipher_SHA256 *arg1 = (cipher_SHA256 *) 0 ;
+  _GoString_ result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(cipher_SHA256 **)&jarg1; 
+  result = cipher_SHA256_getStr(arg1);
+  {
+    _GoString_ * resultptr = (_GoString_ *) malloc(sizeof(_GoString_));
+    memmove(resultptr, &result, sizeof(_GoString_));
+    *(_GoString_ **)&jresult = resultptr;
+  }
+  return jresult;
 }
 
 
@@ -8994,7 +9061,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Block_1HashB
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Block_1Size(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   jlong jresult = 0 ;
   Block__Handle arg1 ;
-  GoInt *arg2 = (GoInt *) 0 ;
+  GoUint32 *arg2 = (GoUint32 *) 0 ;
   Block__Handle *argp1 ;
   GoUint32 result;
   
@@ -9006,7 +9073,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Block_1Size(
     return 0;
   }
   arg1 = *argp1; 
-  arg2 = *(GoInt **)&jarg2; 
+  arg2 = *(GoUint32 **)&jarg2; 
   result = (GoUint32)SKY_coin_Block_Size(arg1,arg2);
   jresult = (jlong)result; 
   return jresult;
@@ -9226,13 +9293,13 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1BlockBody_1H
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1BlockBody_1Size(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   jlong jresult = 0 ;
   BlockBody__Handle *arg1 = (BlockBody__Handle *) 0 ;
-  GoInt *arg2 = (GoInt *) 0 ;
+  GoUint32 *arg2 = (GoUint32 *) 0 ;
   GoUint32 result;
   
   (void)jenv;
   (void)jcls;
   arg1 = *(BlockBody__Handle **)&jarg1; 
-  arg2 = *(GoInt **)&jarg2; 
+  arg2 = *(GoUint32 **)&jarg2; 
   result = (GoUint32)SKY_coin_BlockBody_Size(arg1,arg2);
   jresult = (jlong)result; 
   return jresult;
@@ -11020,222 +11087,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1api_1Client_1Decry
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1Print(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  GoString arg2 ;
-  GoString *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  argp2 = *(GoString **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoString");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_XY_Print(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1ParsePubkey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  GoSlice arg2 ;
-  GoUint8 *arg3 = (GoUint8 *) 0 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = *(GoUint8 **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1go_XY_ParsePubkey(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1Bytes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XY_Bytes(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1BytesUncompressed(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XY_BytesUncompressed(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1SetXY(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  secp256k1go__Field *arg2 = (secp256k1go__Field *) 0 ;
-  secp256k1go__Field *arg3 = (secp256k1go__Field *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  arg2 = *(secp256k1go__Field **)&jarg2; 
-  arg3 = *(secp256k1go__Field **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1go_XY_SetXY(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1IsValid(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  GoUint8 *arg2 = (GoUint8 *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  arg2 = *(GoUint8 **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XY_IsValid(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1SetXYZ(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  secp256k1go__XYZ *arg2 = (secp256k1go__XYZ *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  arg2 = *(secp256k1go__XYZ **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XY_SetXYZ(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1Neg(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  secp256k1go__XY *arg2 = (secp256k1go__XY *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  arg2 = *(secp256k1go__XY **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XY_Neg(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1SetXO(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jshort jarg3) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  secp256k1go__Field *arg2 = (secp256k1go__Field *) 0 ;
-  GoUint8 arg3 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  arg2 = *(secp256k1go__Field **)&jarg2; 
-  arg3 = (GoUint8)jarg3; 
-  result = (GoUint32)SKY_secp256k1go_XY_SetXO(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1AddXY(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  secp256k1go__XY *arg2 = (secp256k1go__XY *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  arg2 = *(secp256k1go__XY **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XY_AddXY(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XY_1GetPublicKey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XY **)&jarg1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XY_GetPublicKey(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1api_1NewWalletResponse(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   jlong jresult = 0 ;
   Wallet__Handle arg1 ;
@@ -12371,235 +12222,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1wallet_1ReadableWa
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1DecompressPoint(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jshort jarg2, jlong jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoUint8 arg2 ;
-  GoSlice arg3 ;
-  GoSlice *argp1 ;
-  GoSlice *argp3 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg3_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = (GoUint8)jarg2; 
-  argp3 = *(GoSlice **)&jarg3; 
-  if (!argp3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg3 = *argp3; 
-  result = (GoUint32)SKY_secp256k1go_DecompressPoint(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1RecoverPublicKey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, GoSlice_ * jarg4, jobject jarg4_, jlong jarg5) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoSlice arg2 ;
-  GoInt arg3 ;
-  coin__UxArray *arg4 = (coin__UxArray *) 0 ;
-  GoInt *arg5 = (GoInt *) 0 ;
-  GoSlice *argp1 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg4_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = (GoInt)jarg3; 
-  arg4 = *(coin__UxArray **)&jarg4; 
-  arg5 = *(GoInt **)&jarg5; 
-  result = (GoUint32)SKY_secp256k1go_RecoverPublicKey(arg1,arg2,arg3,arg4,arg5);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Multiply(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, GoSlice_ * jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoSlice arg2 ;
-  coin__UxArray *arg3 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = *(coin__UxArray **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1go_Multiply(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1BaseMultiply(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_BaseMultiply(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1BaseMultiplyAdd(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, GoSlice_ * jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoSlice arg2 ;
-  coin__UxArray *arg3 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = *(coin__UxArray **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1go_BaseMultiplyAdd(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1GeneratePublicKey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_GeneratePublicKey(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1SeckeyIsValid(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoInt *arg2 = (GoInt *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(GoInt **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_SeckeyIsValid(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1PubkeyIsValid(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoInt *arg2 = (GoInt *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(GoInt **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_PubkeyIsValid(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1base58_1String2Hex(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   GoString arg1 ;
@@ -13283,44 +12905,36 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1iputil_1SplitAddr(
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1SumSHA256(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1params_1GetDistributionAddresses(JNIEnv *jenv, jclass jcls, GoSlice_ * jarg1, jobject jarg1_) {
+  coin__UxArray *arg1 = (coin__UxArray *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
-  (void)jarg2_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1_SumSHA256(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
+  arg1 = *(coin__UxArray **)&jarg1; 
+  SKY_params_GetDistributionAddresses(arg1);
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1RandByte(JNIEnv *jenv, jclass jcls, jlong jarg1, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  GoInt arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoUint32 result;
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1params_1GetUnlockedDistributionAddresses(JNIEnv *jenv, jclass jcls, GoSlice_ * jarg1, jobject jarg1_) {
+  coin__UxArray *arg1 = (coin__UxArray *) 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg2_;
-  arg1 = (GoInt)jarg1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1_RandByte(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
+  (void)jarg1_;
+  arg1 = *(coin__UxArray **)&jarg1; 
+  SKY_params_GetUnlockedDistributionAddresses(arg1);
+}
+
+
+SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1params_1GetLockedDistributionAddresses(JNIEnv *jenv, jclass jcls, GoSlice_ * jarg1, jobject jarg1_) {
+  coin__UxArray *arg1 = (coin__UxArray *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(coin__UxArray **)&jarg1; 
+  SKY_params_GetLockedDistributionAddresses(arg1);
 }
 
 
@@ -13575,6 +13189,22 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Int64ToUint6
   arg1 = (GoInt64)jarg1; 
   arg2 = *(GoUint64 **)&jarg2; 
   result = (GoUint32)SKY_coin_Int64ToUint64(arg1,arg2);
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1IntToUint32(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
+  jlong jresult = 0 ;
+  GoInt arg1 ;
+  GoUint32 *arg2 = (GoUint32 *) 0 ;
+  GoUint32 result;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (GoInt)jarg1; 
+  arg2 = *(GoUint32 **)&jarg2; 
+  result = (GoUint32)SKY_coin_IntToUint32(arg1,arg2);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -14147,261 +13777,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1cipher_1CheckSecKe
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Signature_1Create(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
-  Signature_Handle *arg1 = (Signature_Handle *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(Signature_Handle **)&jarg1; 
-  result = (GoUint32)SKY_secp256k1go_Signature_Create(arg1);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Signature_1GetR(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-  jlong jresult = 0 ;
-  Signature_Handle arg1 ;
-  Number_Handle *arg2 = (Number_Handle *) 0 ;
-  Signature_Handle *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  argp1 = *(Signature_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Signature_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(Number_Handle **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Signature_GetR(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Signature_1GetS(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-  jlong jresult = 0 ;
-  Signature_Handle arg1 ;
-  Number_Handle *arg2 = (Number_Handle *) 0 ;
-  Signature_Handle *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  argp1 = *(Signature_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Signature_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(Number_Handle **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Signature_GetS(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Signature_1Print(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  Signature_Handle arg1 ;
-  GoString arg2 ;
-  Signature_Handle *argp1 ;
-  GoString *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(Signature_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Signature_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoString **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoString");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_Signature_Print(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Signature_1Verify(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
-  jlong jresult = 0 ;
-  Signature_Handle arg1 ;
-  secp256k1go__XY *arg2 = (secp256k1go__XY *) 0 ;
-  Number_Handle arg3 ;
-  GoUint8 *arg4 = (GoUint8 *) 0 ;
-  Signature_Handle *argp1 ;
-  Number_Handle *argp3 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(Signature_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Signature_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(secp256k1go__XY **)&jarg2; 
-  argp3 = *(Number_Handle **)&jarg3; 
-  if (!argp3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg3 = *argp3; 
-  arg4 = *(GoUint8 **)&jarg4; 
-  result = (GoUint32)SKY_secp256k1go_Signature_Verify(arg1,arg2,arg3,arg4);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Signature_1Recover(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jlong jarg5) {
-  jlong jresult = 0 ;
-  Signature_Handle arg1 ;
-  secp256k1go__XY *arg2 = (secp256k1go__XY *) 0 ;
-  Number_Handle arg3 ;
-  GoInt arg4 ;
-  GoUint8 *arg5 = (GoUint8 *) 0 ;
-  Signature_Handle *argp1 ;
-  Number_Handle *argp3 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(Signature_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Signature_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(secp256k1go__XY **)&jarg2; 
-  argp3 = *(Number_Handle **)&jarg3; 
-  if (!argp3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg3 = *argp3; 
-  arg4 = (GoInt)jarg4; 
-  arg5 = *(GoUint8 **)&jarg5; 
-  result = (GoUint32)SKY_secp256k1go_Signature_Recover(arg1,arg2,arg3,arg4,arg5);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Signature_1Sign(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6) {
-  jlong jresult = 0 ;
-  Signature_Handle arg1 ;
-  Number_Handle arg2 ;
-  Number_Handle arg3 ;
-  Number_Handle arg4 ;
-  GoInt *arg5 = (GoInt *) 0 ;
-  GoInt *arg6 = (GoInt *) 0 ;
-  Signature_Handle *argp1 ;
-  Number_Handle *argp2 ;
-  Number_Handle *argp3 ;
-  Number_Handle *argp4 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  argp1 = *(Signature_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Signature_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(Number_Handle **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg2 = *argp2; 
-  argp3 = *(Number_Handle **)&jarg3; 
-  if (!argp3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg3 = *argp3; 
-  argp4 = *(Number_Handle **)&jarg4; 
-  if (!argp4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg4 = *argp4; 
-  arg5 = *(GoInt **)&jarg5; 
-  arg6 = *(GoInt **)&jarg6; 
-  result = (GoUint32)SKY_secp256k1go_Signature_Sign(arg1,arg2,arg3,arg4,arg5,arg6);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Signature_1ParseBytes(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  Signature_Handle arg1 ;
-  GoSlice arg2 ;
-  Signature_Handle *argp1 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(Signature_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Signature_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_Signature_ParseBytes(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Signature_1Bytes(JNIEnv *jenv, jclass jcls, jlong jarg1, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  Signature_Handle arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  Signature_Handle *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(Signature_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Signature_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Signature_Bytes(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1cli_1App_1Run(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   App__Handle arg1 ;
@@ -14548,35 +13923,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1cli_1Setenv(JNIEnv
   }
   arg2 = *argp2; 
   result = (GoUint32)SKY_cli_Setenv(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1poly1305_1Verify(JNIEnv *jenv, jclass jcls, GoSlice_ * jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, GoSlice_ * jarg3, jobject jarg3_, jlong jarg4) {
-  jlong jresult = 0 ;
-  coin__UxArray *arg1 = (coin__UxArray *) 0 ;
-  GoSlice arg2 ;
-  coin__UxArray *arg3 = (coin__UxArray *) 0 ;
-  GoUint8 *arg4 = (GoUint8 *) 0 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  arg1 = *(coin__UxArray **)&jarg1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = *(coin__UxArray **)&jarg3; 
-  arg4 = *(GoUint8 **)&jarg4; 
-  result = (GoUint32)SKY_poly1305_Verify(arg1,arg2,arg3,arg4);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -14954,252 +14300,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1wallet_1Entry_1Ver
   (void)jarg1_;
   arg1 = *(wallet__Entry **)&jarg1; 
   result = (GoUint32)SKY_wallet_Entry_VerifyPublic(arg1);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1Print(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  GoString arg2 ;
-  GoString *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  argp2 = *(GoString **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoString");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_Print(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1SetXY(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  secp256k1go__XY *arg2 = (secp256k1go__XY *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  arg2 = *(secp256k1go__XY **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_SetXY(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1IsInfinity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  GoUint8 *arg2 = (GoUint8 *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  arg2 = *(GoUint8 **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_IsInfinity(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1IsValid(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  GoUint8 *arg2 = (GoUint8 *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  arg2 = *(GoUint8 **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_IsValid(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1Normalize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_Normalize(arg1);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1Equals(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  secp256k1go__XYZ *arg2 = (secp256k1go__XYZ *) 0 ;
-  GoUint8 *arg3 = (GoUint8 *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  arg2 = *(secp256k1go__XYZ **)&jarg2; 
-  arg3 = *(GoUint8 **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_Equals(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1ECmult(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  secp256k1go__XYZ *arg2 = (secp256k1go__XYZ *) 0 ;
-  Number_Handle arg3 ;
-  Number_Handle arg4 ;
-  Number_Handle *argp3 ;
-  Number_Handle *argp4 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  arg2 = *(secp256k1go__XYZ **)&jarg2; 
-  argp3 = *(Number_Handle **)&jarg3; 
-  if (!argp3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg3 = *argp3; 
-  argp4 = *(Number_Handle **)&jarg4; 
-  if (!argp4) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg4 = *argp4; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_ECmult(arg1,arg2,arg3,arg4);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1Neg(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  secp256k1go__XYZ *arg2 = (secp256k1go__XYZ *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  arg2 = *(secp256k1go__XYZ **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_Neg(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1Double(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  secp256k1go__XYZ *arg2 = (secp256k1go__XYZ *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  arg2 = *(secp256k1go__XYZ **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_Double(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1AddXY(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  secp256k1go__XYZ *arg2 = (secp256k1go__XYZ *) 0 ;
-  secp256k1go__XY *arg3 = (secp256k1go__XY *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  arg2 = *(secp256k1go__XYZ **)&jarg2; 
-  arg3 = *(secp256k1go__XY **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_AddXY(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1XYZ_1Add(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  secp256k1go__XYZ *arg2 = (secp256k1go__XYZ *) 0 ;
-  secp256k1go__XYZ *arg3 = (secp256k1go__XYZ *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  arg2 = *(secp256k1go__XYZ **)&jarg2; 
-  arg3 = *(secp256k1go__XYZ **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1go_XYZ_Add(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1ECmultGen(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
-  Number_Handle arg2 ;
-  Number_Handle *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  argp2 = *(Number_Handle **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_ECmultGen(arg1,arg2);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -16235,207 +15335,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1api_1Handle_1GetBu
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ripemd160_1New(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
-  Hash_Handle *arg1 = (Hash_Handle *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(Hash_Handle **)&jarg1; 
-  result = (GoUint32)SKY_ripemd160_New(arg1);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ripemd160_1Write(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, jlong jarg3) {
-  jlong jresult = 0 ;
-  Hash_Handle arg1 ;
-  GoSlice arg2 ;
-  GoInt *arg3 = (GoInt *) 0 ;
-  Hash_Handle *argp1 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(Hash_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Hash_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = *(GoInt **)&jarg3; 
-  result = (GoUint32)SKY_ripemd160_Write(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1ripemd160_1Sum(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_, GoSlice_ * jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  Hash_Handle arg1 ;
-  GoSlice arg2 ;
-  coin__UxArray *arg3 = (coin__UxArray *) 0 ;
-  Hash_Handle *argp1 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  (void)jarg3_;
-  argp1 = *(Hash_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Hash_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = *(coin__UxArray **)&jarg3; 
-  result = (GoUint32)SKY_ripemd160_Sum(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1Create(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jlong jresult = 0 ;
-  Number_Handle *arg1 = (Number_Handle *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(Number_Handle **)&jarg1; 
-  result = (GoUint32)SKY_secp256k1go_Number_Create(arg1);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1Print(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  Number_Handle arg1 ;
-  GoString arg2 ;
-  Number_Handle *argp1 ;
-  GoString *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(Number_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoString **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoString");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_Number_Print(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1SetHex(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  Number_Handle arg1 ;
-  GoString arg2 ;
-  Number_Handle *argp1 ;
-  GoString *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg2_;
-  argp1 = *(Number_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoString **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoString");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_Number_SetHex(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1IsOdd(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
-  jlong jresult = 0 ;
-  Number_Handle arg1 ;
-  GoUint8 *arg2 = (GoUint8 *) 0 ;
-  Number_Handle *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  argp1 = *(Number_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(GoUint8 **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Number_IsOdd(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Number_1IsEqual(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
-  jlong jresult = 0 ;
-  Number_Handle arg1 ;
-  Number_Handle arg2 ;
-  GoUint8 *arg3 = (GoUint8 *) 0 ;
-  Number_Handle *argp1 ;
-  Number_Handle *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  argp1 = *(Number_Handle **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(Number_Handle **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Number_Handle");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = *(GoUint8 **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1go_Number_IsEqual(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1UxOut_1Hash_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, cipher_SecKey* jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   coin__UxOut *arg1 = (coin__UxOut *) 0 ;
@@ -17218,470 +16117,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1cli_1AddPrivateKey
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1GenerateKeyPair(JNIEnv *jenv, jclass jcls, GoSlice_ * jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  coin__UxArray *arg1 = (coin__UxArray *) 0 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(coin__UxArray **)&jarg1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1_GenerateKeyPair(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1PubkeyFromSeckey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1_PubkeyFromSeckey(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1UncompressPubkey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1_UncompressPubkey(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1UncompressedPubkeyFromSeckey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1_UncompressedPubkeyFromSeckey(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1Secp256k1Hash(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1_Secp256k1Hash(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1GenerateDeterministicKeyPair(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_, GoSlice_ * jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  coin__UxArray *arg3 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  arg3 = *(coin__UxArray **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1_GenerateDeterministicKeyPair(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1DeterministicKeyPairIterator(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoSlice_ * jarg2, jobject jarg2_, GoSlice_ * jarg3, jobject jarg3_, GoSlice_ * jarg4, jobject jarg4_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  coin__UxArray *arg2 = (coin__UxArray *) 0 ;
-  coin__UxArray *arg3 = (coin__UxArray *) 0 ;
-  coin__UxArray *arg4 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  (void)jarg4_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(coin__UxArray **)&jarg2; 
-  arg3 = *(coin__UxArray **)&jarg3; 
-  arg4 = *(coin__UxArray **)&jarg4; 
-  result = (GoUint32)SKY_secp256k1_DeterministicKeyPairIterator(arg1,arg2,arg3,arg4);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1Sign(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, GoSlice_ * jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoSlice arg2 ;
-  coin__UxArray *arg3 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = *(coin__UxArray **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1_Sign(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1SignDeterministic(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, GoSlice_ * jarg4, jobject jarg4_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoSlice arg2 ;
-  GoSlice arg3 ;
-  coin__UxArray *arg4 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoSlice *argp2 ;
-  GoSlice *argp3 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  (void)jarg4_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  argp3 = *(GoSlice **)&jarg3; 
-  if (!argp3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg3 = *argp3; 
-  arg4 = *(coin__UxArray **)&jarg4; 
-  result = (GoUint32)SKY_secp256k1_SignDeterministic(arg1,arg2,arg3,arg4);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1VerifySeckey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoInt *arg2 = (GoInt *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(GoInt **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1_VerifySeckey(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1VerifyPubkey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoInt *arg2 = (GoInt *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(GoInt **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1_VerifyPubkey(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1VerifySignatureValidity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoInt *arg2 = (GoInt *) 0 ;
-  GoSlice *argp1 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  arg2 = *(GoInt **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1_VerifySignatureValidity(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1VerifySignature(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, jlong jarg4) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoSlice arg2 ;
-  GoSlice arg3 ;
-  GoInt *arg4 = (GoInt *) 0 ;
-  GoSlice *argp1 ;
-  GoSlice *argp2 ;
-  GoSlice *argp3 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  argp3 = *(GoSlice **)&jarg3; 
-  if (!argp3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg3 = *argp3; 
-  arg4 = *(GoInt **)&jarg4; 
-  result = (GoUint32)SKY_secp256k1_VerifySignature(arg1,arg2,arg3,arg4);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1SignatureErrorString(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_, GoString* jarg4, jobject jarg4_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoSlice arg2 ;
-  GoSlice arg3 ;
-  GoString_ *arg4 = (GoString_ *) 0 ;
-  GoSlice *argp1 ;
-  GoSlice *argp2 ;
-  GoSlice *argp3 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  (void)jarg4_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  argp3 = *(GoSlice **)&jarg3; 
-  if (!argp3) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg3 = *argp3; 
-  arg4 = *(GoString_ **)&jarg4; 
-  result = (GoUint32)SKY_secp256k1_SignatureErrorString(arg1,arg2,arg3,arg4);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1RecoverPubkey(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, GoSlice_ * jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoSlice arg2 ;
-  coin__UxArray *arg3 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = *(coin__UxArray **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1_RecoverPubkey(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1_1ECDH(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, GoSlice_ * jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoSlice arg2 ;
-  coin__UxArray *arg3 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = *(coin__UxArray **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1_ECDH(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1apputil_1CatchInterruptPanic(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   GoUint32 result;
@@ -17763,10 +16198,11 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1certutil_1NewTLSCe
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1VerifyTransactionFee(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg2) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1VerifyTransactionFee(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg2, jlong jarg3) {
   jlong jresult = 0 ;
   Transaction__Handle arg1 ;
   GoUint64 arg2 ;
+  GoUint32 arg3 ;
   Transaction__Handle *argp1 ;
   GoUint32 result;
   
@@ -17804,16 +16240,18 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1VerifyTransac
     }
     (*jenv)->ReleaseByteArrayElements(jenv, ba, bae, 0);
   }
-  result = (GoUint32)SKY_fee_VerifyTransactionFee(arg1,arg2);
+  arg3 = (GoUint32)jarg3; 
+  result = (GoUint32)SKY_fee_VerifyTransactionFee(arg1,arg2,arg3);
   jresult = (jlong)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1VerifyTransactionFeeForHours(JNIEnv *jenv, jclass jcls, jobject jarg1, jobject jarg2) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1VerifyTransactionFeeForHours(JNIEnv *jenv, jclass jcls, jobject jarg1, jobject jarg2, jlong jarg3) {
   jlong jresult = 0 ;
   GoUint64 arg1 ;
   GoUint64 arg2 ;
+  GoUint32 arg3 ;
   GoUint32 result;
   
   (void)jenv;
@@ -17870,16 +16308,18 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1VerifyTransac
     }
     (*jenv)->ReleaseByteArrayElements(jenv, ba, bae, 0);
   }
-  result = (GoUint32)SKY_fee_VerifyTransactionFeeForHours(arg1,arg2);
+  arg3 = (GoUint32)jarg3; 
+  result = (GoUint32)SKY_fee_VerifyTransactionFeeForHours(arg1,arg2,arg3);
   jresult = (jlong)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1RequiredFee(JNIEnv *jenv, jclass jcls, jobject jarg1, jlong jarg2) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1RequiredFee(JNIEnv *jenv, jclass jcls, jobject jarg1, jlong jarg2, jlong jarg3) {
   jlong jresult = 0 ;
   GoUint64 arg1 ;
-  GoUint64 *arg2 = (GoUint64 *) 0 ;
+  GoUint32 arg2 ;
+  GoUint64 *arg3 = (GoUint64 *) 0 ;
   GoUint32 result;
   
   (void)jenv;
@@ -17910,17 +16350,19 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1RequiredFee(J
     }
     (*jenv)->ReleaseByteArrayElements(jenv, ba, bae, 0);
   }
-  arg2 = *(GoUint64 **)&jarg2; 
-  result = (GoUint32)SKY_fee_RequiredFee(arg1,arg2);
+  arg2 = (GoUint32)jarg2; 
+  arg3 = *(GoUint64 **)&jarg3; 
+  result = (GoUint32)SKY_fee_RequiredFee(arg1,arg2,arg3);
   jresult = (jlong)result; 
   return jresult;
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1RemainingHours(JNIEnv *jenv, jclass jcls, jobject jarg1, jlong jarg2) {
+SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1RemainingHours(JNIEnv *jenv, jclass jcls, jobject jarg1, jlong jarg2, jlong jarg3) {
   jlong jresult = 0 ;
   GoUint64 arg1 ;
-  GoUint64 *arg2 = (GoUint64 *) 0 ;
+  GoUint32 arg2 ;
+  GoUint64 *arg3 = (GoUint64 *) 0 ;
   GoUint32 result;
   
   (void)jenv;
@@ -17951,8 +16393,9 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1fee_1RemainingHour
     }
     (*jenv)->ReleaseByteArrayElements(jenv, ba, bae, 0);
   }
-  arg2 = *(GoUint64 **)&jarg2; 
-  result = (GoUint32)SKY_fee_RemainingHours(arg1,arg2);
+  arg2 = (GoUint32)jarg2; 
+  arg3 = *(GoUint64 **)&jarg3; 
+  result = (GoUint32)SKY_fee_RemainingHours(arg1,arg2,arg3);
   jresult = (jlong)result; 
   return jresult;
 }
@@ -18766,419 +17209,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1testutil_1MakeAddr
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1String(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, GoString* jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoString_ *arg2 = (GoString_ *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(GoString_ **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Field_String(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1Print(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoString arg2 ;
-  GoString *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  argp2 = *(GoString **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoString");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_Field_Print(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetB32(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoSlice arg2 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_Field_SetB32(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetBytes(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoSlice arg2 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_Field_SetBytes(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetHex(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoString arg2 ;
-  GoString *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  argp2 = *(GoString **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoString");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_Field_SetHex(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1IsOdd(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoUint8 *arg2 = (GoUint8 *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(GoUint8 **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Field_IsOdd(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1IsZero(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoUint8 *arg2 = (GoUint8 *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(GoUint8 **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Field_IsZero(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetInt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoUint32 arg2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = (GoUint32)jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Field_SetInt(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1Normalize(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  result = (GoUint32)SKY_secp256k1go_Field_Normalize(arg1);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1GetB32(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoSlice arg2 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (GoUint32)SKY_secp256k1go_Field_GetB32(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1Equals(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  secp256k1go__Field *arg2 = (secp256k1go__Field *) 0 ;
-  GoUint8 *arg3 = (GoUint8 *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(secp256k1go__Field **)&jarg2; 
-  arg3 = *(GoUint8 **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1go_Field_Equals(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1SetAdd(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  secp256k1go__Field *arg2 = (secp256k1go__Field *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(secp256k1go__Field **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Field_SetAdd(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1MulInt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  GoUint32 arg2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = (GoUint32)jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Field_MulInt(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1Negate(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  secp256k1go__Field *arg2 = (secp256k1go__Field *) 0 ;
-  GoUint32 arg3 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(secp256k1go__Field **)&jarg2; 
-  arg3 = (GoUint32)jarg3; 
-  result = (GoUint32)SKY_secp256k1go_Field_Negate(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1Inv(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  secp256k1go__Field *arg2 = (secp256k1go__Field *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(secp256k1go__Field **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Field_Inv(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1Sqrt(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  secp256k1go__Field *arg2 = (secp256k1go__Field *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(secp256k1go__Field **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Field_Sqrt(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1InvVar(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  secp256k1go__Field *arg2 = (secp256k1go__Field *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(secp256k1go__Field **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Field_InvVar(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1Mul(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  secp256k1go__Field *arg2 = (secp256k1go__Field *) 0 ;
-  secp256k1go__Field *arg3 = (secp256k1go__Field *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(secp256k1go__Field **)&jarg2; 
-  arg3 = *(secp256k1go__Field **)&jarg3; 
-  result = (GoUint32)SKY_secp256k1go_Field_Mul(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1secp256k1go_1Field_1Sqr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jlong jresult = 0 ;
-  secp256k1go__Field *arg1 = (secp256k1go__Field *) 0 ;
-  secp256k1go__Field *arg2 = (secp256k1go__Field *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(secp256k1go__Field **)&jarg1; 
-  arg2 = *(secp256k1go__Field **)&jarg2; 
-  result = (GoUint32)SKY_secp256k1go_Field_Sqr(arg1,arg2);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1scrypt_1Key(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jlong jarg4, jlong jarg5, jlong jarg6, GoSlice_ * jarg7, jobject jarg7_) {
-  jlong jresult = 0 ;
-  GoSlice arg1 ;
-  GoSlice arg2 ;
-  GoInt arg3 ;
-  GoInt arg4 ;
-  GoInt arg5 ;
-  GoInt arg6 ;
-  coin__UxArray *arg7 = (coin__UxArray *) 0 ;
-  GoSlice *argp1 ;
-  GoSlice *argp2 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg7_;
-  argp1 = *(GoSlice **)&jarg1; 
-  if (!argp1) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg1 = *argp1; 
-  argp2 = *(GoSlice **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null GoSlice");
-    return 0;
-  }
-  arg2 = *argp2; 
-  arg3 = (GoInt)jarg3; 
-  arg4 = (GoInt)jarg4; 
-  arg5 = (GoInt)jarg5; 
-  arg6 = (GoInt)jarg6; 
-  arg7 = *(coin__UxArray **)&jarg7; 
-  result = (GoUint32)SKY_scrypt_Key(arg1,arg2,arg3,arg4,arg5,arg6,arg7);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1cipher_1Ripemd160_1Set(JNIEnv *jenv, jclass jcls, cipher_Ripemd160* jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jlong jresult = 0 ;
   cipher__Ripemd160 *arg1 = (cipher__Ripemd160 *) 0 ;
@@ -19979,7 +18009,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transaction_
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transaction_1Size(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   jlong jresult = 0 ;
   Transaction__Handle arg1 ;
-  GoInt *arg2 = (GoInt *) 0 ;
+  GoUint32 *arg2 = (GoUint32 *) 0 ;
   Transaction__Handle *argp1 ;
   GoUint32 result;
   
@@ -19991,7 +18021,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transaction_
     return 0;
   }
   arg1 = *argp1; 
-  arg2 = *(GoInt **)&jarg2; 
+  arg2 = *(GoUint32 **)&jarg2; 
   result = (GoUint32)SKY_coin_Transaction_Size(arg1,arg2);
   jresult = (jlong)result; 
   return jresult;
@@ -20024,7 +18054,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transaction_
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transaction_1SizeHash(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, cipher_SecKey* jarg3, jobject jarg3_) {
   jlong jresult = 0 ;
   Transaction__Handle arg1 ;
-  GoInt *arg2 = (GoInt *) 0 ;
+  GoUint32 *arg2 = (GoUint32 *) 0 ;
   cipher__SHA256 *arg3 = (cipher__SHA256 *) 0 ;
   Transaction__Handle *argp1 ;
   GoUint32 result;
@@ -20038,7 +18068,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transaction_
     return 0;
   }
   arg1 = *argp1; 
-  arg2 = *(GoInt **)&jarg2; 
+  arg2 = *(GoUint32 **)&jarg2; 
   arg3 = *(cipher__SHA256 **)&jarg3; 
   result = (GoUint32)SKY_coin_Transaction_SizeHash(arg1,arg2,(GoUint8_ (*)[32])arg3);
   jresult = (jlong)result; 
@@ -20364,7 +18394,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transactions
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transactions_1Size(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   jlong jresult = 0 ;
   Transactions__Handle arg1 ;
-  GoInt *arg2 = (GoInt *) 0 ;
+  GoUint32 *arg2 = (GoUint32 *) 0 ;
   Transactions__Handle *argp1 ;
   GoUint32 result;
   
@@ -20376,7 +18406,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transactions
     return 0;
   }
   arg1 = *argp1; 
-  arg2 = *(GoInt **)&jarg2; 
+  arg2 = *(GoUint32 **)&jarg2; 
   result = (GoUint32)SKY_coin_Transactions_Size(arg1,arg2);
   jresult = (jlong)result; 
   return jresult;
@@ -20386,7 +18416,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transactions
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transactions_1TruncateBytesTo(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3) {
   jlong jresult = 0 ;
   Transactions__Handle arg1 ;
-  GoInt arg2 ;
+  GoUint32 arg2 ;
   Transactions__Handle *arg3 = (Transactions__Handle *) 0 ;
   Transactions__Handle *argp1 ;
   GoUint32 result;
@@ -20399,7 +18429,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1coin_1Transactions
     return 0;
   }
   arg1 = *argp1; 
-  arg2 = (GoInt)jarg2; 
+  arg2 = (GoUint32)jarg2; 
   arg3 = *(Transactions__Handle **)&jarg3; 
   result = (GoUint32)SKY_coin_Transactions_TruncateBytesTo(arg1,arg2,arg3);
   jresult = (jlong)result; 
@@ -20641,18 +18671,12 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_api_1_1RichlistParams_1
 SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_api_1_1RichlistParams_1IncludeDistribution_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   api__RichlistParams *arg1 = (api__RichlistParams *) 0 ;
   BOOL arg2 ;
-  BOOL *argp2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(api__RichlistParams **)&jarg1; 
-  argp2 = *(BOOL **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null BOOL");
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (BOOL)jarg2; 
   if (arg1) (arg1)->IncludeDistribution = arg2;
 }
 
@@ -20667,11 +18691,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_api_1_1RichlistParams_1
   (void)jarg1_;
   arg1 = *(api__RichlistParams **)&jarg1; 
   result =  ((arg1)->IncludeDistribution);
-  {
-    BOOL * resultptr = (BOOL *) malloc(sizeof(BOOL));
-    memmove(resultptr, &result, sizeof(BOOL));
-    *(BOOL **)&jresult = resultptr;
-  }
+  jresult = (jlong)result; 
   return jresult;
 }
 
@@ -21248,18 +19268,12 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_secp256k1go_1_1XY_1Y_1g
 SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_secp256k1go_1_1XY_1Infinity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   secp256k1go__XY *arg1 = (secp256k1go__XY *) 0 ;
   BOOL arg2 ;
-  BOOL *argp2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(secp256k1go__XY **)&jarg1; 
-  argp2 = *(BOOL **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null BOOL");
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (BOOL)jarg2; 
   if (arg1) (arg1)->Infinity = arg2;
 }
 
@@ -21274,11 +19288,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_secp256k1go_1_1XY_1Infi
   (void)jarg1_;
   arg1 = *(secp256k1go__XY **)&jarg1; 
   result =  ((arg1)->Infinity);
-  {
-    BOOL * resultptr = (BOOL *) malloc(sizeof(BOOL));
-    memmove(resultptr, &result, sizeof(BOOL));
-    *(BOOL **)&jresult = resultptr;
-  }
+  jresult = (jlong)result; 
   return jresult;
 }
 
@@ -21395,18 +19405,12 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_secp256k1go_1_1XYZ_1Z_1
 SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_secp256k1go_1_1XYZ_1Infinity_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
   secp256k1go__XYZ *arg1 = (secp256k1go__XYZ *) 0 ;
   BOOL arg2 ;
-  BOOL *argp2 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   arg1 = *(secp256k1go__XYZ **)&jarg1; 
-  argp2 = *(BOOL **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null BOOL");
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = (BOOL)jarg2; 
   if (arg1) (arg1)->Infinity = arg2;
 }
 
@@ -21421,11 +19425,7 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_secp256k1go_1_1XYZ_1Inf
   (void)jarg1_;
   arg1 = *(secp256k1go__XYZ **)&jarg1; 
   result =  ((arg1)->Infinity);
-  {
-    BOOL * resultptr = (BOOL *) malloc(sizeof(BOOL));
-    memmove(resultptr, &result, sizeof(BOOL));
-    *(BOOL **)&jresult = resultptr;
-  }
+  jresult = (jlong)result; 
   return jresult;
 }
 
@@ -21540,30 +19540,6 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_delete_1cli_1_1SendAmoun
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_coin_1_1Transaction_1setInnerHash(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  jint jresult = 0 ;
-  coin__Transaction *arg1 = (coin__Transaction *) 0 ;
-  cipher_SHA256 arg2 ;
-  cipher_SHA256 *argp2 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(coin__Transaction **)&jarg1; 
-  argp2 = *(cipher_SHA256 **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null cipher_SHA256");
-    return 0;
-  }
-  arg2 = *argp2; 
-  result = (int)coin__Transaction_setInnerHash(arg1,arg2);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_coin_1_1Transaction_1isEqual(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   jint jresult = 0 ;
   coin__Transaction *arg1 = (coin__Transaction *) 0 ;
@@ -21597,6 +19573,30 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_coin_1_1Transaction_1Ge
     memmove(resultptr, &result, sizeof(cipher_SHA256));
     *(cipher_SHA256 **)&jresult = resultptr;
   }
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_coin_1_1Transaction_1setInnerHash(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  coin__Transaction *arg1 = (coin__Transaction *) 0 ;
+  cipher_SHA256 arg2 ;
+  cipher_SHA256 *argp2 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(coin__Transaction **)&jarg1; 
+  argp2 = *(cipher_SHA256 **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null cipher_SHA256");
+    return 0;
+  }
+  arg2 = *argp2; 
+  result = (int)coin__Transaction_setInnerHash(arg1,arg2);
+  jresult = (jint)result; 
   return jresult;
 }
 
