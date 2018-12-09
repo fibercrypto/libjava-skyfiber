@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="skycoin.libjava.cipher_addressTest" time="3.61" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="skycoin.libjava.cipher_addressTest" time="4.142" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
     <property name="file.encoding.pkg" value="sun.io"/>
@@ -16,7 +16,7 @@
     <property name="user.country" value="ES"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
-    <property name="sun.java.command" value="org.apache.maven.surefire.booter.ForkedBooter /home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/surefire 2018-12-08T22-00-09_038-jvmRun1 surefire8276479351130694237tmp surefire_02153064897970952075tmp"/>
+    <property name="sun.java.command" value="org.apache.maven.surefire.booter.ForkedBooter /home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/surefire 2018-12-09T14-50-32_428-jvmRun1 surefire8662105658124205637tmp surefire_01719077956033074927tmp"/>
     <property name="surefire.test.class.path" value="/home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/test-classes:/home/maykel/go/src/github.com/skycoin/libjava-skycoin/target/classes:/home/maykel/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/maykel/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/home/maykel"/>
@@ -34,7 +34,7 @@
     <property name="java.runtime.version" value="1.8.0_191-8u191-b12-0ubuntu0.18.04.1-b12"/>
     <property name="user.name" value="maykel"/>
     <property name="path.separator" value=":"/>
-    <property name="os.version" value="4.15.0-42-generic"/>
+    <property name="os.version" value="4.15.0-43-generic"/>
     <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/endorsed"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
@@ -48,7 +48,7 @@
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
     <property name="sun.os.patch.level" value="unknown"/>
-    <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
+    <property name="java.library.path" value="/tmp/.mount_eDEX-U1qm2vQ/usr/lib::/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.vendor" value="Oracle Corporation"/>
     <property name="java.vm.version" value="25.191-b12"/>
@@ -56,10 +56,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="TestDecodeBase58Address" classname="skycoin.libjava.cipher_addressTest" time="0.005"/>
-  <testcase name="TestAddressRoundtrip" classname="skycoin.libjava.cipher_addressTest" time="0.004"/>
+  <testcase name="TestDecodeBase58Address" classname="skycoin.libjava.cipher_addressTest" time="0.007"/>
+  <testcase name="TestAddressRoundtrip" classname="skycoin.libjava.cipher_addressTest" time="0.003"/>
   <testcase name="TestAddressFromBytes" classname="skycoin.libjava.cipher_addressTest" time="0.003"/>
-  <testcase name="TestAddressVerify" classname="skycoin.libjava.cipher_addressTest" time="0.006"/>
-  <testcase name="TestAddressBulk" classname="skycoin.libjava.cipher_addressTest" time="3.585"/>
-  <testcase name="TestAddressNull" classname="skycoin.libjava.cipher_addressTest" time="0.003"/>
+  <testcase name="TestAddressVerify" classname="skycoin.libjava.cipher_addressTest" time="0.005"/>
+  <testcase name="TestAddressBulk" classname="skycoin.libjava.cipher_addressTest" time="4.115"/>
+  <testcase name="TestAddressNull" classname="skycoin.libjava.cipher_addressTest" time="0.004"/>
 </testsuite>

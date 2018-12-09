@@ -751,6 +751,9 @@ static coin__Block* coin__BlockPtr_value(coin__Block* *obj) {
 }
 
 
+typedef unsigned long long* GoIntPtr2; 
+
+
 #if defined(SWIG_NOINCLUDE) || defined(SWIG_NOARRAYS)
 
 
