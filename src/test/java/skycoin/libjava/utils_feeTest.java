@@ -189,7 +189,8 @@ public class utils_feeTest extends skycoin {
             utils.toBigInteger(1000000 - 3000000 + 1))));
     assertEquals("txn has overflowing output hours", err, SKY_OK);
     err = SKY_fee_VerifyTransactionFee(txn, utils.toBigInteger(10), 2);
-    assertEquals("SKY_fee_VerifyTransactionFee failed", err, SKY_ErrTxnInsufficientFee);
+    assertEquals("SKY_fee_VerifyTransactionFee failed", err,
+                 SKY_ErrTxnInsufficientFee);
 
     int len = burnFactor2verifyTxFeeTestCase.length;
     for (int i = 0; i < len; i++) {
@@ -203,6 +204,259 @@ public class utils_feeTest extends skycoin {
       err = SKY_fee_VerifyTransactionFee(
           txn, utils.toBigInteger(tc.inputHours - tc.ouputHours), 2);
       assertEquals(tc.err, err);
+    }
+  }
+
+  class requiredFeeTestCase {
+    public long hours;
+    public long fee;
+  }
+
+  requiredFeeTestCase[] burnFactor2verifyTxFeeTestCase2 =
+      new requiredFeeTestCase[12];
+
+  public void FullburnFactor2RequiredFeeTestCases2() {
+    requiredFeeTestCase cases = new requiredFeeTestCase();
+    cases.hours = 0;
+    cases.fee = 0;
+    burnFactor2verifyTxFeeTestCase2[0] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 1;
+    cases.fee = 1;
+    burnFactor2verifyTxFeeTestCase2[1] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 2;
+    cases.fee = 1;
+    burnFactor2verifyTxFeeTestCase2[2] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 3;
+    cases.fee = 2;
+    burnFactor2verifyTxFeeTestCase2[3] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 4;
+    cases.fee = 2;
+    burnFactor2verifyTxFeeTestCase2[4] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 5;
+    cases.fee = 3;
+    burnFactor2verifyTxFeeTestCase2[5] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 6;
+    cases.fee = 3;
+    burnFactor2verifyTxFeeTestCase2[6] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 7;
+    cases.fee = 4;
+    burnFactor2verifyTxFeeTestCase2[7] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 998;
+    cases.fee = 499;
+    burnFactor2verifyTxFeeTestCase2[8] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 999;
+    cases.fee = 500;
+    burnFactor2verifyTxFeeTestCase2[9] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 1000;
+    cases.fee = 500;
+    burnFactor2verifyTxFeeTestCase2[10] = cases;
+    cases = new requiredFeeTestCase();
+    cases.hours = 1001;
+    cases.fee = 501;
+    burnFactor2verifyTxFeeTestCase2[11] = cases;
+  }
+
+  @Test
+  public void TestRequiredFee() {
+    FullburnFactor2RequiredFeeTestCases2();
+    requiredFeeTestCase[] cases = burnFactor2verifyTxFeeTestCase2;
+
+    for (int i = 0; i < cases.length; i++) {
+      requiredFeeTestCase tc = burnFactor2verifyTxFeeTestCase2[i];
+      SWIGTYPE_p_unsigned_long_long fee = new_GoUint64Ptr();
+      long err = SKY_fee_RequiredFee(utils.toBigInteger(tc.hours), 2, fee);
+      assertEquals(err, SKY_OK);
+      assertEquals(utils.toBigInteger(tc.fee), GoUint64Ptr_value(fee));
+      SWIGTYPE_p_unsigned_long_long remainingHours = new_GoUint64Ptr();
+      err = SKY_fee_RemainingHours(utils.toBigInteger(tc.hours), 2,
+                                   remainingHours);
+      assertEquals(err, SKY_OK);
+      assertEquals(
+          utils.toBigInteger(tc.hours).subtract(GoUint64Ptr_value(fee)),
+          GoUint64Ptr_value(remainingHours));
+    }
+  }
+
+  class uxInput {
+    public long time;
+    public long coins;
+    public long hours;
+
+    public void setTime(long pTime) { time = pTime; }
+
+    public void setCoins(long pCoins) { coins = pCoins; }
+
+    public void setHours(long pHours) { hours = pHours; }
+
+    public uxInput() {
+      time = 0;
+      coins = 0;
+      hours = 0;
+    }
+  }
+
+  class StrTest {
+    public long[] outs;
+    public uxInput[] ins;
+    public long headTime;
+    public long fee;
+    public int err;
+
+    public StrTest() {
+      headTime = 0;
+      outs = new long[0];
+      ins = new uxInput[0];
+      fee = 0;
+      err = SKY_OK;
+    }
+  }
+
+  StrTest[] ListCases;
+
+  public void FullCases() {
+    ListCases = new StrTest[5];
+    long headTime = 1000;
+    long nextTime = (headTime + 3600); // 1 hour later
+
+    StrTest cases = new StrTest();
+    cases.fee = 5;
+    cases.outs = new long[1];
+    cases.outs[0] = 5;
+    cases.ins = new uxInput[1];
+    uxInput pInput = new uxInput();
+
+    pInput.setTime(headTime);
+    pInput.setCoins(10000000);
+    pInput.setHours(10);
+    cases.ins[0] = pInput;
+    cases.headTime = headTime;
+    ListCases[0] = cases;
+
+    cases = new StrTest();
+    cases.fee = 0;
+    cases.outs = new long[3];
+    cases.outs[0] = 5;
+    cases.outs[1] = 7;
+    cases.outs[2] = 3;
+    cases.ins = new uxInput[2];
+    pInput = new uxInput();
+
+    pInput.setTime(headTime);
+    pInput.setCoins(10000000);
+    pInput.setHours(10);
+    cases.ins[0] = pInput;
+    pInput = new uxInput();
+
+    pInput.setTime(headTime);
+    pInput.setCoins(10000000);
+    pInput.setHours(5);
+    cases.ins[1] = pInput;
+    cases.headTime = headTime;
+    ListCases[1] = cases;
+
+    cases = new StrTest();
+    cases.fee = 8;
+    cases.outs = new long[2];
+    cases.outs[0] = 5;
+    cases.outs[1] = 10;
+    cases.ins = new uxInput[2];
+    pInput = new uxInput();
+    pInput.setTime(nextTime);
+    pInput.setCoins(10000000);
+    pInput.setHours(10);
+    cases.ins[0] = pInput;
+    pInput = new uxInput();
+    pInput.setTime(headTime);
+    pInput.setCoins(8000000);
+    pInput.setHours(5);
+    cases.ins[1] = pInput;
+    cases.headTime = nextTime;
+    ListCases[2] = cases;
+
+    cases = new StrTest();
+    cases.err = SKY_ErrTxnInsufficientCoinHours;
+    cases.outs = new long[3];
+    cases.outs[0] = 5;
+    cases.outs[1] = 10;
+    cases.outs[2] = 1;
+    cases.ins = new uxInput[2];
+    pInput = new uxInput();
+    pInput.setTime(headTime);
+    pInput.setCoins(10000000);
+    pInput.setHours(10);
+    cases.ins[0] = pInput;
+    pInput = new uxInput();
+    pInput.setTime(headTime);
+    pInput.setCoins(8000000);
+    pInput.setHours(5);
+    cases.ins[1] = pInput;
+    cases.headTime = headTime;
+    ListCases[3] = cases;
+
+    cases = new StrTest();
+    cases.err = SKY_ErrTxnInsufficientCoinHours;
+    cases.outs = new long[3];
+    cases.outs[0] = 0;
+    cases.outs[1] = 10;
+    cases.outs[2] = utils.bigIntegerMaxValue.longValue() - 9;
+    cases.ins = new uxInput[2];
+    pInput = new uxInput();
+    pInput.setTime(headTime);
+    pInput.setCoins(10000000);
+    pInput.setHours(10);
+    cases.ins[0] = pInput;
+    pInput = new uxInput();
+    pInput.setTime(headTime);
+    pInput.setCoins(10000000);
+    pInput.setHours(100);
+    cases.ins[1] = pInput;
+    cases.headTime = headTime;
+    ListCases[4] = cases;
+  }
+
+  @Test
+  public void TestTransactionFee() {
+    FullCases();
+    cipher__Address addr = utils.makeAddress();
+    for (int i = 0; i < ListCases.length; i++) {
+      StrTest tc = ListCases[i];
+      SWIGTYPE_p_Transaction__Handle tx = utils.makeEmptyTransaction();
+      for (int j = 0; j < tc.outs.length; j++) {
+        long h = tc.outs[j];
+        long err1 = SKY_coin_Transaction_PushOutput(
+            tx, addr, utils.toBigInteger(0), utils.toBigInteger(h));
+        assertEquals(err1, SKY_OK);
+      }
+      coin_UxOutArray inUxs = utils.makeUxOutArray(tc.ins.length);
+      assertEquals(inUxs.getCount(), tc.ins.length);
+      for (int j = 0; j < tc.ins.length; j++) {
+        uxInput b = tc.ins[j];
+        coin__UxOut ux = new coin__UxOut();
+        coin__UxHead pHead = ux.getHead();
+        coin__UxBody pBody = ux.getBody();
+        pHead.setTime(utils.toBigInteger(b.time));
+        pBody.setCoins(utils.toBigInteger(b.coins));
+        pBody.setHours(utils.toBigInteger(b.hours));
+        ux.setHead(pHead);
+        ux.setBody(pBody);
+        inUxs.setAt(j, ux);
+      }
+      SWIGTYPE_p_unsigned_long_long fee = new_GoUint64Ptr();
+      long err = SKY_fee_TransactionFee(tx, utils.toBigInteger(tc.headTime),
+                                        inUxs, fee);
+      assertEquals("Iteracion "+i,err, tc.err);
+      BigInteger fee_v = GoUint64Ptr_value(fee);
+      assertEquals(fee_v.longValue(), tc.fee);
     }
   }
 }
