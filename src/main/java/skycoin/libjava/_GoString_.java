@@ -39,6 +39,14 @@ public class _GoString_ {
     return skycoinJNI._GoString__SetString(swigCPtr, this, str);
   }
 
+  public String getString() {
+    return skycoinJNI._GoString__getString(swigCPtr, this);
+  }
+
+  public int isEqual(_GoString_ string2) {
+    return skycoinJNI._GoString__isEqual(swigCPtr, this, _GoString_.getCPtr(string2), string2);
+  }
+
   public void setP(String value) {
     skycoinJNI._GoString__p_set(swigCPtr, this, value);
   }

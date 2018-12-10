@@ -348,6 +348,8 @@ public class skycoinJNI {
   public final static native long new_Fee_Calculator();
   public final static native void delete_Fee_Calculator(long jarg1);
   public final static native int _GoString__SetString(long jarg1, _GoString_ jarg1_, String jarg2);
+  public final static native String _GoString__getString(long jarg1, _GoString_ jarg1_);
+  public final static native int _GoString__isEqual(long jarg1, _GoString_ jarg1_, long jarg2, _GoString_ jarg2_);
   public final static native void _GoString__p_set(long jarg1, _GoString_ jarg1_, String jarg2);
   public final static native String _GoString__p_get(long jarg1, _GoString_ jarg1_);
   public final static native void _GoString__n_set(long jarg1, _GoString_ jarg1_, int jarg2);
@@ -364,6 +366,7 @@ public class skycoinJNI {
   public final static native void GoSlice_convertString(long jarg1, GoSlice jarg1_, long jarg2, _GoString_ jarg2_);
   public final static native void GoSlice_setAtChar(long jarg1, GoSlice jarg1_, char jarg2, long jarg3);
   public final static native void GoSlice_getString(long jarg1, GoSlice jarg1_, long jarg2, _GoString_ jarg2_);
+  public final static native int GoSlice_getAtString(long jarg1, GoSlice jarg1_, int jarg2, long jarg3, _GoString_ jarg3_);
   public final static native void GoSlice_data_set(long jarg1, GoSlice jarg1_, long jarg2);
   public final static native long GoSlice_data_get(long jarg1, GoSlice jarg1_);
   public final static native void GoSlice_len_set(long jarg1, GoSlice jarg1_, long jarg2);

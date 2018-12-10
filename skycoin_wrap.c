@@ -2758,6 +2758,13 @@ SWIGINTERN int _GoString__SetString(_GoString_ *self,char *str){
 		self->p = str;
 		self->n = strlen(str);
 	}
+SWIGINTERN char *_GoString__getString(_GoString_ *self){
+		return (const char *)self->p;
+	}
+SWIGINTERN int _GoString__isEqual(_GoString_ *self,_GoString_ *string2){
+  return (self->n == string2->n) &&
+         (strcmp((char *)self->p, (char *)string2->p) == 0);
+}
 SWIGINTERN int GoSlice_isEqual(GoSlice *self,GoSlice *slice){
 		return ((self->len == slice->len)) && (memcmp(self->data,slice->data, sizeof(GoSlice_))==0 );
 	}
@@ -2772,6 +2779,21 @@ SWIGINTERN void GoSlice_setAtChar(GoSlice *self,char p,long long i){
 SWIGINTERN void GoSlice_getString(GoSlice *self,_GoString_ *out){
 	out->p = (char *)self->data;
 	out->n = strlen((char *)self->data);
+}
+SWIGINTERN int GoSlice_getAtString(GoSlice *self,int index,_GoString_ *outs){
+	int i;
+	_GoString_ *iStr;
+	char *out;
+	for (i = 0, iStr = (_GoString_ *)self->data; i < self->len; ++i, ++iStr)
+	{
+		if (index == i)
+		{
+			out = _GoString__getString(iStr);
+			_GoString__SetString(outs,out);
+			return 0;
+		}
+	}
+	return 1;
 }
 SWIGINTERN int cipher__Address_isEqual(cipher__Address *self,cipher__Address *a){
 		if( self->Version == a->Version ){
@@ -8452,6 +8474,39 @@ SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI__1GoString_1_1SetString(
 }
 
 
+SWIGEXPORT jstring JNICALL Java_skycoin_libjava_skycoinJNI__1GoString_1_1getString(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  _GoString_ *arg1 = (_GoString_ *) 0 ;
+  char *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(_GoString_ **)&jarg1; 
+  result = (char *)_GoString__getString(arg1);
+  if (result) jresult = (*jenv)->NewStringUTF(jenv, (const char *)result);
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI__1GoString_1_1isEqual(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  jint jresult = 0 ;
+  _GoString_ *arg1 = (_GoString_ *) 0 ;
+  _GoString_ *arg2 = (_GoString_ *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(_GoString_ **)&jarg1; 
+  arg2 = *(_GoString_ **)&jarg2; 
+  result = (int)_GoString__isEqual(arg1,arg2);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI__1GoString_1_1p_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
   _GoString_ *arg1 = (_GoString_ *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -8685,6 +8740,26 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_GoSlice_1getString(JNIEn
   arg1 = *(GoSlice **)&jarg1; 
   arg2 = *(_GoString_ **)&jarg2; 
   GoSlice_getString(arg1,arg2);
+}
+
+
+SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_GoSlice_1getAtString(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jint jresult = 0 ;
+  GoSlice *arg1 = (GoSlice *) 0 ;
+  int arg2 ;
+  _GoString_ *arg3 = (_GoString_ *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(GoSlice **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(_GoString_ **)&jarg3; 
+  result = (int)GoSlice_getAtString(arg1,arg2,arg3);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 

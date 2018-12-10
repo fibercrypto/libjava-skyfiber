@@ -51,6 +51,10 @@ public class GoSlice {
     skycoinJNI.GoSlice_getString(swigCPtr, this, _GoString_.getCPtr(out), out);
   }
 
+  public int getAtString(int index, _GoString_ outs) {
+    return skycoinJNI.GoSlice_getAtString(swigCPtr, this, index, _GoString_.getCPtr(outs), outs);
+  }
+
   public void setData(SWIGTYPE_p_void value) {
     skycoinJNI.GoSlice_data_set(swigCPtr, this, SWIGTYPE_p_void.getCPtr(value));
   }
