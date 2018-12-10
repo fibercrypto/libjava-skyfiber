@@ -58,4 +58,5 @@ build-libjava:
 	
 	
 test: build-libc build-swig build-libjava
-	mvn test -e
+	mvn clean
+	mvn test
