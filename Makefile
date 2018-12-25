@@ -52,7 +52,7 @@ build-swig:
  build-libc-swig: build-libc build-swig
 
 build-libjava:
-	gcc -c -fpic -I /usr/lib/jvm/java-8-openjdk-amd64/include/  -I /usr/lib/jvm/java-8-openjdk-amd64/include/linux -I swig/include -I$(INCLUDE_DIR) skycoin_wrap.c
+	gcc -c -fpic -I /usr/lib/jvm/default-java/include -I /usr/lib/jvm/default-java/include/linux -I swig/include -I$(INCLUDE_DIR) skycoin_wrap.c
 	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o libskycoin.so
 	sudo cp libskycoin.so /lib
 	
