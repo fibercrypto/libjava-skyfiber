@@ -18,7 +18,9 @@ matrix:
       jdk: oraclejdk11
 
 install:
-  - sh ./.travis/install-travis.sh
+  - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then bash ./.travis/install-linux.sh ; fi
+  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then bash ./.travis/install-os.sh; fi  
+  - cd $TRAVIS_BUILD_DIR
   - eval "$(gimme 1.11)"
 
 script:
