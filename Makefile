@@ -19,6 +19,7 @@ HEADER_FILES = $(shell find $(SKYCOIN_DIR)/include -type f -name "*.h")
 OSNAME = $(TRAVIS_OS_NAME)
 OS = 
 JAVA_HOME = 
+LDFLAGS =
 ifeq ($(shell uname -s),Linux)
   JAVA_HOME = $(shell readlink -f /usr/bin/javac | sed "s:/bin/javac::")
   OS = linux
@@ -31,6 +32,7 @@ ifndef OSNAME
 endif
   JAVA_HOME = $(shell /usr/libexec/java_home)
   OS = darwin
+  LDFLAGS = -framework CoreFoundation -framework Security
 else
   
 endif
@@ -73,7 +75,7 @@ build-swig:
 
 build-libjava:
 	gcc -c -fpic -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/$(OS) -I swig/include -I$(INCLUDE_DIR) skycoin_wrap.c
-	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o libskycoin.so
+	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o libskycoin.so $(LDFLAGS)
 	sudo cp libskycoin.so /lib
 	
 	
