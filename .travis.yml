@@ -18,9 +18,7 @@ matrix:
       jdk: oraclejdk11
 
 install:
-  - sh ./.travis/install-travis-gcc.sh
-  - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then sudo apt install swig -y ; fi
-  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null  && brew install swig && brew install gimme; fi
+  - sh ./.travis/install-travis.sh
   - eval "$(gimme 1.11)"
 
 script:
