@@ -15,6 +15,26 @@ SRC_FILES = $(shell find $(SKYCOIN_DIR)/src -type f -name "*.go")
 SWIG_FILES = $(shell find $(LIBSWIG_DIR) -type f -name "*.i")
 HEADER_FILES = $(shell find $(SKYCOIN_DIR)/include -type f -name "*.h")
 
+# Platform specific checks
+OSNAME = $(TRAVIS_OS_NAME)
+OS = 
+JAVA_HOME = 
+ifeq ($(shell uname -s),Linux)
+  JAVA_HOME = $(shell readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+  OS = linux
+ifndef OSNAME
+  OSNAME = linux
+endif
+else ifeq ($(shell uname -s),Darwin)
+ifndef OSNAME
+  OSNAME = Darwin
+endif
+  JAVA_HOME = /usr/libexec/java_home
+  OS = darwin
+else
+  
+endif
+
 configure:
 	mkdir -p $(BUILD_DIR)/usr/tmp $(BUILD_DIR)/usr/lib $(BUILD_DIR)/usr/include
 	mkdir -p $(BUILDLIBC_DIR) $(BIN_DIR) $(INCLUDE_DIR)
@@ -52,7 +72,7 @@ build-swig:
  build-libc-swig: build-libc build-swig
 
 build-libjava:
-	gcc -c -fpic -I /usr/lib/jvm/default-java/include -I /usr/lib/jvm/default-java/include/linux -I swig/include -I$(INCLUDE_DIR) skycoin_wrap.c
+	gcc -c -fpic -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/$(OS) -I swig/include -I$(INCLUDE_DIR) skycoin_wrap.c
 	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o libskycoin.so
 	sudo cp libskycoin.so /lib
 	
