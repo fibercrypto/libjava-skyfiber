@@ -29,7 +29,7 @@ else ifeq ($(shell uname -s),Darwin)
 ifndef OSNAME
   OSNAME = Darwin
 endif
-  JAVA_HOME = /usr/libexec/java_home
+  JAVA_HOME = $(shell /usr/libexec/java_home)
   OS = darwin
 else
   
