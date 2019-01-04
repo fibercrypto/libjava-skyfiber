@@ -1425,34 +1425,8 @@ FeeCalculator overflow(){
 		}
 	}
 
-	int registerJsonFree(void *p)
-	{
-		int i;
-		for (i = 0; i < JSONPOOLIDX; i++)
-		{
-			if (JSON_POOL[i] == NULL)
-			{
-				JSON_POOL[i] = p;
-				return i;
-			}
-		}
-		JSON_POOL[JSONPOOLIDX++] = p;
-		return JSONPOOLIDX - 1;
-	}
 
-	void freeRegisteredJson(void *p)
-	{
-		int i;
-		for (i = 0; i < JSONPOOLIDX; i++)
-		{
-			if (JSON_POOL[i] == p)
-			{
-				JSON_POOL[i] = NULL;
-				json_value_free((json_value *)p);
-				break;
-			}
-		}
-	}
+
 
 	int registerWalletClean(Client__Handle clientHandle,
 													WalletResponse__Handle walletHandle)
@@ -1563,47 +1537,6 @@ FeeCalculator overflow(){
 		}
 	}
 
-	void cleanupMem()
-	{
-		int i;
-
-		for (i = 0; i < WALLETPOOLIDX; i++)
-		{
-			if (WALLET_POOL[i].client != 0 && WALLET_POOL[i].wallet != 0)
-			{
-				cleanupWallet(WALLET_POOL[i].client, WALLET_POOL[i].wallet);
-			}
-		}
-
-		void **ptr;
-		for (i = MEMPOOLIDX, ptr = MEMPOOL; i; --i)
-		{
-			if (*ptr)
-				free(*ptr);
-			ptr++;
-		}
-		for (i = JSONPOOLIDX, ptr = (void *)JSON_POOL; i; --i)
-		{
-			if (*ptr)
-				json_value_free(*ptr);
-			ptr++;
-		}
-		for (i = 0; i < HANDLEPOOLIDX; i++)
-		{
-			if (HANDLE_POOL[i])
-				SKY_handle_close(HANDLE_POOL[i]);
-		}
-	}
-
-	void setup(void)
-	{
-		srand((unsigned int)time(NULL));
-	}
-
-	void teardown(void)
-	{
-		cleanupMem();
-	}
 
 	// TODO: Move to libsky_io.c
 	void fprintbuff(FILE * f, void *buff, size_t n)
@@ -2119,20 +2052,8 @@ memcpy(__out->data, __in, 32);
 	}
 
 
-	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_cipher_ChkSig(cipher__Address *a,cipher_SHA256 *sha,cipher_Sig *s){
-		GoUint32 result = SKY_cipher_ChkSig(a,sha,s);
-		return result;
-	}
-
-
 	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_cipher_PubKeyFromSig(cipher_Sig *sig,cipher_SHA256 *h,cipher_PubKey *p){
 		GoUint32 result = SKY_cipher_PubKeyFromSig(sig,h,p);
-		return result;
-	}
-
-
-	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_cipher_VerifySignature(cipher_PubKey *p,cipher_Sig *sig,cipher_SHA256 *h){
-		GoUint32 result = SKY_cipher_VerifySignature(p,sig,h);
 		return result;
 	}
 
@@ -5112,30 +5033,6 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_freeRegisteredMemCleanup
 }
 
 
-SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_registerJsonFree(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  jint jresult = 0 ;
-  void *arg1 = (void *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(void **)&jarg1; 
-  result = (int)registerJsonFree(arg1);
-  jresult = (jint)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_freeRegisteredJson(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  void *arg1 = (void *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(void **)&jarg1; 
-  freeRegisteredJson(arg1);
-}
-
-
 SWIGEXPORT jint JNICALL Java_skycoin_libjava_skycoinJNI_registerWalletClean(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2) {
   jint jresult = 0 ;
   Client__Handle arg1 ;
@@ -5237,27 +5134,6 @@ SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_cleanRegisteredWallet(JN
   }
   arg2 = *argp2; 
   cleanRegisteredWallet(arg1,arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_cleanupMem(JNIEnv *jenv, jclass jcls) {
-  (void)jenv;
-  (void)jcls;
-  cleanupMem();
-}
-
-
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_setup(JNIEnv *jenv, jclass jcls) {
-  (void)jenv;
-  (void)jcls;
-  setup();
-}
-
-
-SWIGEXPORT void JNICALL Java_skycoin_libjava_skycoinJNI_teardown(JNIEnv *jenv, jclass jcls) {
-  (void)jenv;
-  (void)jcls;
-  teardown();
 }
 
 
@@ -5781,27 +5657,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1cipher_1SignHash_1
 }
 
 
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1cipher_1ChkSig(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  cipher__Address *arg1 = (cipher__Address *) 0 ;
-  cipher_SHA256 *arg2 = (cipher_SHA256 *) 0 ;
-  cipher_Sig *arg3 = (cipher_Sig *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  arg1 = *(cipher__Address **)&jarg1; 
-  arg2 = *(cipher_SHA256 **)&jarg2; 
-  arg3 = *(cipher_Sig **)&jarg3; 
-  result = (GoUint32)Java_skycoin_libjava_skycoinJNI_SKY_cipher_ChkSig(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1cipher_1PubKeyFromSig_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
   jlong jresult = 0 ;
   cipher_Sig *arg1 = (cipher_Sig *) 0 ;
@@ -5818,27 +5673,6 @@ SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1cipher_1PubKeyFrom
   arg2 = *(cipher_SHA256 **)&jarg2; 
   arg3 = *(cipher_PubKey **)&jarg3; 
   result = (GoUint32)Java_skycoin_libjava_skycoinJNI_SKY_cipher_PubKeyFromSig(arg1,arg2,arg3);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_skycoin_libjava_skycoinJNI_SKY_1cipher_1VerifySignature(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jlong jarg3, jobject jarg3_) {
-  jlong jresult = 0 ;
-  cipher_PubKey *arg1 = (cipher_PubKey *) 0 ;
-  cipher_Sig *arg2 = (cipher_Sig *) 0 ;
-  cipher_SHA256 *arg3 = (cipher_SHA256 *) 0 ;
-  GoUint32 result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  (void)jarg3_;
-  arg1 = *(cipher_PubKey **)&jarg1; 
-  arg2 = *(cipher_Sig **)&jarg2; 
-  arg3 = *(cipher_SHA256 **)&jarg3; 
-  result = (GoUint32)Java_skycoin_libjava_skycoinJNI_SKY_cipher_VerifySignature(arg1,arg2,arg3);
   jresult = (jlong)result; 
   return jresult;
 }
