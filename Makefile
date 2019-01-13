@@ -23,6 +23,8 @@ LDFLAGS =
 ifeq ($(shell uname -s),Linux)
   JAVA_HOME = $(shell readlink -f /usr/bin/javac | sed "s:/bin/javac::")
   OS = linux
+  LDPATH=$(shell printenv LD_LIBRARY_PATH)
+  LDPATHVAR=LD_LIBRARY_PATH
 ifndef OSNAME
   OSNAME = linux
 endif
@@ -33,6 +35,8 @@ endif
   JAVA_HOME = $(shell /usr/libexec/java_home)
   OS = darwin
   LDFLAGS = -framework CoreFoundation -framework Security
+  LDPATH=$(shell printenv DYLD_LIBRARY_PATH)
+  LDPATHVAR=DYLD_LIBRARY_PATH
 else
   
 endif
@@ -75,11 +79,10 @@ build-swig:
 
 build-libjava:
 	gcc -c -fpic -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/$(OS) -I swig/include -I$(INCLUDE_DIR) skycoin_wrap.c
-	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o libskycoin.so $(LDFLAGS)
-	sudo cp libskycoin.so /lib
+	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o $(PWD)/build/usr/lib/libskycoin.so $(LDFLAGS)
 	
 	
 test: build-libc build-swig build-libjava
 	mvn clean
-	mvn test
+	$(LDPATHVAR)="$(PWD)/build/usr/lib/:$(LDPATHVAR)" mvn test
 	mvn clean
