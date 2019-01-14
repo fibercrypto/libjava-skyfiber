@@ -80,7 +80,7 @@ build-swig:
 build-libjava:
 	gcc -c -fpic -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/$(OS) -I swig/include -I$(INCLUDE_DIR) skycoin_wrap.c
 	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o $(PWD)/build/usr/lib/libskycoin.so $(LDFLAGS)
-	cp $(PWD)/build/usr/lib/libskycoin.so /usr/lib/
+	sudo cp $(PWD)/build/usr/lib/libskycoin.so /usr/lib/
 	
 	
 test: build-libc build-swig build-libjava
