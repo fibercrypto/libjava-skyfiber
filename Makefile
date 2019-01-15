@@ -83,9 +83,8 @@ build-swig:
 build-libjava:
 	rm -rfv $(PWD)/build/usr/lib/$(LDNAME)
 	gcc -c -fPIC -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/$(OS) -Iswig/include -I$(INCLUDE_DIR) skycoin_wrap.c
-	gcc $(LDFLAGS) -o $(PWD)/build/usr/lib/$(LDNAME) skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a
-	mkdir -p $(HOME)/lib
-	cp $(PWD)/build/usr/lib/$(LDNAME) $(HOME)/lib/
+	gcc $(LDFLAGS) -fPIC -o $(PWD)/build/usr/lib/$(LDNAME) skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a
+
 
 test: build-libc build-swig build-libjava
 	mvn clean
