@@ -1,6 +1,6 @@
 # LibSkycoin for Java
 
-[![Build Status](https://travis-ci.org/libskycoin-dotnet.svg?branch=develop)](https://travis-ci.org/simelo/libskycoin-dotnet)
+[![Build Status](https://travis-ci.org/simelo/libjava-skycoin.svg?branch=develop)](https://travis-ci.org/simelo/libjava-skycoin)
 
 Java client library for Skycoin API. This library is a .Net assembly generated with SWIG to access Skycoin API from Java.
 
@@ -63,24 +63,23 @@ Config is a struct type that is treated as a handle in Libskycoin Java . The usa
 
     public class Skycoin extends skycoin {
 
-    public function main(){
-      var configHandle = new_Config_HandlePtr();
-      var err = SKY_cli_LoadConfig(configHandle);
-      if(err == SKY_OK) {
-        // SkY_OK means no error
-        var fullWalletPath = new _GoString()_;
-        err = SKY_cli_FullWalletPath(configHandle,fullWallerPath);
-        Assert.AreEqual(err,SKY_OK);
-        Console.WriteLine(fullWallerPath.p);
-
-        //Close the handle after using the it
-        //so the garbage collector can delete the object associated with  it.
-        SKY_handle_close( configHandle );
-      } else {
-        #Error
-        Console.WriteLine(err);
-      }
-    }
+        public void main() {
+            SWIGTYPE_p_Config__Handle configHandle = new_Config_HandlePtr();
+            long err = SKY_cli_LoadConfig(configHandle);
+            if (err == SKY_OK) {
+                // SkY_OK means no error
+                _GoString_ fullWalletPath = new _GoString_();
+                err = SKY_cli_FullWalletPath(configHandle, fullWallerPath);
+                assertEquals(err, SKY_OK);
+                System.out.println(fullWallerPath.getP());
+                //Close the handle after using the it
+                //so the garbage collector can delete the object associated with  it.
+                SKY_handle_close(configHandle);
+            } else {
+    //        Error
+                System.out.println(err);
+            }
+        }
   }
 
 ```
@@ -95,22 +94,22 @@ func (s ScryptChacha20poly1305) Encrypt(data, password []byte) ([]byte, error)
 
 ... should be invoked like this:
 
-```csharp
-var encrypt_settings = new encrypt__ScryptChacha20poly1305();
-var data = new GoSlice(); //It will be passed as a parameter of type []byte
-var pwd = new GoSlice(); //As []byte too
-var dataStr = new _GoString();
-var pwdStr = new _GoString();
-var encrypted = new GoSlice();
+```java
+encrypt__ScryptChacha20poly1305 encrypt_settings = new encrypt__ScryptChacha20poly1305();
+GoSlice data = new GoSlice(); //It will be passed as a parameter of type []byte
+GoSlice pwd = new GoSlice(); //As []byte too
+_GoString_ dataStr = new _GoString_();
+_GoString_ pwdStr = new _GoString_();
+GoSlice encrypted = new GoSlice();
 
 dataStr.setString("Data to encrypt" );
 data.convertString(dataStr);
 pwdStr.SetString("password");
 pwd.convertString(pwdStr);
 
-var err = SKY_encrypt_ScryptChacha20poly1305_Encrypt(encrypt_settings, data, pwd,encrypted);
+long err = SKY_encrypt_ScryptChacha20poly1305_Encrypt(encrypt_settings, data, pwd,encrypted);
 if(err == SKY_OK){
-  Console.WriteLine(encrypted.getString().p); //Encrypted is GoSlice
+  System.out.println(encrypted.getString().getP()); //Encrypted is GoSlice
 }
 ```
 
@@ -118,8 +117,8 @@ if(err == SKY_OK){
 
 Structures that are not exported as handles are treated like .NET classes. In the previous example type ScryptChacha20poly1305 is created in Java like:
 
-```csharp
-var encrypt_settings = new encrypt__ScryptChacha20poly1305()
+```java
+encrypt__ScryptChacha20poly1305 encrypt_settings = new encrypt__ScryptChacha20poly1305()
 ```
 
 And passed as first parameter in call to `SKY_encrypt_ScryptChacha20poly1305_Encrypt`.
@@ -139,15 +138,15 @@ Given these types in Skycoin and this exported function:
 
 This is a way to use them to write assertions in Java:
 
-```csharp
+```java
 //Generates random seed
-var data = new GoSlice();
-var err = SKY_cipher_RandByte(32,data);
+GoSlice data = new GoSlice();
+long err = SKY_cipher_RandByte(32,data);
 
-Assert.AreEqual(err,SKY_OK);
+assertEquals(err,SKY_OK);
 
-var pubkey = new cipher_PubKey();
-var seckey = new cipher_SecKey();
+cipher_PubKey pubkey = new cipher_PubKey();
+cipher_SecKey seckey = new cipher_SecKey();
 
 err = SKY_cipher_GenerateDeterministicKeyPair(data, pubkey,seckey);
 ```
@@ -174,22 +173,22 @@ func GenerateDeterministicKeyPairs(seed []byte, n int) []SecKey
 
 In Java this how it should be used to generate a deterministic sequence of pairs of public / private keys given a random seed:
 
-```csharp
+```java
 //Generates random seed
-var seed = new GoSlice();
-var err = SKY_cipher_RandByte(32,seed);
-var seckeys = new cipher__SecKeys();
+GoSlice seed = new GoSlice();
+long err = SKY_cipher_RandByte(32,seed);
+cipher__SecKeys seckeys = new cipher__SecKeys();
 
 err = SKY_cipher_GenerateDeterministicKeyPairs(seed, 2,seckeys);
 
 for(int i=0;i<seckeys.count,i++){
-  var pubkey = new cipher_PubKey();
-  var seckey = new cipher_SecKey();
+  cipher_PubKey pubkey = new cipher_PubKey();
+  cipher_SecKey seckey = new cipher_SecKey();
   seckeys.getAt(seckey,i);
 
   SKY_cipher_PubKeyFromSecKey(seckey, pubkey);
   err = SKY_cipher_PubKey_Verify(pubkey);
-  Assert.AreEqual(err,SKY_OK);
+  assertEquals(err,SKY_OK);
 }
 ```
 
@@ -224,7 +223,7 @@ The project has two branches: `master` and `develop`.
 
 Separate stable development branches will be created to work on releases for supporting the
 most recent stable version of Skycoin. The name of these branches should be the Skycoin
-major and minor version numbers followed by `dev` suffix e.g. `0.25dev`.
+major and minor version numbers followed by `dev` suffix e.g. `0.25-dev`.
 These branches may be forked out of either `master` or `develop` branches, and 
 the submodule at `gopath/src/github.com/skycoin/skycoin` has to be
 in sync with the corresponding tag of `skycoin/skycoin` official repository.
@@ -249,7 +248,7 @@ $ make test
 1. If the `master` branch has commits that are not in `develop` (e.g. due to a hotfix applied to `master`), merge `master` into `develop` (and fix any build or test failures)
 2. Switch to a new release branch named `release-X.Y.Z` for preparing the release.
 3. Ensure that the submodule at `gopath/src/github.com/skycoin/skycoin` is in sync with respect to the corresponding tag in https://github.com/skycoin/skycoin repository.
-4. Update package version (TODO: where? how?)
+4. Update package version (pom.xml)
 5. Run `make build` to make sure that the code base is up to date
 6. Update `CHANGELOG.md`: move the "unreleased" changes to the version and add the date.
 7. Follow the steps in [pre-release testing](#pre-release-testing)
@@ -258,17 +257,28 @@ $ make test
 10. Update files in https://github.com/skycoin/repo-info/tree/master/repos/skycoin/remote for `skycoin/skycoindev-java` Docker image, adding a new file for the new version and adjusting any configuration text that may have changed
 11. Tag the `master` branch with the version number. Version tags start with `v`, e.g. `v0.20.0`. Sign the tag. If you have your GPG key in github, creating a release on the Github website will automatically tag the release. It can be tagged from the command line with `git tag -as v0.20.0 $COMMIT_ID`, but Github will not recognize it as a "release".
 12. Release builds are created and uploaded by travis. To do it manually, checkout the master branch and follow the [create release builds instructions](#creating-release-builds).
-13. Checkout `develop` branch and bump package up to next [`dev` version number](https://www.python.org/dev/peps/pep-0440/#developmental-releases).
+13. Checkout `develop` branch and bump package up to next [`dev` version number](http://maven.apache.org/guides/mini/guide-releasing.html).
 
 #### Pre-release testing
 
 Perform these actions before releasing:
 
-TODO: Explain how to test a release package
+    make test
 
 #### Creating release builds
 
 Release builds should be created from `master` branch . After [updating release version](#update-the-version) it is necessary to follow these steps
+
+##### Requirements
+Have installed the `mvn, java` for the creation of the package.
+
+http://maven.apache.org/install.html
+
+##### Building
+
+    mvn package
+
+Final results are placed in the target/ folder.
 
 
 
