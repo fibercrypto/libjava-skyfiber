@@ -58,7 +58,7 @@ import org.openapitools.client.auth.OAuthFlow;
 public class ApiClient {
 
     private String basePath = "http://127.0.0.1:6420";
-    private boolean debugging = facd lse;
+    private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;
 

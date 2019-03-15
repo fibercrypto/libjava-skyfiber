@@ -63,6 +63,6 @@ test: build-libc build-swig build-libjava
 	mvn clean
 	mvn test
 	mvn clean
-	(cd $(LIB_JAVA_WRAPPER) && maven clean)
-	(cd $(LIB_JAVA_WRAPPER) && maven test)
-	(cd $(LIB_JAVA_WRAPPER) && maven clean)
+	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
+	(cd $(LIB_JAVA_WRAPPER) && mvn test)
+	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
