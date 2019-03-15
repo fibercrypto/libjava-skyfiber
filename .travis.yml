@@ -1,9 +1,14 @@
 language: java
 jdk:
+  - oraclejdk7
   - oraclejdk8
   - oraclejdk9
   - openjdk8
   - openjdk9
+before_install:
+# ensure gradlew has proper permission
+- chmod a+x ./lib/skyapi/gradlew
+
 install:
   - eval "$(gimme 1.11)"
   - go version
