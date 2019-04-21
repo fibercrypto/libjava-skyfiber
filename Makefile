@@ -48,7 +48,12 @@ else
   
 endif
 
-configure:
+configure-linux:
+
+configure-oxs:
+	mkdir -p ~/Library/ ~/Library/Java ~/Library/Java/Extensions
+
+configure: configure-$(OS)
 	mkdir -p $(BUILD_DIR)/usr/tmp $(BUILD_DIR)/usr/lib $(BUILD_DIR)/usr/include
 	mkdir -p $(BUILDLIBC_DIR) $(BIN_DIR) $(INCLUDE_DIR)
 
@@ -82,7 +87,9 @@ build-swig:
 	mkdir -p src/main/java/skycoin/libjava
 	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
  
- build-libc-swig: build-libc build-swig
+build-libc-swig: build-libc build-swig
+
+
 
 build-libjava:
 	rm -rf $(PWD)/build/usr/lib/$(LDNAME)
