@@ -11,9 +11,9 @@ import static org.junit.Assert.assertTrue;
  * Unit test for simple App.
  */
 public class utils_feeTest extends skycoin {
-    static {
-        System.loadLibrary("skycoin");
-    }
+    // static {
+        // System.loadLibrary("skycoin");
+    // }
 
     transutils utils = new transutils();
 
