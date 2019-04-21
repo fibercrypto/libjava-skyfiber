@@ -41,6 +41,9 @@
           <configuration>
             <instructions>
               <Import-Package>*,sun.lwawt,sun.lwawt.macosx</Import-Package>
+              <Export-Package>skycoin.libjava.*,
+               </Export-Package>
+              <Import-Package>*,sun.lwawt,sun.lwawt.macosx</Import-Package>
               <Bundle-NativeCode>
                    libskycoin.jnilib;
                    libskycoin.so;

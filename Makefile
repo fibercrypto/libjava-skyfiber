@@ -88,5 +88,5 @@ build-libjava:
 
 test: build-libc build-swig build-libjava
 	mvn clean
-	mvn test
+	 $(LDPATHVAR)="$(PWD)/build/usr/lib/:$(LDPATHVAR)" mvn test
 	mvn clean
