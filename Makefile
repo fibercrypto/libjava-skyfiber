@@ -36,10 +36,10 @@ ifndef OSNAME
 endif
   JAVA_HOME = $(shell /usr/libexec/java_home)
   OS = darwin
-  LDFLAGS = -dynamiclib -framework CoreFoundation -framework Security
+  LDFLAGS = -dynamiclib nostartfiles -flat_namespace -static -framework CoreFoundation -framework Security -framework JavaVM
   LDPATH=$(shell printenv DYLD_LIBRARY_PATH)
   LDPATHVAR=DYLD_LIBRARY_PATH
-  LDNAME= libskycoin.jnilib
+  LDNAME= libskycoin.dylib
 else
   
 endif
@@ -81,7 +81,7 @@ build-swig:
  build-libc-swig: build-libc build-swig
 
 build-libjava:
-	rm -rfv $(PWD)/build/usr/lib/$(LDNAME)
+	rm -rf $(PWD)/build/usr/lib/$(LDNAME)
 	gcc -c -fPIC -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/$(OS) -Iswig/include -I$(INCLUDE_DIR) skycoin_wrap.c
 	gcc $(LDFLAGS) -fPIC -o $(PWD)/build/usr/lib/$(LDNAME) skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a
 
