@@ -38,6 +38,9 @@ tests/mytest.py
 *.swp
 *.swo
 
+# IDE
+.idea
+
 # Maven
 log/
 target/
