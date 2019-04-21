@@ -36,7 +36,7 @@ ifndef OSNAME
 endif
   JAVA_HOME = $(shell /usr/libexec/java_home)
   OS = darwin
-  LDFLAGS = -dynamiclib nostartfiles -flat_namespace -static -framework CoreFoundation -framework Security -framework JavaVM
+  LDFLAGS = -dynamiclib -flat_namespace -static -framework CoreFoundation -framework Security -framework JavaVM
   LDPATH=$(shell printenv DYLD_LIBRARY_PATH)
   LDPATHVAR=DYLD_LIBRARY_PATH
   LDNAME= libskycoin.dylib
