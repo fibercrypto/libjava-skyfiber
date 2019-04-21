@@ -56,3 +56,4 @@ buildNumber.properties
 #IDE
 .idea
 .vscode
+skycoin_wrap.o
