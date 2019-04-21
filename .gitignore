@@ -59,4 +59,6 @@ buildNumber.properties
 #IDE
 .idea
 .vscode
-skycoin_wrap.o
+
+#Generate
+skycoin_wrap.*
