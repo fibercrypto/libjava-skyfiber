@@ -50,7 +50,7 @@ endif
 
 configure-linux:
 
-configure-oxs:
+configure-darwin:
 	mkdir -p ~/Library/ ~/Library/Java ~/Library/Java/Extensions
 
 configure: configure-$(OS)
