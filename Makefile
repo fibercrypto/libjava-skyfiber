@@ -43,7 +43,7 @@ endif
   LDPATHVAR=DYLD_LIBRARY_PATH
   LDNAME= libskycoin.jnilib
   OTHERLIB=-I/System/Library/Frameworks/JavaVM.framework/Headers
-  FOLDERLIB=~/Library/Java/Extensions/
+  FOLDERLIB=~/Library/Java/Extensions
 else
   
 endif
@@ -87,7 +87,7 @@ build-swig:
 build-libjava:
 	rm -rf $(PWD)/build/usr/lib/$(LDNAME)
 	gcc -c -fPIC $(OTHERLIB) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/$(OS) -Iswig/include -I$(INCLUDE_DIR) skycoin_wrap.c
-	gcc $(LDFLAGS) -fPIC -o $(FOLDERLIB)/$(LDNAME) skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a
+	gcc -v $(LDFLAGS) -fPIC -o $(FOLDERLIB)/$(LDNAME) skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a
 
 
 test: build-libc build-swig build-libjava
