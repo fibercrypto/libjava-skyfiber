@@ -21,7 +21,7 @@ OS =
 JAVA_HOME = 
 LDFLAGS =
 OTHERLIB =
-FOLDERLIB = $(PWD)/build/usr/lib/
+FOLDERLIB = $(PWD)/build/usr/lib
 ifeq ($(shell uname -s),Linux)
   JAVA_HOME = $(shell readlink -f /usr/bin/javac | sed "s:/bin/javac::")
   OS = linux
@@ -94,11 +94,11 @@ build-libc-swig: build-libc build-swig
 build-libjava:
 	rm -rf $(PWD)/build/usr/lib/$(LDNAME)
 	gcc -c -fPIC $(OTHERLIB) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/$(OS) -Iswig/include -I$(INCLUDE_DIR) skycoin_wrap.c
-	gcc -v $(LDFLAGS) -fPIC -o $(PWD)/build/usr/lib/$(LDNAME) skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a
+	gcc -v $(LDFLAGS) -fPIC -o $(FOLDERLIB)/$(LDNAME) skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a
 
 
 test: build-libc build-swig build-libjava
 	ls -o $(FOLDERLIB)
 	mvn clean
-	$(LDPATHVAR)="$(PWD)/build/usr/lib/:$(LDPATHVAR)" mvn test
+	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
 	mvn clean
