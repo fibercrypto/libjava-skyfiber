@@ -39,7 +39,7 @@ endif
   LDFLAGS = -dynamiclib -framework CoreFoundation -framework Security
   LDPATH=$(shell printenv DYLD_LIBRARY_PATH)
   LDPATHVAR=DYLD_LIBRARY_PATH
-  LDNAME= libskycoin.dylib
+  LDNAME= libjniskycoin.jnilib
 else
   
 endif
