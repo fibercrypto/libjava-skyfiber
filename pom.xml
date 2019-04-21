@@ -75,7 +75,7 @@
     </pluginManagement>
     <resources>
   <resource>
-    <directory>build/lib</directory>
+    <directory>build/usr/lib</directory>
     <excludes>
       <!-- jitsi-lgpl-dependencies -->
       <exclude>**/*jnffmpeg.*</exclude>
