@@ -11,11 +11,11 @@ import static org.junit.Assert.assertTrue;
  * Unit test for simple App.
  */
 public class utils_feeTest extends skycoin {
-    static {
-        System.loadLibrary("skycoin");
-    }
+    // static {
+        // System.loadLibrary("skycoin");
+    // }
 
-   transutils utils = new transutils();
+//    transutils utils = new transutils();
 //
 //    class verifyTxFeeTestCase {
 //        public long inputHours;
@@ -136,7 +136,7 @@ public class utils_feeTest extends skycoin {
       String locations = System.getProperty("java.library.path");
       System.out.println(locations);
       //      FullburnFactor2verifyTxFeeTestCase();
-      SWIGTYPE_p_Transaction__Handle empty = utils.makeEmptyTransaction();
+    //   SWIGTYPE_p_Transaction__Handle empty = utils.makeEmptyTransaction();
       //      SWIGTYPE_p_unsigned_long_long hours = new_GoUint64Ptr();
       //      long err = SKY_coin_Transaction_OutputHours(empty, hours);
       //      assertEquals(err, SKY_OK);
