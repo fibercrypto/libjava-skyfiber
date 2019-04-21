@@ -39,7 +39,7 @@ endif
   LDFLAGS = -dynamiclib -framework CoreFoundation -framework Security
   LDPATH=$(shell printenv DYLD_LIBRARY_PATH)
   LDPATHVAR=DYLD_LIBRARY_PATH
-  LDNAME= libjniskycoin.jnilib
+  LDNAME= libskycoin.jnilib
 else
   
 endif
@@ -88,5 +88,5 @@ build-libjava:
 
 test: build-libc build-swig build-libjava
 	mvn clean
-	mvn test -Djava.library.path=$(PWD)/build/usr/lib/
+	$(LDPATHVAR)="$(PWD)/build/usr/lib/:$(LDPATHVAR)" mvn test
 	mvn clean

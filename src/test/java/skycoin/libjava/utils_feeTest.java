@@ -133,79 +133,83 @@ public class utils_feeTest extends skycoin {
 
     @Test
     public void TestVerifyTransactionFee() {
-        FullburnFactor2verifyTxFeeTestCase();
-        SWIGTYPE_p_Transaction__Handle empty = utils.makeEmptyTransaction();
-        SWIGTYPE_p_unsigned_long_long hours = new_GoUint64Ptr();
-        long err = SKY_coin_Transaction_OutputHours(empty, hours);
-        assertEquals(err, SKY_OK);
-        assertEquals(GoUint64Ptr_value(hours), utils.toBigInteger(0));
+      String locations = System.getProperty("java.library.path");
+      assertEquals(locations,"1");
+      FullburnFactor2verifyTxFeeTestCase();
+      SWIGTYPE_p_Transaction__Handle empty = utils.makeEmptyTransaction();
+      SWIGTYPE_p_unsigned_long_long hours = new_GoUint64Ptr();
+      long err = SKY_coin_Transaction_OutputHours(empty, hours);
+      assertEquals(err, SKY_OK);
+      assertEquals(GoUint64Ptr_value(hours), utils.toBigInteger(0));
 
-        // A txn with no outputs hours and no coinhours burn fee is valid
-        err = SKY_fee_VerifyTransactionFee(empty, utils.toBigInteger(0), 2);
-        assertEquals(err, SKY_ErrTxnNoFee);
+      // A txn with no outputs hours and no coinhours burn fee is valid
+      err = SKY_fee_VerifyTransactionFee(empty, utils.toBigInteger(0), 2);
+      assertEquals(err, SKY_ErrTxnNoFee);
 
-        // A txn with no outputs hours but with a coinhours burn fee is valid
-        err = SKY_fee_VerifyTransactionFee(empty, utils.toBigInteger(100), 2);
-        assertEquals(err, SKY_OK);
-        SWIGTYPE_p_Transaction__Handle txn = utils.makeEmptyTransaction();
-        cipher__Address addr = new cipher__Address();
-        addr = utils.makeAddress();
-        assertEquals(err, 0);
-        err = SKY_coin_Transaction_PushOutput(txn, addr, utils.toBigInteger(0),
-                utils.toBigInteger(1000000));
-        assertEquals(err, SKY_OK);
-        err = SKY_coin_Transaction_PushOutput(txn, addr, utils.toBigInteger(0),
-                utils.toBigInteger(3000000));
-        assertEquals(err, SKY_OK);
-        err = SKY_coin_Transaction_OutputHours(txn, hours);
-        assertEquals(err, SKY_OK);
-        assertEquals(GoUint64Ptr_value(hours), utils.toBigInteger(4000000));
+      // A txn with no outputs hours but with a coinhours burn fee is valid
+      err = SKY_fee_VerifyTransactionFee(empty, utils.toBigInteger(100), 2);
+      assertEquals(err, SKY_OK);
+      SWIGTYPE_p_Transaction__Handle txn = utils.makeEmptyTransaction();
+      cipher__Address addr = new cipher__Address();
+      addr = utils.makeAddress();
+      assertEquals(err, 0);
+      err = SKY_coin_Transaction_PushOutput(txn, addr, utils.toBigInteger(0),
+                                            utils.toBigInteger(1000000));
+      assertEquals(err, SKY_OK);
+      err = SKY_coin_Transaction_PushOutput(txn, addr, utils.toBigInteger(0),
+                                            utils.toBigInteger(3000000));
+      assertEquals(err, SKY_OK);
+      err = SKY_coin_Transaction_OutputHours(txn, hours);
+      assertEquals(err, SKY_OK);
+      assertEquals(GoUint64Ptr_value(hours), utils.toBigInteger(4000000));
 
-        // A txn with insufficient net coinhours burn fee is invalid
-        err = SKY_fee_VerifyTransactionFee(txn, utils.toBigInteger(0), 2);
-        assertEquals(err, SKY_ErrTxnNoFee);
-        err = SKY_fee_VerifyTransactionFee(txn, utils.toBigInteger(1), 2);
-        assertEquals(err, SKY_ErrTxnInsufficientFee);
+      // A txn with insufficient net coinhours burn fee is invalid
+      err = SKY_fee_VerifyTransactionFee(txn, utils.toBigInteger(0), 2);
+      assertEquals(err, SKY_ErrTxnNoFee);
+      err = SKY_fee_VerifyTransactionFee(txn, utils.toBigInteger(1), 2);
+      assertEquals(err, SKY_ErrTxnInsufficientFee);
 
-        // A txn with sufficient net coinhours burn fee is valid
-        err = SKY_coin_Transaction_OutputHours(txn, hours);
+      // A txn with sufficient net coinhours burn fee is valid
+      err = SKY_coin_Transaction_OutputHours(txn, hours);
+      assertEquals(err, SKY_OK);
+      err = SKY_fee_VerifyTransactionFee(txn, GoUint64Ptr_value(hours), 2);
+      assertEquals(err, SKY_OK);
+      err = SKY_coin_Transaction_OutputHours(txn, hours);
+      assertEquals(err, SKY_OK);
+      err = SKY_fee_VerifyTransactionFee(
+          txn, (GoUint64Ptr_value(hours).multiply(utils.toBigInteger(10))), 2);
+      assertEquals(err, SKY_OK);
+
+      // fee + hours overflows
+      err = SKY_fee_VerifyTransactionFee(
+          txn,
+          ((utils.bigIntegerMaxValue.subtract(utils.toBigInteger(3000000)))),
+          2);
+      assertEquals(err, SKY_ERROR);
+
+      // txn has overflowing output hours
+      err = SKY_coin_Transaction_PushOutput(
+          txn, addr, utils.toBigInteger(0),
+          (utils.bigIntegerMaxValue.subtract(
+              utils.toBigInteger(1000000 - 3000000 + 1))));
+      assertEquals("txn has overflowing output hours", err, SKY_OK);
+      err = SKY_fee_VerifyTransactionFee(txn, utils.toBigInteger(10), 2);
+      assertEquals("SKY_fee_VerifyTransactionFee failed", err,
+                   SKY_ErrTxnInsufficientFee);
+
+      int len = burnFactor2verifyTxFeeTestCase.length;
+      for (int i = 0; i < len; i++) {
+        txn = new_Transaction__HandlePtr();
+        txn = utils.makeEmptyTransaction();
+        verifyTxFeeTestCase tc = burnFactor2verifyTxFeeTestCase[i];
+        err =
+            SKY_coin_Transaction_PushOutput(txn, addr, utils.toBigInteger(0),
+                                            utils.toBigInteger(tc.ouputHours));
         assertEquals(err, SKY_OK);
-        err = SKY_fee_VerifyTransactionFee(txn, GoUint64Ptr_value(hours), 2);
-        assertEquals(err, SKY_OK);
-        err = SKY_coin_Transaction_OutputHours(txn, hours);
-        assertEquals(err, SKY_OK);
+        assertTrue(tc.inputHours >= tc.ouputHours);
         err = SKY_fee_VerifyTransactionFee(
-                txn, (GoUint64Ptr_value(hours).multiply(utils.toBigInteger(10))), 2);
-        assertEquals(err, SKY_OK);
-
-        // fee + hours overflows
-        err = SKY_fee_VerifyTransactionFee(
-                txn, ((utils.bigIntegerMaxValue.subtract(utils.toBigInteger(3000000)))),
-                2);
-        assertEquals(err, SKY_ERROR);
-
-        // txn has overflowing output hours
-        err = SKY_coin_Transaction_PushOutput(
-                txn, addr, utils.toBigInteger(0),
-                (utils.bigIntegerMaxValue.subtract(
-                        utils.toBigInteger(1000000 - 3000000 + 1))));
-        assertEquals("txn has overflowing output hours", err, SKY_OK);
-        err = SKY_fee_VerifyTransactionFee(txn, utils.toBigInteger(10), 2);
-        assertEquals("SKY_fee_VerifyTransactionFee failed", err,
-                SKY_ErrTxnInsufficientFee);
-
-        int len = burnFactor2verifyTxFeeTestCase.length;
-        for (int i = 0; i < len; i++) {
-            txn = new_Transaction__HandlePtr();
-            txn = utils.makeEmptyTransaction();
-            verifyTxFeeTestCase tc = burnFactor2verifyTxFeeTestCase[i];
-            err = SKY_coin_Transaction_PushOutput(txn, addr, utils.toBigInteger(0),
-                    utils.toBigInteger(tc.ouputHours));
-            assertEquals(err, SKY_OK);
-            assertTrue(tc.inputHours >= tc.ouputHours);
-            err = SKY_fee_VerifyTransactionFee(
-                    txn, utils.toBigInteger(tc.inputHours - tc.ouputHours), 2);
-            assertEquals(tc.err, err);
+            txn, utils.toBigInteger(tc.inputHours - tc.ouputHours), 2);
+        assertEquals(tc.err, err);
         }
     }
 
