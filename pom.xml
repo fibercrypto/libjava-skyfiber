@@ -34,24 +34,6 @@
           <version>3.0.2</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.felix</groupId>
-          <artifactId>maven-bundle-plugin</artifactId>
-          <version>3.0.1</version>
-          <extensions>true</extensions>
-          <configuration>
-            <instructions>
-              <Import-Package>*,sun.lwawt,sun.lwawt.macosx</Import-Package>
-              <Export-Package>skycoin.libjava.*,
-               </Export-Package>
-              <Import-Package>*,sun.lwawt,sun.lwawt.macosx</Import-Package>
-              <Bundle-NativeCode>
-                   libskycoin.jnilib;
-                   libskycoin.so;
-               </Bundle-NativeCode>
-            </instructions>
-          </configuration>
-        </plugin>
-        <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.7.0</version>
         </plugin>
@@ -76,15 +58,5 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    <resources>
-  <resource>
-    <directory>build/usr/lib</directory>
-    <excludes>
-      <!-- jitsi-lgpl-dependencies -->
-      <exclude>**/*jnffmpeg.*</exclude>
-      <exclude>**/*jng722.*</exclude>
-    </excludes>
-  </resource>
-</resources>
   </build>
 </project>
