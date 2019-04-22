@@ -27,7 +27,10 @@ public class cipher_bitcoinTest extends skycoin {
         assertEquals(err, SKY_ErrInvalidBase58String);
         Str.SetString("cascs");
         err = SKY_cipher_DecodeBase58BitcoinAddress(Str, addrTmp);
-        assertEquals(err, SKY_ErrInvalidBase58Char);
+        if (utils.OS.equals("Linux")){
+            assertEquals(err, SKY_ErrInvalidBase58Char);}else{
+            assertEquals(err, SKY_ErrAddressInvalidLength);
+        }
 
         GoSlice b = new GoSlice();
         SKY_cipher_BitcoinAddress_Bytes(a, b);

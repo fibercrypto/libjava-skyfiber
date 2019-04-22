@@ -17,7 +17,7 @@ public class cipher_bip39Test extends skycoin {
         SWIGTYPE_p_unsigned_char val = new_CharPtr();
         err = SKY_bip39_IsMnemonicValid(m, val);
         assertEquals(err, SKY_OK);
-        assertTrue(CharPtr_value(val) == 1);
+        assertEquals(CharPtr_value(val),1);
 
         // Truncated
         String str = m.getP();
@@ -26,7 +26,7 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertFalse(CharPtr_value(val) == 1);
+        assertNotEquals(CharPtr_value(val),1);
 
         // Trailing whitespace
         str = m.getP();
@@ -34,14 +34,14 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertFalse(CharPtr_value(val) == 1);
+        assertNotEquals(CharPtr_value(val),1);
 
         str = m.getP();
         str += "/n";
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertFalse(CharPtr_value(val) == 1);
+        assertNotEquals(CharPtr_value(val),1);
 
         // Trailing whitespace
         str = m.getP();
@@ -49,14 +49,14 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertFalse(CharPtr_value(val) == 1);
+        assertNotEquals(CharPtr_value(val),1);
 
         str = m.getP();
         str += "/n";
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertFalse(CharPtr_value(val) == 1);
+        assertNotEquals(CharPtr_value(val),1);
 
         // Preceding whitespace
         str = m.getP();
@@ -65,14 +65,14 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertFalse(CharPtr_value(val) == 1);
+        assertNotEquals(CharPtr_value(val),1);
 
         str = m.getP();
         str += "/n" + str;
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertFalse(CharPtr_value(val) == 1);
+        assertNotEquals(CharPtr_value(val),1);
 
         // Extra whitespace between words
         str = m.getP();
@@ -81,7 +81,7 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertFalse(CharPtr_value(val) == 1);
+        assertNotEquals(CharPtr_value(val),1);
 
         // Contains invalid word
         str = m.getP();
@@ -91,7 +91,7 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertFalse(CharPtr_value(val) == 1);
+        assertNotEquals(CharPtr_value(val),1);
 
         // Invalid number of words
         str = m.getP();
@@ -103,6 +103,6 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(String.join(" ", ms1));
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertFalse(CharPtr_value(val) == 1);
+        assertNotEquals(CharPtr_value(val),1);
     }
 }
