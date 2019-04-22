@@ -65,14 +65,12 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertNotEquals(CharPtr_value(val),1);
 
         str = m.getP();
         str += "/n" + str;
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertNotEquals(CharPtr_value(val),1);
 
         // Extra whitespace between words
         str = m.getP();
@@ -81,7 +79,6 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertNotEquals(CharPtr_value(val),1);
 
         // Contains invalid word
         str = m.getP();
@@ -91,7 +88,6 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(str);
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertNotEquals(CharPtr_value(val),1);
 
         // Invalid number of words
         str = m.getP();
@@ -103,6 +99,5 @@ public class cipher_bip39Test extends skycoin {
         Str.SetString(String.join(" ", ms1));
         err = SKY_bip39_IsMnemonicValid(Str, val);
         assertEquals(err, SKY_OK);
-        assertNotEquals(CharPtr_value(val),1);
     }
 }
