@@ -17,9 +17,6 @@ matrix:
   #   jdk: oraclejdk8
   - os: osx
     osx_image: xcode10
-    jdk: oraclejdk10
-  - os: osx
-    osx_image: xcode10
     jdk: openjdk10
   # - os: osx
   #   osx_image: xcode10.1
@@ -28,21 +25,23 @@ matrix:
   #   osx_image: xcode10.2
   #   jdk: oraclejdk12
 
+before_install:
+  - nvm use --delete-prefix v10.10.0 --silent
+
 install:
-  - npm config delete prefix
   - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then bash ./.travis/install-linux.sh ; fi
-  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then bash ./.travis/install-os.sh; fi  
+  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then bash ./.travis/install-os.sh; fi
   - cd $TRAVIS_BUILD_DIR
   - eval "$(gimme 1.11)"
 
 script:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V 
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - make configure
   - make build-libc
   - make build-swig
   - make build-libjava
   - make test
-  
+
 notifications:
   email: false
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
