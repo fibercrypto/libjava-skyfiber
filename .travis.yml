@@ -3,21 +3,16 @@ language: java
 matrix:
   include:
   - os: linux
-    jdk: openjdk8
-  - os: linux
-    jdk: openjdk9
-  - os: linux
-    jdk: openjdk10
-  - os: linux
-    jdk: openjdk11
-  - os: linux
-    jdk: openjdk12
+    jdk: 
+     - openjdk8
+     - openjdk9
+     - openjdk10
+     - openjdk11
+     - openjdk12
   - os: osx
-    jdk: openjdk10
-  - os: osx
-    jdk: openjdk11
-  - os: osx
-    jdk: openjdk12
+    jdk: 
+     - oraclejdk8
+     - oraclejdk9
 
 install:
   - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then bash ./.travis/install-linux.sh ; fi
