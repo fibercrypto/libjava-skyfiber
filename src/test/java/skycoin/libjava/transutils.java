@@ -9,7 +9,7 @@ public class transutils extends skycoin {
     static {
         System.loadLibrary("skycoin");
     }
-
+   public String OS = System.getProperty("os.name");
     public cipher__Address makeAddress() {
         cipher_PubKey pubkey = new cipher_PubKey();
         cipher_SecKey seckey = new cipher_SecKey();

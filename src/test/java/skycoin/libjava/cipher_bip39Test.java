@@ -8,7 +8,7 @@ public class cipher_bip39Test extends skycoin {
     static {
         System.loadLibrary("skycoin");
     }
-
+    transutils utils = new transutils();
     @Test
     public void TestIsMnemonicValid() {
         _GoString_ m = new _GoString_();

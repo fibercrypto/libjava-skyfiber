@@ -8,7 +8,7 @@ public class cipher_bitcoinTest extends skycoin {
     static {
         System.loadLibrary("skycoin");
     }
-
+    transutils utils = new transutils();
     @Test
     public void TestDecodeBase58BitcoinAddress() {
         cipher_PubKey p = new cipher_PubKey();
@@ -35,7 +35,10 @@ public class cipher_bitcoinTest extends skycoin {
         _GoString_ h = new _GoString_();
         SKY_base58_Hex2Base58Str(b, h);
         err = SKY_cipher_DecodeBase58BitcoinAddress(h, addrTmp);
-        assertEquals(err, SKY_ErrAddressInvalidLength);
+        if (utils.OS.equals("Linux")){
+            assertEquals(err, SKY_ErrAddressInvalidLength);}else{
+            assertEquals(err, SKY_ErrInvalidBase58Char);
+        }
 
         b = new GoSlice();
         SKY_cipher_BitcoinAddress_Bytes(a, b);
