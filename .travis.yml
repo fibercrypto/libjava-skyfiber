@@ -2,28 +2,28 @@ language: java
 
 matrix:
   include:
-  - os: linux
-    jdk: openjdk8
-  - os: linux
-    jdk: openjdk9
-  - os: linux
-    jdk: openjdk10
-  - os: linux
-    jdk: openjdk11
-  - os: linux
-    jdk: openjdk12
-  - os: osx
-    osx_image: xcode9.3	
-    jdk: oraclejdk8
+  # - os: linux
+  #   jdk: openjdk8
+  # - os: linux
+  #   jdk: openjdk9
+  # - os: linux
+  #   jdk: openjdk10
+  # - os: linux
+  #   jdk: openjdk11
+  # - os: linux
+  #   jdk: openjdk12
+  # - os: osx
+  #   osx_image: xcode9.3	
+  #   jdk: oraclejdk8
   - os: osx
     osx_image: xcode10
-    jdk: openjdk10
-  - os: osx
-    osx_image: xcode10.1
-    jdk: oraclejdk11
-  - os: osx
-    osx_image: xcode10.2
-    jdk: openjdk12
+    jdk: oraclejdk10
+  # - os: osx
+  #   osx_image: xcode10.1
+  #   jdk: oraclejdk11
+  # - os: osx
+  #   osx_image: xcode10.2
+  #   jdk: oraclejdk12
 
 install:
   - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then bash ./.travis/install-linux.sh ; fi
