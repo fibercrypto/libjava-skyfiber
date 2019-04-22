@@ -100,5 +100,5 @@ build-libjava:
 test: build-libc build-swig build-libjava
 	ls -o $(FOLDERLIB)
 	mvn clean
-	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
+	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test -X
 	mvn clean
