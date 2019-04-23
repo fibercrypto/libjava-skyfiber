@@ -12,7 +12,7 @@ matrix:
   #   jdk: openjdk11
   # - os: linux
   #   jdk: openjdk12
-  # - os: osx
+   - os: osx
      osx_image: xcode8
      jdk: oraclejdk8
    - os: osx
