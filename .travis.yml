@@ -39,10 +39,6 @@ install:
 
 script:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - make configure
-  - make build-libc
-  - make build-swig
-  - make build-libjava
   - make test
 
 notifications:

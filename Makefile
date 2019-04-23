@@ -86,7 +86,7 @@ build-swig:
 	rm -rfv src/main/java/skycoin/libjava
 	mkdir -p src/main/java/skycoin/libjava
 	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
- 
+
 build-libc-swig: build-libc build-swig
 
 
@@ -100,5 +100,5 @@ build-libjava:
 test: build-libc build-swig build-libjava
 	ls -o $(FOLDERLIB)
 	mvn clean
-	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test -X
+	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
 	mvn clean
