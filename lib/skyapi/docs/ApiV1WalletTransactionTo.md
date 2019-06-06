@@ -1,7 +1,9 @@
 
-# Apiv1wallettransactionTo
+
+# ApiV1WalletTransactionTo
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **hours** | **Long** |  |  [optional]

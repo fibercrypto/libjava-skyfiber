@@ -1,11 +1,14 @@
 
-# Apiv1exploreraddressOutputs
+
+# ApiV1ExplorerAddressInputs
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**owner** | **String** |  |  [optional]
 **hours** | **Long** |  |  [optional]
-**dst** | **String** |  |  [optional]
+**calculatedHours** | **Long** |  |  [optional]
 **coins** | **String** |  |  [optional]
 **uxid** | **String** |  |  [optional]
 

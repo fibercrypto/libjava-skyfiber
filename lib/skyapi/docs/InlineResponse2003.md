@@ -1,7 +1,9 @@
 
+
 # InlineResponse2003
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **lastReceived** | **Long** |  |  [optional]
@@ -19,8 +21,9 @@ Name | Type | Description | Notes
 **height** | **Long** |  |  [optional]
 
 
-<a name="StateEnum"></a>
+
 ## Enum: StateEnum
+
 Name | Value
 ---- | -----
 PENDING | &quot;pending&quot;

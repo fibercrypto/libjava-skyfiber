@@ -2,7 +2,7 @@
 
 Skycoin REST API.
 - API version: 0.25.1
-  - Build date: 2019-03-14T21:13:49.839099-04:00[America/Havana]
+  - Build date: 2019-06-06T13:17:51.889712-04:00[America/Havana]
 
 Skycoin is a next-generation cryptocurrency.
 
@@ -41,7 +41,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>Skycoin</groupId>
   <artifactId>skyapi</artifactId>
-  <version>v0.25.1</version>
+  <version>0.25.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -51,7 +51,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "Skycoin:skyapi:v0.25.1"
+compile "Skycoin:skyapi:0.25.1"
 ```
 
 ### Others
@@ -64,7 +64,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/skyapi-v0.25.1.jar`
+* `target/skyapi-0.25.1.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -159,15 +159,15 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
- - [Apiv1exploreraddressInputs](docs/Apiv1exploreraddressInputs.md)
- - [Apiv1exploreraddressOutputs](docs/Apiv1exploreraddressOutputs.md)
- - [Apiv1exploreraddressStatus](docs/Apiv1exploreraddressStatus.md)
- - [Apiv1pendingTxsTransaction](docs/Apiv1pendingTxsTransaction.md)
- - [Apiv1walletsEntries](docs/Apiv1walletsEntries.md)
- - [Apiv1walletsMeta](docs/Apiv1walletsMeta.md)
- - [Apiv1wallettransactionHoursSelection](docs/Apiv1wallettransactionHoursSelection.md)
- - [Apiv1wallettransactionTo](docs/Apiv1wallettransactionTo.md)
- - [Apiv1wallettransactionWallet](docs/Apiv1wallettransactionWallet.md)
+ - [ApiV1ExplorerAddressInputs](docs/ApiV1ExplorerAddressInputs.md)
+ - [ApiV1ExplorerAddressOutputs](docs/ApiV1ExplorerAddressOutputs.md)
+ - [ApiV1ExplorerAddressStatus](docs/ApiV1ExplorerAddressStatus.md)
+ - [ApiV1PendingTxsTransaction](docs/ApiV1PendingTxsTransaction.md)
+ - [ApiV1WalletTransactionHoursSelection](docs/ApiV1WalletTransactionHoursSelection.md)
+ - [ApiV1WalletTransactionTo](docs/ApiV1WalletTransactionTo.md)
+ - [ApiV1WalletTransactionWallet](docs/ApiV1WalletTransactionWallet.md)
+ - [ApiV1WalletsEntries](docs/ApiV1WalletsEntries.md)
+ - [ApiV1WalletsMeta](docs/ApiV1WalletsMeta.md)
  - [InlineObject](docs/InlineObject.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
@@ -198,5 +198,5 @@ It's recommended to create an instance of `ApiClient` per thread in a multithrea
 
 ## Author
 
-skycoin.doe@example.com
+contact@skycoin.net
 

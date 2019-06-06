@@ -1,7 +1,9 @@
 
-# Apiv1wallettransactionWallet
+
+# ApiV1WalletTransactionWallet
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **unspents** | **List&lt;String&gt;** |  |  [optional]

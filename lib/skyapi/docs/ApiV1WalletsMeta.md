@@ -1,7 +1,9 @@
 
-# Apiv1walletsMeta
+
+# ApiV1WalletsMeta
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **filename** | **String** |  |  [optional]

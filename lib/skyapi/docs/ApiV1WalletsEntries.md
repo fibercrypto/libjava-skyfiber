@@ -1,7 +1,9 @@
 
-# Apiv1walletsEntries
+
+# ApiV1WalletsEntries
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **publicKey** | **String** |  |  [optional]

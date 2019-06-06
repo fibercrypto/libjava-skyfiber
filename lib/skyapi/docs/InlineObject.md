@@ -1,14 +1,16 @@
 
+
 # InlineObject
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **changeAddress** | **String** |  |  [optional]
-**hoursSelection** | [**Apiv1wallettransactionHoursSelection**](Apiv1wallettransactionHoursSelection.md) |  |  [optional]
+**hoursSelection** | [**ApiV1WalletTransactionHoursSelection**](ApiV1WalletTransactionHoursSelection.md) |  |  [optional]
 **ignoreUnconfirmed** | **Boolean** |  |  [optional]
-**to** | [**List&lt;Apiv1wallettransactionTo&gt;**](Apiv1wallettransactionTo.md) |  |  [optional]
-**wallet** | [**Apiv1wallettransactionWallet**](Apiv1wallettransactionWallet.md) |  |  [optional]
+**to** | [**List&lt;ApiV1WalletTransactionTo&gt;**](ApiV1WalletTransactionTo.md) |  |  [optional]
+**wallet** | [**ApiV1WalletTransactionWallet**](ApiV1WalletTransactionWallet.md) |  |  [optional]
 
 
 

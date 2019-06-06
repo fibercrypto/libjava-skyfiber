@@ -472,7 +472,7 @@ Name | Type | Description  | Notes
 
 <a name="coinSupply"></a>
 # **coinSupply**
-> coinSupply()
+> Object coinSupply()
 
 
 
@@ -487,7 +487,8 @@ coinSupplyHandler returns coin distribution supply stats
 
 DefaultApi apiInstance = new DefaultApi();
 try {
-    apiInstance.coinSupply();
+    Object result = apiInstance.coinSupply();
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#coinSupply");
     e.printStackTrace();
@@ -499,7 +500,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+**Object**
 
 ### Authorization
 
@@ -1201,7 +1202,7 @@ No authorization required
 
 
 
-Returns a transaction identified by its txid hash with just id
+Returns a transaction identi&#x60;fied by its txid hash with just id
 
 ### Example
 ```java
@@ -1587,7 +1588,7 @@ Name | Type | Description  | Notes
 
 <a name="version"></a>
 # **version**
-> version()
+> Object version()
 
 
 
@@ -1602,7 +1603,8 @@ versionHandler returns the application version info
 
 DefaultApi apiInstance = new DefaultApi();
 try {
-    apiInstance.version();
+    Object result = apiInstance.version();
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#version");
     e.printStackTrace();
@@ -1614,7 +1616,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+**Object**
 
 ### Authorization
 
@@ -2261,7 +2263,7 @@ Name | Type | Description  | Notes
 
 <a name="walletTransaction"></a>
 # **walletTransaction**
-> Object walletTransaction(inlineObject)
+> Object walletTransaction(body)
 
 
 
@@ -2285,9 +2287,9 @@ csrfAuth.setApiKey("YOUR API KEY");
 //csrfAuth.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-InlineObject inlineObject = new InlineObject(); // InlineObject | 
+InlineObject body = new InlineObject(); // InlineObject | 
 try {
-    Object result = apiInstance.walletTransaction(inlineObject);
+    Object result = apiInstance.walletTransaction(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#walletTransaction");
@@ -2299,7 +2301,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject** | [**InlineObject**](InlineObject.md)|  | [optional]
+ **body** | [**InlineObject**](InlineObject.md)|  |
 
 ### Return type
 

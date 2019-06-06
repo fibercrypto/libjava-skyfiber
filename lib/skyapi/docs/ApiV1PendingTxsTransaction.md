@@ -1,10 +1,12 @@
 
-# Apiv1pendingTxsTransaction
+
+# ApiV1PendingTxsTransaction
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**outputs** | [**List&lt;Apiv1exploreraddressOutputs&gt;**](Apiv1exploreraddressOutputs.md) |  |  [optional]
+**outputs** | [**List&lt;ApiV1ExplorerAddressOutputs&gt;**](ApiV1ExplorerAddressOutputs.md) |  |  [optional]
 **innerHash** | **String** |  |  [optional]
 **inputs** | **List&lt;String&gt;** |  |  [optional]
 **sigs** | **List&lt;String&gt;** |  |  [optional]
