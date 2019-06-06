@@ -6,17 +6,20 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addressCount**](DefaultApi.md#addressCount) | **GET** /api/v1/addresscount | Returns the total number of unique address that have coins.
 [**addressUxouts**](DefaultApi.md#addressUxouts) | **GET** /api/v1/address_uxouts | 
+[**apiV1RawtxGet**](DefaultApi.md#apiV1RawtxGet) | **GET** /api/v1/rawtx | 
+[**apiV2MetricsGet**](DefaultApi.md#apiV2MetricsGet) | **GET** /api/v2/metrics | 
 [**balanceGet**](DefaultApi.md#balanceGet) | **GET** /api/v1/balance | Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 [**balancePost**](DefaultApi.md#balancePost) | **POST** /api/v1/balance | Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
-[**block**](DefaultApi.md#block) | **GET** /api/v1/block | 
+[**block**](DefaultApi.md#block) | **GET** /api/v1/block | Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 [**blockchainMetadata**](DefaultApi.md#blockchainMetadata) | **GET** /api/v1/blockchain/metadata | Returns the blockchain metadata.
 [**blockchainProgress**](DefaultApi.md#blockchainProgress) | **GET** /api/v1/blockchain/progress | Returns the blockchain sync progress.
-[**blocksGet**](DefaultApi.md#blocksGet) | **GET** /api/v1/blocks | blocksHandler returns blocks between a start and end point,
-[**blocksPost**](DefaultApi.md#blocksPost) | **POST** /api/v1/blocks | blocksHandler returns blocks between a start and end point,
+[**blocks**](DefaultApi.md#blocks) | **GET** /api/v1/blocks | Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 [**coinSupply**](DefaultApi.md#coinSupply) | **GET** /api/v1/coinSupply | 
 [**csrf**](DefaultApi.md#csrf) | **GET** /api/v1/csrf | Creates a new CSRF token. Previous CSRF tokens are invalidated by this call.
+[**dataDELETE**](DefaultApi.md#dataDELETE) | **DELETE** /api/v2/data | 
+[**dataGET**](DefaultApi.md#dataGET) | **GET** /api/v2/data | 
+[**dataPOST**](DefaultApi.md#dataPOST) | **POST** /api/v2/data | 
 [**defaultConnections**](DefaultApi.md#defaultConnections) | **GET** /api/v1/network/defaultConnections | defaultConnectionsHandler returns the list of default hardcoded bootstrap addresses.\\n They are not necessarily connected to.
-[**explorerAddress**](DefaultApi.md#explorerAddress) | **GET** /api/v1/explorer/address | 
 [**health**](DefaultApi.md#health) | **GET** /api/v1/health | Returns node health data.
 [**lastBlocks**](DefaultApi.md#lastBlocks) | **GET** /api/v1/last_blocks | 
 [**networkConnection**](DefaultApi.md#networkConnection) | **GET** /api/v1/network/connection | This endpoint returns a specific connection.
@@ -30,7 +33,9 @@ Method | HTTP request | Description
 [**resendUnconfirmedTxns**](DefaultApi.md#resendUnconfirmedTxns) | **POST** /api/v1/resendUnconfirmedTxns | 
 [**richlist**](DefaultApi.md#richlist) | **GET** /api/v1/richlist | Returns the top skycoin holders.
 [**transaction**](DefaultApi.md#transaction) | **GET** /api/v1/transaction | 
-[**transactionInject**](DefaultApi.md#transactionInject) | **POST** /api/v2/transaction/inject | Broadcast a hex-encoded, serialized transaction to the network.
+[**transactionInject**](DefaultApi.md#transactionInject) | **POST** /api/v1/injectTransaction | Broadcast a hex-encoded, serialized transaction to the network.
+[**transactionPost**](DefaultApi.md#transactionPost) | **POST** /api/v2/transaction | 
+[**transactionPostUnspent**](DefaultApi.md#transactionPostUnspent) | **POST** /api/v2/transaction/unspent | 
 [**transactionRaw**](DefaultApi.md#transactionRaw) | **GET** /api/v2/transaction/raw | Returns the hex-encoded byte serialization of a transaction. The transaction may be confirmed or unconfirmed.
 [**transactionVerify**](DefaultApi.md#transactionVerify) | **POST** /api/v2/transaction/verify | 
 [**transactionsGet**](DefaultApi.md#transactionsGet) | **GET** /api/v1/transactions | Returns transactions that match the filters.
@@ -49,8 +54,8 @@ Method | HTTP request | Description
 [**walletRecover**](DefaultApi.md#walletRecover) | **POST** /api/v2/wallet/recover | Recovers an encrypted wallet by providing the seed. The first address will be generated from seed and compared to the first address of the specified wallet. If they match, the wallet will be regenerated with an optional password. If the wallet is not encrypted, an error is returned.
 [**walletSeed**](DefaultApi.md#walletSeed) | **POST** /api/v1/wallet/seed | This endpoint only works for encrypted wallets. If the wallet is unencrypted, The seed will be not returned.
 [**walletSeedVerify**](DefaultApi.md#walletSeedVerify) | **POST** /api/v2/wallet/seed/verify | Verifies a wallet seed.
-[**walletSpent**](DefaultApi.md#walletSpent) | **POST** /api/v1/wallet/spend | 
-[**walletTransaction**](DefaultApi.md#walletTransaction) | **POST** /api/v1/wallet/transaction | 
+[**walletTransaction**](DefaultApi.md#walletTransaction) | **POST** /api/v1/wallet/transaction | Creates a signed transaction
+[**walletTransactionSign**](DefaultApi.md#walletTransactionSign) | **POST** /api/v2/wallet/transaction/sign | Creates a signed transaction
 [**walletTransactions**](DefaultApi.md#walletTransactions) | **GET** /api/v1/wallet/transactions | 
 [**walletUnload**](DefaultApi.md#walletUnload) | **POST** /api/v1/wallet/unload | Unloads wallet from the wallet service.
 [**walletUpdate**](DefaultApi.md#walletUpdate) | **POST** /api/v1/wallet/update | Update the wallet.
@@ -59,7 +64,7 @@ Method | HTTP request | Description
 
 <a name="addressCount"></a>
 # **addressCount**
-> Object addressCount()
+> InlineResponse200 addressCount()
 
 Returns the total number of unique address that have coins.
 
@@ -72,7 +77,7 @@ Returns the total number of unique address that have coins.
 
 DefaultApi apiInstance = new DefaultApi();
 try {
-    Object result = apiInstance.addressCount();
+    InlineResponse200 result = apiInstance.addressCount();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#addressCount");
@@ -85,7 +90,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**InlineResponse200**](InlineResponse200.md)
 
 ### Authorization
 
@@ -94,11 +99,11 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="addressUxouts"></a>
 # **addressUxouts**
-> List&lt;InlineResponse200&gt; addressUxouts(address)
+> List&lt;Object&gt; addressUxouts(address)
 
 
 
@@ -114,7 +119,7 @@ Returns the historical, spent outputs associated with an address
 DefaultApi apiInstance = new DefaultApi();
 String address = "address_example"; // String | address to filter by
 try {
-    List<InlineResponse200> result = apiInstance.addressUxouts(address);
+    List<Object> result = apiInstance.addressUxouts(address);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#addressUxouts");
@@ -130,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List&lt;InlineResponse200&gt;**](InlineResponse200.md)
+**List&lt;Object&gt;**
 
 ### Authorization
 
@@ -139,7 +144,85 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
+
+<a name="apiV1RawtxGet"></a>
+# **apiV1RawtxGet**
+> String apiV1RawtxGet()
+
+
+
+### Example
+```java
+// Import classes:
+//import org.openapitools.client.ApiException;
+//import org.openapitools.client.api.DefaultApi;
+
+
+DefaultApi apiInstance = new DefaultApi();
+try {
+    String result = apiInstance.apiV1RawtxGet();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#apiV1RawtxGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain
+
+<a name="apiV2MetricsGet"></a>
+# **apiV2MetricsGet**
+> String apiV2MetricsGet()
+
+
+
+### Example
+```java
+// Import classes:
+//import org.openapitools.client.ApiException;
+//import org.openapitools.client.api.DefaultApi;
+
+
+DefaultApi apiInstance = new DefaultApi();
+try {
+    String result = apiInstance.apiV2MetricsGet();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#apiV2MetricsGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain
 
 <a name="balanceGet"></a>
 # **balanceGet**
@@ -182,7 +265,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="balancePost"></a>
 # **balancePost**
@@ -235,15 +318,13 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="block"></a>
 # **block**
-> Object block(hash, seq)
+> List&lt;BlockSchema&gt; block(hash, seq)
 
-
-
-Returns a block by hash or seq. Note: only one of hash or seq is allowed
+Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 
 ### Example
 ```java
@@ -253,10 +334,10 @@ Returns a block by hash or seq. Note: only one of hash or seq is allowed
 
 
 DefaultApi apiInstance = new DefaultApi();
-String hash = "hash_example"; // String | 
-Integer seq = 56; // Integer | 
+String hash = "hash_example"; // String | get block by hash
+Integer seq = 56; // Integer | get block by sequence number
 try {
-    Object result = apiInstance.block(hash, seq);
+    List<BlockSchema> result = apiInstance.block(hash, seq);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#block");
@@ -268,12 +349,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **hash** | **String**|  | [optional]
- **seq** | **Integer**|  | [optional]
+ **hash** | **String**| get block by hash | [optional]
+ **seq** | **Integer**| get block by sequence number | [optional]
 
 ### Return type
 
-**Object**
+[**List&lt;BlockSchema&gt;**](BlockSchema.md)
 
 ### Authorization
 
@@ -282,7 +363,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="blockchainMetadata"></a>
 # **blockchainMetadata**
@@ -321,7 +402,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="blockchainProgress"></a>
 # **blockchainProgress**
@@ -360,15 +441,13 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
-<a name="blocksGet"></a>
-# **blocksGet**
-> Object blocksGet(start, end, seqs)
+<a name="blocks"></a>
+# **blocks**
+> InlineResponse2001 blocks(start, end, seq)
 
-blocksHandler returns blocks between a start and end point,
-
-or an explicit list of sequences. If using start and end, the block sequences include both the start and end point. Explicit sequences cannot be combined with start and end. Without verbose.
+Returns the balance of one or more addresses, both confirmed and predicted. The predicted balance is the confirmed balance minus the pending spends.
 
 ### Example
 ```java
@@ -378,14 +457,14 @@ or an explicit list of sequences. If using start and end, the block sequences in
 
 
 DefaultApi apiInstance = new DefaultApi();
-Integer start = 56; // Integer | 
-Integer end = 56; // Integer | 
-List<Integer> seqs = Arrays.asList(); // List<Integer> | 
+Integer start = 56; // Integer | start seq
+Integer end = 56; // Integer | end seq
+List<Integer> seq = Arrays.asList(); // List<Integer> | comma-separated list of block seqs
 try {
-    Object result = apiInstance.blocksGet(start, end, seqs);
+    InlineResponse2001 result = apiInstance.blocks(start, end, seq);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#blocksGet");
+    System.err.println("Exception when calling DefaultApi#blocks");
     e.printStackTrace();
 }
 ```
@@ -394,13 +473,13 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **start** | **Integer**|  | [optional]
- **end** | **Integer**|  | [optional]
- **seqs** | [**List&lt;Integer&gt;**](Integer.md)|  | [optional]
+ **start** | **Integer**| start seq | [optional]
+ **end** | **Integer**| end seq | [optional]
+ **seq** | [**List&lt;Integer&gt;**](Integer.md)| comma-separated list of block seqs | [optional]
 
 ### Return type
 
-**Object**
+[**InlineResponse2001**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -409,70 +488,11 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="blocksPost"></a>
-# **blocksPost**
-> Object blocksPost(start, end, seqs)
-
-blocksHandler returns blocks between a start and end point,
-
-or an explicit list of sequences. If using start and end, the block sequences include both the start and end point. Explicit sequences cannot be combined with start and end. Without verbose
-
-### Example
-```java
-// Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-Integer start = 56; // Integer | 
-Integer end = 56; // Integer | 
-List<Integer> seqs = Arrays.asList(); // List<Integer> | 
-try {
-    Object result = apiInstance.blocksPost(start, end, seqs);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#blocksPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **start** | **Integer**|  | [optional]
- **end** | **Integer**|  | [optional]
- **seqs** | [**List&lt;Integer&gt;**](Integer.md)|  | [optional]
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[csrfAuth](../README.md#csrfAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="coinSupply"></a>
 # **coinSupply**
-> coinSupply()
+> InlineResponse2002 coinSupply()
 
 
 
@@ -487,7 +507,8 @@ coinSupplyHandler returns coin distribution supply stats
 
 DefaultApi apiInstance = new DefaultApi();
 try {
-    apiInstance.coinSupply();
+    InlineResponse2002 result = apiInstance.coinSupply();
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#coinSupply");
     e.printStackTrace();
@@ -499,7 +520,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+[**InlineResponse2002**](InlineResponse2002.md)
 
 ### Authorization
 
@@ -508,11 +529,11 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="csrf"></a>
 # **csrf**
-> InlineResponse2001 csrf()
+> InlineResponse2003 csrf()
 
 Creates a new CSRF token. Previous CSRF tokens are invalidated by this call.
 
@@ -525,7 +546,7 @@ Creates a new CSRF token. Previous CSRF tokens are invalidated by this call.
 
 DefaultApi apiInstance = new DefaultApi();
 try {
-    InlineResponse2001 result = apiInstance.csrf();
+    InlineResponse2003 result = apiInstance.csrf();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#csrf");
@@ -538,7 +559,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**InlineResponse2003**](InlineResponse2003.md)
 
 ### Authorization
 
@@ -547,7 +568,142 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
+
+<a name="dataDELETE"></a>
+# **dataDELETE**
+> dataDELETE(type, key)
+
+
+
+### Example
+```java
+// Import classes:
+//import org.openapitools.client.ApiException;
+//import org.openapitools.client.api.DefaultApi;
+
+
+DefaultApi apiInstance = new DefaultApi();
+String type = "type_example"; // String | storage type.
+String key = "key_example"; // String | key of the specific value to get.
+try {
+    apiInstance.dataDELETE(type, key);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#dataDELETE");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **type** | **String**| storage type. | [optional]
+ **key** | **String**| key of the specific value to get. | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/xml
+
+<a name="dataGET"></a>
+# **dataGET**
+> Object dataGET(type, key)
+
+
+
+### Example
+```java
+// Import classes:
+//import org.openapitools.client.ApiException;
+//import org.openapitools.client.api.DefaultApi;
+
+
+DefaultApi apiInstance = new DefaultApi();
+String type = "type_example"; // String | storage type.
+String key = "key_example"; // String | key of the specific value to get.
+try {
+    Object result = apiInstance.dataGET(type, key);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#dataGET");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **type** | **String**| storage type. | [optional]
+ **key** | **String**| key of the specific value to get. | [optional]
+
+### Return type
+
+**Object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/xml, 
+
+<a name="dataPOST"></a>
+# **dataPOST**
+> dataPOST(type, key, val)
+
+
+
+### Example
+```java
+// Import classes:
+//import org.openapitools.client.ApiException;
+//import org.openapitools.client.api.DefaultApi;
+
+
+DefaultApi apiInstance = new DefaultApi();
+String type = "type_example"; // String | storage type.
+String key = "key_example"; // String | key of the specific value to get.
+String val = "val_example"; // String | additional value.
+try {
+    apiInstance.dataPOST(type, key, val);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#dataPOST");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **type** | **String**| storage type. | [optional]
+ **key** | **String**| key of the specific value to get. | [optional]
+ **val** | **String**| additional value. | [optional]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, application/xml
 
 <a name="defaultConnections"></a>
 # **defaultConnections**
@@ -586,52 +742,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="explorerAddress"></a>
-# **explorerAddress**
-> List&lt;InlineResponse2002&gt; explorerAddress(address)
-
-
-
-Returns all transactions (confirmed and unconfirmed) for an address
-
-### Example
-```java
-// Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
-
-
-DefaultApi apiInstance = new DefaultApi();
-String address = "address_example"; // String | tags to filter by
-try {
-    List<InlineResponse2002> result = apiInstance.explorerAddress(address);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#explorerAddress");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **address** | **String**| tags to filter by | [optional]
-
-### Return type
-
-[**List&lt;InlineResponse2002&gt;**](InlineResponse2002.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="health"></a>
 # **health**
@@ -670,7 +781,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="lastBlocks"></a>
 # **lastBlocks**
@@ -688,7 +799,7 @@ Returns the most recent N blocks on the blockchain
 
 
 DefaultApi apiInstance = new DefaultApi();
-Integer num = 56; // Integer | 
+Integer num = 56; // Integer | Num of blockss
 try {
     Object result = apiInstance.lastBlocks(num);
     System.out.println(result);
@@ -702,7 +813,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **num** | **Integer**|  |
+ **num** | **Integer**| Num of blockss |
 
 ### Return type
 
@@ -715,11 +826,11 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="networkConnection"></a>
 # **networkConnection**
-> InlineResponse2003 networkConnection(addr)
+> NetworkConnectionSchema networkConnection(addr)
 
 This endpoint returns a specific connection.
 
@@ -733,7 +844,7 @@ This endpoint returns a specific connection.
 DefaultApi apiInstance = new DefaultApi();
 String addr = "addr_example"; // String | Address port
 try {
-    InlineResponse2003 result = apiInstance.networkConnection(addr);
+    NetworkConnectionSchema result = apiInstance.networkConnection(addr);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#networkConnection");
@@ -749,7 +860,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2003**](InlineResponse2003.md)
+[**NetworkConnectionSchema**](NetworkConnectionSchema.md)
 
 ### Authorization
 
@@ -758,11 +869,11 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="networkConnections"></a>
 # **networkConnections**
-> List&lt;InlineResponse2003&gt; networkConnections(states, direction)
+> InlineResponse2004 networkConnections(states, direction)
 
 This endpoint returns all outgoings connections.
 
@@ -787,7 +898,7 @@ DefaultApi apiInstance = new DefaultApi();
 String states = "states_example"; // String | Connection status.
 String direction = "direction_example"; // String | Direction of the connection.
 try {
-    List<InlineResponse2003> result = apiInstance.networkConnections(states, direction);
+    InlineResponse2004 result = apiInstance.networkConnections(states, direction);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#networkConnections");
@@ -804,7 +915,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List&lt;InlineResponse2003&gt;**](InlineResponse2003.md)
+[**InlineResponse2004**](InlineResponse2004.md)
 
 ### Authorization
 
@@ -813,7 +924,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="networkConnectionsDisconnect"></a>
 # **networkConnectionsDisconnect**
@@ -867,7 +978,7 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml
 
 <a name="networkConnectionsExchange"></a>
 # **networkConnectionsExchange**
@@ -908,7 +1019,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="networkConnectionsTrust"></a>
 # **networkConnectionsTrust**
@@ -919,19 +1030,9 @@ trustConnectionsHandler returns all trusted connections.\\n They are not necessa
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
 //import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
 //import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
 try {
@@ -952,12 +1053,12 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[csrfAuth](../README.md#csrfAuth)
+No authorization required
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="outputsGet"></a>
 # **outputsGet**
@@ -1002,7 +1103,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="outputsPost"></a>
 # **outputsPost**
@@ -1057,15 +1158,13 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="pendingTxs"></a>
 # **pendingTxs**
-> List&lt;InlineResponse2004&gt; pendingTxs()
+> List&lt;InlineResponse20010&gt; pendingTxs()
 
 
-
-Returns pending (unconfirmed) transactions without verbose
 
 ### Example
 ```java
@@ -1076,7 +1175,7 @@ Returns pending (unconfirmed) transactions without verbose
 
 DefaultApi apiInstance = new DefaultApi();
 try {
-    List<InlineResponse2004> result = apiInstance.pendingTxs();
+    List<InlineResponse20010> result = apiInstance.pendingTxs();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#pendingTxs");
@@ -1089,7 +1188,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List&lt;InlineResponse2004&gt;**](InlineResponse2004.md)
+[**List&lt;InlineResponse20010&gt;**](InlineResponse20010.md)
 
 ### Authorization
 
@@ -1098,11 +1197,11 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="resendUnconfirmedTxns"></a>
 # **resendUnconfirmedTxns**
-> resendUnconfirmedTxns()
+> Object resendUnconfirmedTxns()
 
 
 
@@ -1127,7 +1226,8 @@ csrfAuth.setApiKey("YOUR API KEY");
 
 DefaultApi apiInstance = new DefaultApi();
 try {
-    apiInstance.resendUnconfirmedTxns();
+    Object result = apiInstance.resendUnconfirmedTxns();
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#resendUnconfirmedTxns");
     e.printStackTrace();
@@ -1139,7 +1239,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+**Object**
 
 ### Authorization
 
@@ -1148,7 +1248,7 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application-json, application/json, application/xml
 
 <a name="richlist"></a>
 # **richlist**
@@ -1193,11 +1293,11 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="transaction"></a>
 # **transaction**
-> Object transaction(txid, encoded)
+> Transaction transaction(txid)
 
 
 
@@ -1211,10 +1311,9 @@ Returns a transaction identified by its txid hash with just id
 
 
 DefaultApi apiInstance = new DefaultApi();
-String txid = "txid_example"; // String | transaction hash
-Boolean encoded = true; // Boolean | return as a raw encoded transaction.
+String txid = "txid_example"; // String | transaction Id
 try {
-    Object result = apiInstance.transaction(txid, encoded);
+    Transaction result = apiInstance.transaction(txid);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#transaction");
@@ -1226,12 +1325,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **txid** | **String**| transaction hash |
- **encoded** | **Boolean**| return as a raw encoded transaction. | [optional]
+ **txid** | **String**| transaction Id |
 
 ### Return type
 
-**Object**
+[**Transaction**](Transaction.md)
 
 ### Authorization
 
@@ -1240,11 +1338,11 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="transactionInject"></a>
 # **transactionInject**
-> Object transactionInject(rawtx)
+> String transactionInject(rawtx)
 
 Broadcast a hex-encoded, serialized transaction to the network.
 
@@ -1268,7 +1366,7 @@ csrfAuth.setApiKey("YOUR API KEY");
 DefaultApi apiInstance = new DefaultApi();
 String rawtx = "rawtx_example"; // String | hex-encoded serialized transaction string.
 try {
-    Object result = apiInstance.transactionInject(rawtx);
+    String result = apiInstance.transactionInject(rawtx);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#transactionInject");
@@ -1284,7 +1382,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+**String**
 
 ### Authorization
 
@@ -1293,7 +1391,113 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: text/plain, application/json, application/xml
+
+<a name="transactionPost"></a>
+# **transactionPost**
+> InlineResponse2008 transactionPost(transactionV2ParamsAddress)
+
+
+
+### Example
+```java
+// Import classes:
+//import org.openapitools.client.ApiClient;
+//import org.openapitools.client.ApiException;
+//import org.openapitools.client.Configuration;
+//import org.openapitools.client.auth.*;
+//import org.openapitools.client.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: csrfAuth
+ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+csrfAuth.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//csrfAuth.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+TransactionV2ParamsAddress transactionV2ParamsAddress = new TransactionV2ParamsAddress(); // TransactionV2ParamsAddress | 
+try {
+    InlineResponse2008 result = apiInstance.transactionPost(transactionV2ParamsAddress);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#transactionPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **transactionV2ParamsAddress** | [**TransactionV2ParamsAddress**](TransactionV2ParamsAddress.md)|  | [optional]
+
+### Return type
+
+[**InlineResponse2008**](InlineResponse2008.md)
+
+### Authorization
+
+[csrfAuth](../README.md#csrfAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/xml, 
+
+<a name="transactionPostUnspent"></a>
+# **transactionPostUnspent**
+> InlineResponse2008 transactionPostUnspent(transactionV2ParamsUnspent)
+
+
+
+### Example
+```java
+// Import classes:
+//import org.openapitools.client.ApiClient;
+//import org.openapitools.client.ApiException;
+//import org.openapitools.client.Configuration;
+//import org.openapitools.client.auth.*;
+//import org.openapitools.client.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: csrfAuth
+ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+csrfAuth.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//csrfAuth.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+TransactionV2ParamsUnspent transactionV2ParamsUnspent = new TransactionV2ParamsUnspent(); // TransactionV2ParamsUnspent | Unspent parameters
+try {
+    InlineResponse2008 result = apiInstance.transactionPostUnspent(transactionV2ParamsUnspent);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#transactionPostUnspent");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **transactionV2ParamsUnspent** | [**TransactionV2ParamsUnspent**](TransactionV2ParamsUnspent.md)| Unspent parameters |
+
+### Return type
+
+[**InlineResponse2008**](InlineResponse2008.md)
+
+### Authorization
+
+[csrfAuth](../README.md#csrfAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="transactionRaw"></a>
 # **transactionRaw**
@@ -1336,11 +1540,11 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="transactionVerify"></a>
 # **transactionVerify**
-> Object transactionVerify()
+> Object transactionVerify(transactionVerifyRequest)
 
 
 
@@ -1364,8 +1568,9 @@ csrfAuth.setApiKey("YOUR API KEY");
 //csrfAuth.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
+TransactionVerifyRequest transactionVerifyRequest = new TransactionVerifyRequest(); // TransactionVerifyRequest | 
 try {
-    Object result = apiInstance.transactionVerify();
+    Object result = apiInstance.transactionVerify(transactionVerifyRequest);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#transactionVerify");
@@ -1374,7 +1579,10 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **transactionVerifyRequest** | [**TransactionVerifyRequest**](TransactionVerifyRequest.md)|  |
 
 ### Return type
 
@@ -1386,8 +1594,8 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="transactionsGet"></a>
 # **transactionsGet**
@@ -1432,7 +1640,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="transactionsPost"></a>
 # **transactionsPost**
@@ -1487,7 +1695,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="uxout"></a>
 # **uxout**
@@ -1530,11 +1738,11 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="verifyAddress"></a>
 # **verifyAddress**
-> InlineResponse2007 verifyAddress(address)
+> Object verifyAddress(address)
 
 Verifies a Skycoin address.
 
@@ -1556,9 +1764,9 @@ csrfAuth.setApiKey("YOUR API KEY");
 //csrfAuth.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-String address = "address_example"; // String | Address id.
+Object address = null; // Object | Address id.
 try {
-    InlineResponse2007 result = apiInstance.verifyAddress(address);
+    Object result = apiInstance.verifyAddress(address);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#verifyAddress");
@@ -1570,11 +1778,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **address** | **String**| Address id. |
+ **address** | [**Object**](.md)| Address id. | [default to null]
 
 ### Return type
 
-[**InlineResponse2007**](InlineResponse2007.md)
+**Object**
 
 ### Authorization
 
@@ -1583,11 +1791,11 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="version"></a>
 # **version**
-> version()
+> InlineResponse2005 version()
 
 
 
@@ -1602,7 +1810,8 @@ versionHandler returns the application version info
 
 DefaultApi apiInstance = new DefaultApi();
 try {
-    apiInstance.version();
+    InlineResponse2005 result = apiInstance.version();
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#version");
     e.printStackTrace();
@@ -1614,7 +1823,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-null (empty response body)
+[**InlineResponse2005**](InlineResponse2005.md)
 
 ### Authorization
 
@@ -1623,7 +1832,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="wallet"></a>
 # **wallet**
@@ -1666,7 +1875,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletBalance"></a>
 # **walletBalance**
@@ -1709,7 +1918,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletCreate"></a>
 # **walletCreate**
@@ -1772,7 +1981,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletDecrypt"></a>
 # **walletDecrypt**
@@ -1827,7 +2036,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletEncrypt"></a>
 # **walletEncrypt**
@@ -1882,11 +2091,11 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletFolder"></a>
 # **walletFolder**
-> InlineResponse2006 walletFolder(addr)
+> InlineResponse2007 walletFolder(addr)
 
 
 
@@ -1902,7 +2111,7 @@ Returns the wallet directory path
 DefaultApi apiInstance = new DefaultApi();
 String addr = "addr_example"; // String | Address port
 try {
-    InlineResponse2006 result = apiInstance.walletFolder(addr);
+    InlineResponse2007 result = apiInstance.walletFolder(addr);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#walletFolder");
@@ -1918,7 +2127,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2006**](InlineResponse2006.md)
+[**InlineResponse2007**](InlineResponse2007.md)
 
 ### Authorization
 
@@ -1927,7 +2136,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletNewAddress"></a>
 # **walletNewAddress**
@@ -1986,7 +2195,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletNewSeed"></a>
 # **walletNewSeed**
@@ -2031,7 +2240,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletRecover"></a>
 # **walletRecover**
@@ -2088,7 +2297,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletSeed"></a>
 # **walletSeed**
@@ -2143,7 +2352,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletSeedVerify"></a>
 # **walletSeedVerify**
@@ -2196,74 +2405,11 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="walletSpent"></a>
-# **walletSpent**
-> Object walletSpent(id, dst, coins, password)
-
-
-
-Creates and broadcasts a transaction sending money from one of our wallets to destination address.
-
-### Example
-```java
-// Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Wallet id
-String dst = "dst_example"; // String | Recipient address
-String coins = "coins_example"; // String | Number of coins to spend, in droplets. 1 coin equals 1e6 droplets.
-String password = "password_example"; // String | Wallet password.
-try {
-    Object result = apiInstance.walletSpent(id, dst, coins, password);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletSpent");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Wallet id |
- **dst** | **String**| Recipient address |
- **coins** | **String**| Number of coins to spend, in droplets. 1 coin equals 1e6 droplets. |
- **password** | **String**| Wallet password. |
-
-### Return type
-
-**Object**
-
-### Authorization
-
-[csrfAuth](../README.md#csrfAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletTransaction"></a>
 # **walletTransaction**
-> Object walletTransaction(inlineObject)
-
-
+> Object walletTransaction(walletTransactionRequest)
 
 Creates a signed transaction
 
@@ -2285,9 +2431,9 @@ csrfAuth.setApiKey("YOUR API KEY");
 //csrfAuth.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-InlineObject inlineObject = new InlineObject(); // InlineObject | 
+WalletTransactionRequest walletTransactionRequest = new WalletTransactionRequest(); // WalletTransactionRequest | 
 try {
-    Object result = apiInstance.walletTransaction(inlineObject);
+    Object result = apiInstance.walletTransaction(walletTransactionRequest);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#walletTransaction");
@@ -2299,7 +2445,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject** | [**InlineObject**](InlineObject.md)|  | [optional]
+ **walletTransactionRequest** | [**WalletTransactionRequest**](WalletTransactionRequest.md)|  |
 
 ### Return type
 
@@ -2311,16 +2457,67 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/xml
- - **Accept**: application/json
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/xml, 
+
+<a name="walletTransactionSign"></a>
+# **walletTransactionSign**
+> InlineResponse2009 walletTransactionSign(walletTransactionSignRequest)
+
+Creates a signed transaction
+
+### Example
+```java
+// Import classes:
+//import org.openapitools.client.ApiClient;
+//import org.openapitools.client.ApiException;
+//import org.openapitools.client.Configuration;
+//import org.openapitools.client.auth.*;
+//import org.openapitools.client.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: csrfAuth
+ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+csrfAuth.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//csrfAuth.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+WalletTransactionSignRequest walletTransactionSignRequest = new WalletTransactionSignRequest(); // WalletTransactionSignRequest | 
+try {
+    InlineResponse2009 result = apiInstance.walletTransactionSign(walletTransactionSignRequest);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#walletTransactionSign");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **walletTransactionSignRequest** | [**WalletTransactionSignRequest**](WalletTransactionSignRequest.md)|  |
+
+### Return type
+
+[**InlineResponse2009**](InlineResponse2009.md)
+
+### Authorization
+
+[csrfAuth](../README.md#csrfAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletTransactions"></a>
 # **walletTransactions**
-> Object walletTransactions(id)
+> InlineResponse2006 walletTransactions(id)
 
 
-
-Returns returns all unconfirmed transactions for all addresses in a given wallet verbose
 
 ### Example
 ```java
@@ -2330,9 +2527,9 @@ Returns returns all unconfirmed transactions for all addresses in a given wallet
 
 
 DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Wallet id.
+String id = "id_example"; // String | Wallet Id.
 try {
-    Object result = apiInstance.walletTransactions(id);
+    InlineResponse2006 result = apiInstance.walletTransactions(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#walletTransactions");
@@ -2344,11 +2541,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Wallet id. |
+ **id** | **String**| Wallet Id. |
 
 ### Return type
 
-**Object**
+[**InlineResponse2006**](InlineResponse2006.md)
 
 ### Authorization
 
@@ -2357,7 +2554,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
 <a name="walletUnload"></a>
 # **walletUnload**
@@ -2409,11 +2606,11 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml
 
 <a name="walletUpdate"></a>
 # **walletUpdate**
-> walletUpdate(id, label)
+> String walletUpdate(id, label)
 
 Update the wallet.
 
@@ -2438,7 +2635,8 @@ DefaultApi apiInstance = new DefaultApi();
 String id = "id_example"; // String | Wallet Id.
 String label = "label_example"; // String | The label the wallet will be updated to.
 try {
-    apiInstance.walletUpdate(id, label);
+    String result = apiInstance.walletUpdate(id, label);
+    System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#walletUpdate");
     e.printStackTrace();
@@ -2454,7 +2652,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+**String**
 
 ### Authorization
 
@@ -2463,11 +2661,11 @@ null (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: text/plain, application/json, application/xml
 
 <a name="wallets"></a>
 # **wallets**
-> List&lt;InlineResponse2005&gt; wallets()
+> List&lt;Object&gt; wallets()
 
 
 
@@ -2482,7 +2680,7 @@ Returns all loaded wallets
 
 DefaultApi apiInstance = new DefaultApi();
 try {
-    List<InlineResponse2005> result = apiInstance.wallets();
+    List<Object> result = apiInstance.wallets();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#wallets");
@@ -2495,7 +2693,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**List&lt;InlineResponse2005&gt;**](InlineResponse2005.md)
+**List&lt;Object&gt;**
 
 ### Authorization
 
@@ -2504,5 +2702,5 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: application/json, application/xml, 
 
