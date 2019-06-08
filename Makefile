@@ -19,16 +19,14 @@ configure:
 	mkdir -p $(BUILD_DIR)/usr/tmp $(BUILD_DIR)/usr/lib $(BUILD_DIR)/usr/include
 	mkdir -p $(BUILDLIBC_DIR) $(BIN_DIR) $(INCLUDE_DIR)
 
-$(BUILDLIBC_DIR)/libskycoin.a: $(LIB_FILES) $(SRC_FILES) $(HEADER_FILES)
+## Build libskycoin C client library
+build-libc: configure
 	rm -f $(BUILDLIBC_DIR)/libskycoin.a
 	GOPATH="$(GOPATH_DIR)" make -C $(SKYCOIN_DIR) build-libc-static
 	ls $(BUILDLIBC_DIR)
 	rm -f swig/include/libskycoin.h
 	mkdir -p swig/include
 	grep -v _Complex $(INCLUDE_DIR)/libskycoin.h > swig/include/libskycoin.h
-
-## Build libskycoin C client library
-build-libc: configure $(BUILDLIBC_DIR)/libskycoin.a
 
 build-swig:
 	#Generate structs.i from skytypes.gen.h
@@ -54,10 +52,10 @@ build-libc-swig: build-libc build-swig
 build-libjava:
 	gcc -c -fpic -I /usr/lib/jvm/java-8-openjdk-amd64/include/  -I /usr/lib/jvm/java-8-openjdk-amd64/include/linux -I swig/include -I$(INCLUDE_DIR) skycoin_wrap.c
 	gcc -shared skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a -o libskycoin.so
-	sudo cp libskycoin.so /lib
+	sudo cp -fv libskycoin.so /lib
 	
 	
-test: build-libc build-swig build-libjava
+test: build-libc-swig build-libjava
 	mvn clean
 	mvn test
 	mvn clean
