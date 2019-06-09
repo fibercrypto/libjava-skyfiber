@@ -40,7 +40,10 @@ public class cipher_addressTest extends skycoin {
     str = new _GoString_();
     str.SetString("asa");
     err = SKY_cipher_DecodeBase58Address(str, a1);
-    assertEquals(err, SKY_ERROR);
+    if (utils.OS.equals("Linux")){
+      assertEquals(err, SKY_ERROR);}else{
+          assertEquals(err, SKY_ErrAddressInvalidLength);
+      }
 
     _GoString_ addrStr = new _GoString_();
     err = SKY_cipher_Address_String(a, addrStr);

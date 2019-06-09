@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>skycoin.libjava</groupId>
   <artifactId>libskycoin-java</artifactId>
-  <version>0.0.1</version>
+  <version>0.25.1/version>
   <name>libskycoin-java</name>
   <!-- FIXME change it to the project's website -->
   <url>https://github.com/simelo/libjava-skycoin</url>
