@@ -159,16 +159,11 @@ public class skycoinJNI {
   public final static native int[] pipefd_get();
   public final static native long registerMemCleanup(long jarg1);
   public final static native void freeRegisteredMemCleanup(long jarg1);
-  public final static native int registerJsonFree(long jarg1);
-  public final static native void freeRegisteredJson(long jarg1);
   public final static native int registerWalletClean(long jarg1, long jarg2);
   public final static native int registerHandleClose(long jarg1);
   public final static native void closeRegisteredHandle(long jarg1);
   public final static native void cleanupWallet(long jarg1, long jarg2);
   public final static native void cleanRegisteredWallet(long jarg1, long jarg2);
-  public final static native void cleanupMem();
-  public final static native void setup();
-  public final static native void teardown();
   public final static native void fprintbuff(long jarg1, long jarg2, long jarg3);
   public final static native int parseBoolean(String jarg1, int jarg2);
   public final static native void toGoString(long jarg1, _GoString_ jarg1_);
@@ -195,9 +190,7 @@ public class skycoinJNI {
   public final static native void convertGoUint8toSHA256(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_cipher_SumSHA256__SWIG_0(long jarg1, GoSlice jarg1_, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_cipher_SignHash__SWIG_0(long jarg1, cipher_SHA256 jarg1_, long jarg2, cipher_SecKey jarg2_, long jarg3, cipher_Sig jarg3_);
-  public final static native long SKY_cipher_ChkSig(long jarg1, cipher__Address jarg1_, long jarg2, cipher_SHA256 jarg2_, long jarg3, cipher_Sig jarg3_);
   public final static native long SKY_cipher_PubKeyFromSig__SWIG_0(long jarg1, cipher_Sig jarg1_, long jarg2, cipher_SHA256 jarg2_, long jarg3, cipher_PubKey jarg3_);
-  public final static native long SKY_cipher_VerifySignature(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_Sig jarg2_, long jarg3, cipher_SHA256 jarg3_);
   public final static native long SKY_cipher_SHA256_Set__SWIG_0(long jarg1, cipher_SHA256 jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_cipher_SHA256_Hex__SWIG_0(long jarg1, cipher_SHA256 jarg1_, long jarg2, _GoString_ jarg2_);
   public final static native long SKY_cipher_SHA256FromHex__SWIG_0(long jarg1, _GoString_ jarg1_, long jarg2, cipher_SHA256 jarg2_);
