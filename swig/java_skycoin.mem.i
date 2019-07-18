@@ -86,8 +86,8 @@
 
 %rename(SKY_coin_Transaction_PushInput) Java_skycoin_libjava_skycoinJNI_SKY_coin_Transaction_PushInput;
 %inline {
-	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_coin_Transaction_PushInput(Transaction__Handle tx, cipher_SHA256* h, GoUint16* p1){
-		GoUint32 result = SKY_coin_Transaction_PushInput(tx,h,p1);
+	GoUint16 Java_skycoin_libjava_skycoinJNI_SKY_coin_Transaction_PushInput(Transaction__Handle tx, cipher_SHA256* h){
+		GoUint16 result = SKY_coin_Transaction_PushInput(tx,h);
 		return result;
 	}
 }
