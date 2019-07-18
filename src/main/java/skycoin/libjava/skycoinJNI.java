@@ -84,6 +84,11 @@ public class skycoinJNI {
   public final static native void delete_Block__HandlePtr(long jarg1);
   public final static native void Block__HandlePtr_assign(long jarg1, long jarg2);
   public final static native long Block__HandlePtr_value(long jarg1);
+  public final static native long new_BlockHeader__HandlePtr();
+  public final static native long copy_BlockHeader__HandlePtr(long jarg1);
+  public final static native void delete_BlockHeader__HandlePtr(long jarg1);
+  public final static native void BlockHeader__HandlePtr_assign(long jarg1, long jarg2);
+  public final static native long BlockHeader__HandlePtr_value(long jarg1);
   public final static native long new_BlockBody__HandlePtr();
   public final static native long copy_BlockBody__HandlePtr(long jarg1);
   public final static native void delete_BlockBody__HandlePtr(long jarg1);
@@ -231,7 +236,7 @@ public class skycoinJNI {
   public final static native long SKY_coin_Block_HashHeader__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_Block_PreHashHeader(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_BlockBody_Hash__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
-  public final static native long SKY_coin_BlockHeader_Hash__SWIG_0(long jarg1, coin__BlockHeader jarg1_, long jarg2, cipher_SHA256 jarg2_);
+  public final static native long SKY_coin_BlockHeader_Hash__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_Block_HashBody__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_VerifyInputSignatures__SWIG_0(long jarg1, long jarg2, coin_UxOutArray jarg2_);
   public final static native int cipher_PubKey_isEqual(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);

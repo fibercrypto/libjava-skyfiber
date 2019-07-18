@@ -337,6 +337,28 @@ public class skycoin implements skycoinConstants {
     return new SWIGTYPE_p_Block__Handle(skycoinJNI.Block__HandlePtr_value(SWIGTYPE_p_Block__Handle.getCPtr(obj)), true);
   }
 
+  public static SWIGTYPE_p_BlockHeader__Handle new_BlockHeader__HandlePtr() {
+    long cPtr = skycoinJNI.new_BlockHeader__HandlePtr();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_BlockHeader__Handle(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_BlockHeader__Handle copy_BlockHeader__HandlePtr(SWIGTYPE_p_BlockHeader__Handle value) {
+    long cPtr = skycoinJNI.copy_BlockHeader__HandlePtr(SWIGTYPE_p_BlockHeader__Handle.getCPtr(value));
+    return (cPtr == 0) ? null : new SWIGTYPE_p_BlockHeader__Handle(cPtr, false);
+  }
+
+  public static void delete_BlockHeader__HandlePtr(SWIGTYPE_p_BlockHeader__Handle obj) {
+    skycoinJNI.delete_BlockHeader__HandlePtr(SWIGTYPE_p_BlockHeader__Handle.getCPtr(obj));
+  }
+
+  public static void BlockHeader__HandlePtr_assign(SWIGTYPE_p_BlockHeader__Handle obj, SWIGTYPE_p_BlockHeader__Handle value) {
+    skycoinJNI.BlockHeader__HandlePtr_assign(SWIGTYPE_p_BlockHeader__Handle.getCPtr(obj), SWIGTYPE_p_BlockHeader__Handle.getCPtr(value));
+  }
+
+  public static SWIGTYPE_p_BlockHeader__Handle BlockHeader__HandlePtr_value(SWIGTYPE_p_BlockHeader__Handle obj) {
+    return new SWIGTYPE_p_BlockHeader__Handle(skycoinJNI.BlockHeader__HandlePtr_value(SWIGTYPE_p_BlockHeader__Handle.getCPtr(obj)), true);
+  }
+
   public static SWIGTYPE_p_BlockBody__Handle new_BlockBody__HandlePtr() {
     long cPtr = skycoinJNI.new_BlockBody__HandlePtr();
     return (cPtr == 0) ? null : new SWIGTYPE_p_BlockBody__Handle(cPtr, false);
@@ -947,8 +969,8 @@ long tmps = _GoString_.getCPtr (s);
     return skycoinJNI.SKY_coin_BlockBody_Hash__SWIG_0(SWIGTYPE_p_BlockBody__Handle.getCPtr(p0), cipher_SHA256.getCPtr(p1), p1);
   }
 
-  public static long SKY_coin_BlockHeader_Hash(coin__BlockHeader p0, cipher_SHA256 p1) {
-    return skycoinJNI.SKY_coin_BlockHeader_Hash__SWIG_0(coin__BlockHeader.getCPtr(p0), p0, cipher_SHA256.getCPtr(p1), p1);
+  public static long SKY_coin_BlockHeader_Hash(SWIGTYPE_p_BlockHeader__Handle p0, cipher_SHA256 p1) {
+    return skycoinJNI.SKY_coin_BlockHeader_Hash__SWIG_0(SWIGTYPE_p_BlockHeader__Handle.getCPtr(p0), cipher_SHA256.getCPtr(p1), p1);
   }
 
   public static long SKY_coin_Block_HashBody(SWIGTYPE_p_Block__Handle p0, cipher_SHA256 p1) {
