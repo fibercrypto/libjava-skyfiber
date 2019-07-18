@@ -542,3 +542,11 @@
 		return result;
 	};
 }
+
+%rename(SKY_coin_BlockHeader_UxHash) Java_skycoin_libjava_skycoinJNI_SKY_coin_BlockHeader_UxHash;
+%inline {
+	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_coin_BlockHeader_UxHash(BlockHeader__Handle p0, cipher_SHA256* p1){
+		GoUint32 result = SKY_coin_BlockHeader_UxHash(p0,  p1);
+		return result;
+	}
+}

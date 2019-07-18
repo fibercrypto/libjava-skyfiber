@@ -57,58 +57,69 @@ public class coin_blockTest extends skycoin {
         return err;
     }
 
-    // @Test
+    @Test
 
-    // public void TestNewBlock() {
-    // SWIGTYPE_p_Transactions__Handle txns = utils.makeTransactions(1);
-    // SWIGTYPE_p_Block__Handle block = new_Block__HandlePtr();
-    // long err = SKY_coin_NewEmptyBlock(txns, block);
-    // assertEquals(err, SKY_OK);
-    // SWIGTYPE_p_p_coin__Block pBlockP = new_coin__BlockPtr();
-    // err = SKY_coin_GetBlockObject(block, pBlockP);
-    // assertEquals(err, SKY_OK);
-    // coin__Block pBlock = coin__BlockPtr_value(pBlockP);
-    // coin__BlockHeader pBlockTemp = pBlock.getHead();
-    // pBlockTemp.setVersion(0x02);
-    // pBlockTemp.setTime(BigDecimal.valueOf(100).toBigInteger());
-    // pBlockTemp.setBkSeq(BigDecimal.valueOf(98).toBigInteger());
-    // pBlock.setHead(pBlockTemp);
-    // cipher_SHA256 uxHash = utils.RandSHA256();
-    // // invalid txn fees panics
-    // err = SKY_coin_NewBlock(block, BigDecimal.valueOf(133).toBigInteger(),
-    // uxHash, txns, utils.badCalc, block);
-    // assertEquals(err, SKY_ERROR);
-    // // no txns panics
-    // SWIGTYPE_p_Transactions__Handle tnxs1 = new_Transactions__HandlePtr();
-    // SKY_coin_Create_Transactions(tnxs1);
-    // err = SKY_coin_NewBlock(block, BigDecimal.valueOf(133).toBigInteger(),
-    // uxHash, tnxs1, utils.feeCalc, block);
-    // assertEquals(err, SKY_ERROR);
+    public void TestNewBlock() {
 
-    // // Valid block in fine
-    // long fee = 121;
-    // BigInteger currentTime = BigDecimal.valueOf(133).toBigInteger();
-    // SWIGTYPE_p_Block__Handle b = new_Block__HandlePtr();
-    // err = SKY_coin_NewBlock(block, currentTime, uxHash, txns, utils.fix121, b);
-    // assertEquals(err, SKY_OK);
+        SWIGTYPE_p_Block__Handle prevBlock = new_Block__HandlePtr();
+        SWIGTYPE_p_Block__Handle newBlock = new_Block__HandlePtr();
+        SWIGTYPE_p_BlockHeader__Handle pPrevBlockHeader = new_BlockHeader__HandlePtr();
+        SWIGTYPE_p_Transactions__Handle txns = makeTestTransactions();
+        long err = SKY_coin_NewEmptyBlock(txns, prevBlock);
+        err = SKY_coin_Block_GetBlockHeader(prevBlock, pPrevBlockHeader);
+        assertEquals(err, SKY_OK);
 
-    // SWIGTYPE_p_p_coin__Block pBlock2P = new_coin__BlockPtr();
-    // err = SKY_coin_GetBlockObject(b, pBlock2P);
-    // coin__Block pBlock2 = coin__BlockPtr_value(pBlock2P);
-    // assertEquals(pBlock2.getHead().getFee(),
-    // BigDecimal.valueOf(fee).toBigInteger());
-    // cipher_SHA256 prevHash = new cipher_SHA256();
-    // cipher_SHA256 prevHashP = new cipher_SHA256();
-    // SKY_coin_Block_PreHashHeader(block, prevHash);
-    // SKY_coin_Block_HashHeader(b, prevHashP);
-    // assertEquals(prevHash.isEqual(prevHashP), 0);
-    // assertEquals(pBlock2.getHead().getTime(), currentTime);
-    // assertEquals(pBlock2.getHead().getBkSeq(),
-    // pBlock.getHead().getBkSeq().add(BigDecimal.valueOf(1).toBigInteger()));
-    // cipher_SHA256 pUxHash = new cipher_SHA256();
-    // convertGoUint8toSHA256(pBlock2.getHead().getUxHash(), pUxHash);
-    // assertEquals(uxHash.isEqual(pUxHash), 1);
-    // }
+        SKY_coin_BlockHeader_SetTime(pPrevBlockHeader, utils.toBigInteger(100));
+        SKY_coin_BlockHeader_SetBkSeq(pPrevBlockHeader, utils.toBigInteger(98));
+        cipher_SHA256 uxHash = utils.RandSHA256();
+        // invalid txn fees panics
+        txns = new_Transactions__HandlePtr();
+        SKY_coin_Create_Transactions(txns);
+        err = SKY_coin_NewBlock(prevBlock, utils.toBigInteger(133), uxHash, txns, utils.badCalc, newBlock);
+        assertEquals(err, SKY_ERROR);
+        // no txns panics
+        txns = new_Transactions__HandlePtr();
+        SKY_coin_Create_Transactions(txns);
+        err = SKY_coin_NewBlock(prevBlock, utils.toBigInteger(133), uxHash, txns, utils.feeCalc, newBlock);
+        assertEquals(err, SKY_ERROR);
+
+        // Valid block in fine
+        txns = new_Transactions__HandlePtr();
+        err = SKY_coin_Create_Transactions(txns);
+        assertEquals(err, SKY_OK);
+        SWIGTYPE_p_Transaction__Handle tnx = utils.makeEmptyTransaction();
+        err = SKY_coin_Transactions_Add(txns, tnx);
+        assertEquals(err, SKY_OK);
+
+        long fee = 121;
+        long currentTime = 133;
+        newBlock = new_Block__HandlePtr();
+        err = SKY_coin_NewBlock(prevBlock, utils.toBigInteger(currentTime), uxHash, txns, utils.fix121, newBlock);
+        assertEquals(err, SKY_OK);
+
+        SWIGTYPE_p_BlockHeader__Handle pnewBlockHeader = new_BlockHeader__HandlePtr();
+        err = SKY_coin_Block_GetBlockHeader(newBlock, pnewBlockHeader);
+        SWIGTYPE_p_unsigned_long_long pHeadFee = new_GoUint64Ptr();
+        SWIGTYPE_p_unsigned_long_long pHeadTime = new_GoUint64Ptr();
+        SWIGTYPE_p_unsigned_long_long pHeadBkSeq = new_GoUint64Ptr();
+        SKY_coin_BlockHeader_Fee(pnewBlockHeader, pHeadFee);
+        SKY_coin_BlockHeader_Time(pnewBlockHeader, pHeadTime);
+        SKY_coin_BlockHeader_BkSeq(pnewBlockHeader, pHeadBkSeq);
+        SWIGTYPE_p_long_long pTransLength = new_GointPtr();
+        err = SKY_coin_Transactions_Length(txns, pTransLength);
+        assertEquals(err, SKY_OK);
+        assertEquals(GoUint64Ptr_value(pHeadFee), utils.toBigInteger((fee * GointPtr_value(pTransLength))));
+        assertEquals(GoUint64Ptr_value(pHeadTime), utils.toBigInteger(currentTime));
+        pPrevBlockHeader = new_BlockHeader__HandlePtr();
+        err = SKY_coin_Block_GetBlockHeader(prevBlock, pPrevBlockHeader);
+        assertEquals(err, SKY_OK);
+        SWIGTYPE_p_unsigned_long_long pPrevBkSeq = new_GoUint64Ptr();
+        SKY_coin_BlockHeader_BkSeq(pPrevBlockHeader, pPrevBkSeq);
+        cipher_SHA256 pnewuxHash = new cipher_SHA256();
+        SKY_coin_BlockHeader_UxHash(pnewBlockHeader, pnewuxHash);
+        assertEquals(pnewuxHash.isEqual(uxHash), 1);
+
+    }
 
     @Test
 

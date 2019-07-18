@@ -239,6 +239,7 @@ public class skycoinJNI {
   public final static native long SKY_coin_BlockHeader_Hash__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_Block_HashBody__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_VerifyInputSignatures__SWIG_0(long jarg1, long jarg2, coin_UxOutArray jarg2_);
+  public final static native long SKY_coin_BlockHeader_UxHash__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native int cipher_PubKey_isEqual(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
   public final static native void cipher_PubKey_assignFrom(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
   public final static native void cipher_PubKey_assignTo(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
@@ -528,7 +529,7 @@ public class skycoinJNI {
   public final static native long SKY_coin_GetBlockHeaderObject(long jarg1, long jarg2);
   public final static native long SKY_coin_BlockHeader_Time(long jarg1, long jarg2);
   public final static native long SKY_coin_BlockHeader_BkSeq(long jarg1, long jarg2);
-  public final static native long SKY_coin_BlockHeader_UxHash(long jarg1, long jarg2, cipher_SecKey jarg2_);
+  public final static native long SKY_coin_BlockHeader_UxHash__SWIG_1(long jarg1, long jarg2, cipher_SecKey jarg2_);
   public final static native long SKY_coin_BlockHeader_Fee(long jarg1, long jarg2);
   public final static native long SKY_coin_BlockBody_Transactions(long jarg1, long jarg2);
   public final static native long SKY_coin_BlockHeader_SetTime(long jarg1, java.math.BigInteger jarg2);

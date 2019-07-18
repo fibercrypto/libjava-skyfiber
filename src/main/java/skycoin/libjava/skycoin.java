@@ -981,6 +981,10 @@ long tmps = _GoString_.getCPtr (s);
     return skycoinJNI.SKY_coin_VerifyInputSignatures__SWIG_0(SWIGTYPE_p_Transaction__Handle.getCPtr(handle), coin_UxOutArray.getCPtr(__uxIn), __uxIn);
   }
 
+  public static long SKY_coin_BlockHeader_UxHash(SWIGTYPE_p_BlockHeader__Handle p0, cipher_SHA256 p1) {
+    return skycoinJNI.SKY_coin_BlockHeader_UxHash__SWIG_0(SWIGTYPE_p_BlockHeader__Handle.getCPtr(p0), cipher_SHA256.getCPtr(p1), p1);
+  }
+
   public static long SKY_fee_VerifyTransactionFee(SWIGTYPE_p_Transaction__Handle p0, java.math.BigInteger p1, long p2) {
     return skycoinJNI.SKY_fee_VerifyTransactionFee(SWIGTYPE_p_Transaction__Handle.getCPtr(p0), p1, p2);
   }
@@ -1807,7 +1811,7 @@ long tmpp1 = cipher_SecKey.getCPtr (p1);
   public static long SKY_coin_BlockHeader_UxHash(SWIGTYPE_p_BlockHeader__Handle p0, cipher_SecKey p1) {
 long tmpp1 = cipher_SecKey.getCPtr (p1);
     {
-      return skycoinJNI.SKY_coin_BlockHeader_UxHash(SWIGTYPE_p_BlockHeader__Handle.getCPtr(p0), tmpp1, p1);
+      return skycoinJNI.SKY_coin_BlockHeader_UxHash__SWIG_1(SWIGTYPE_p_BlockHeader__Handle.getCPtr(p0), tmpp1, p1);
     }
   }
 
