@@ -90,7 +90,6 @@ build-swig: ## Generate libjava
 	}
 	rm -f swig/include/swig.h
 	rm -f skycoinnet_wrap.c
-	rm -rfv src/main/java/skycoin/libjava
 	mkdir -p src/main/java/skycoin/libjava
 	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
 
@@ -101,7 +100,7 @@ build-libjava:
 	gcc -c -fPIC $(OTHERLIB) -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/$(OS) -Iswig/include -I$(INCLUDE_DIR) skycoin_wrap.c
 	gcc -v $(LDFLAGS) -fPIC -o $(FOLDERLIB)/$(LDNAME) skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a
 
-test: build-libc build-swig build-libjava ## Running test
+test: clean build-libc build-swig build-libjava ## Running test
 	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
 
 clean: ## Clean all trash
