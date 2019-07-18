@@ -210,7 +210,6 @@ public class skycoinJNI {
   public final static native long SKY_coin_VerifyTransactionCoinsSpending__SWIG_0(long jarg1, coin_UxOutArray jarg1_, long jarg2, coin_UxOutArray jarg2_);
   public final static native long SKY_coin_VerifyTransactionHoursSpending__SWIG_0(java.math.BigInteger jarg1, long jarg2, coin_UxOutArray jarg2_, long jarg3, coin_UxOutArray jarg3_);
   public final static native long SKY_coin_CreateUnspents__SWIG_0(long jarg1, coin__BlockHeader jarg1_, long jarg2, long jarg3, coin_UxOutArray jarg3_);
-  public final static native long SKY_coin_Transaction_VerifyInput(long jarg1, long jarg2, coin_UxOutArray jarg2_);
   public final static native long SKY_coin_UxArray_HasDupes__SWIG_0(long jarg1, coin_UxOutArray jarg1_, long jarg2);
   public final static native long SKY_coin_UxArray_Coins__SWIG_0(long jarg1, coin_UxOutArray jarg1_, long jarg2);
   public final static native long SKY_coin_UxArray_CoinHours__SWIG_0(long jarg1, coin_UxOutArray jarg1_, java.math.BigInteger jarg2, long jarg3);
@@ -234,7 +233,6 @@ public class skycoinJNI {
   public final static native long SKY_cipher_CheckSecKeyHash__SWIG_0(long jarg1, cipher_SecKey jarg1_, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_NewBlock__SWIG_0(long jarg1, java.math.BigInteger jarg2, long jarg3, cipher_SHA256 jarg3_, long jarg4, long jarg5, long jarg6);
   public final static native long SKY_coin_Block_HashHeader__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
-  public final static native long SKY_coin_Block_PreHashHeader(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_BlockBody_Hash__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_BlockHeader_Hash__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_Block_HashBody__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);

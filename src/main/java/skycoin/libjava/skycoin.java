@@ -865,10 +865,6 @@ long tmps = _GoString_.getCPtr (s);
     return skycoinJNI.SKY_coin_CreateUnspents__SWIG_0(coin__BlockHeader.getCPtr(bh), bh, SWIGTYPE_p_Transaction__Handle.getCPtr(t), coin_UxOutArray.getCPtr(__return_Ux), __return_Ux);
   }
 
-  public static long SKY_coin_Transaction_VerifyInput(SWIGTYPE_p_Transaction__Handle handle, coin_UxOutArray __uxIn) {
-    return skycoinJNI.SKY_coin_Transaction_VerifyInput(SWIGTYPE_p_Transaction__Handle.getCPtr(handle), coin_UxOutArray.getCPtr(__uxIn), __uxIn);
-  }
-
   public static long SKY_coin_UxArray_HasDupes(coin_UxOutArray __uxIn, SWIGTYPE_p_unsigned_char p1) {
     return skycoinJNI.SKY_coin_UxArray_HasDupes__SWIG_0(coin_UxOutArray.getCPtr(__uxIn), __uxIn, SWIGTYPE_p_unsigned_char.getCPtr(p1));
   }
@@ -959,10 +955,6 @@ long tmps = _GoString_.getCPtr (s);
 
   public static long SKY_coin_Block_HashHeader(SWIGTYPE_p_Block__Handle p0, cipher_SHA256 p1) {
     return skycoinJNI.SKY_coin_Block_HashHeader__SWIG_0(SWIGTYPE_p_Block__Handle.getCPtr(p0), cipher_SHA256.getCPtr(p1), p1);
-  }
-
-  public static long SKY_coin_Block_PreHashHeader(SWIGTYPE_p_Block__Handle p0, cipher_SHA256 p1) {
-    return skycoinJNI.SKY_coin_Block_PreHashHeader(SWIGTYPE_p_Block__Handle.getCPtr(p0), cipher_SHA256.getCPtr(p1), p1);
   }
 
   public static long SKY_coin_BlockBody_Hash(SWIGTYPE_p_BlockBody__Handle p0, cipher_SHA256 p1) {
