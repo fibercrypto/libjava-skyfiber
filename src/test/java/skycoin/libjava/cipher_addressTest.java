@@ -9,7 +9,7 @@ import org.junit.Test;
  */
 public class cipher_addressTest extends skycoin {
   static {
-    // System.loadLibrary("skycoin");
+    System.loadLibrary("skycoin");
   }
   transutils utils = new transutils();
   @Test

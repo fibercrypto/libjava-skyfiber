@@ -233,6 +233,7 @@ public class skycoinJNI {
   public final static native long SKY_coin_BlockBody_Hash__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_BlockHeader_Hash__SWIG_0(long jarg1, coin__BlockHeader jarg1_, long jarg2, cipher_SHA256 jarg2_);
   public final static native long SKY_coin_Block_HashBody__SWIG_0(long jarg1, long jarg2, cipher_SHA256 jarg2_);
+  public final static native long SKY_coin_VerifyInputSignatures__SWIG_0(long jarg1, long jarg2, coin_UxOutArray jarg2_);
   public final static native int cipher_PubKey_isEqual(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
   public final static native void cipher_PubKey_assignFrom(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
   public final static native void cipher_PubKey_assignTo(long jarg1, cipher_PubKey jarg1_, long jarg2, cipher_PubKey jarg2_);
@@ -689,7 +690,7 @@ public class skycoinJNI {
   public final static native long SKY_coin_SortableTransactions_Swap(long jarg1, long jarg2, long jarg3);
   public final static native long SKY_coin_VerifyTransactionCoinsSpending__SWIG_1(long jarg1, GoSlice jarg1_, long jarg2, GoSlice jarg2_);
   public final static native long SKY_coin_VerifyTransactionHoursSpending__SWIG_1(java.math.BigInteger jarg1, long jarg2, GoSlice jarg2_, long jarg3, GoSlice jarg3_);
-  public final static native long SKY_coin_VerifyInputSignatures(long jarg1, long jarg2, GoSlice jarg2_);
+  public final static native long SKY_coin_VerifyInputSignatures__SWIG_1(long jarg1, long jarg2, GoSlice jarg2_);
   public final static native void SKY_params_GetDistributionAddresses(long jarg1, GoSlice jarg1_);
   public final static native void SKY_params_GetUnlockedDistributionAddresses(long jarg1, GoSlice jarg1_);
   public final static native void SKY_params_GetLockedDistributionAddresses(long jarg1, GoSlice jarg1_);

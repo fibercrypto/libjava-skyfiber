@@ -517,7 +517,7 @@
 
 %rename(SKY_coin_BlockHeader_Hash) Java_skycoin_libjava_skycoinJNI_SKY_coin_BlockHeader_Hash;
 %inline {
-	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_coin_BlockHeader_Hash(coin__BlockHeader* p0, cipher_SHA256* p1){
+	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_coin_BlockHeader_Hash(BlockHeader__Handle p0, cipher_SHA256* p1){
 		GoUint32 result = SKY_coin_BlockHeader_Hash(p0,  p1);
 		return result;
 	}
@@ -529,4 +529,16 @@
 		GoUint32 result = SKY_coin_Block_HashBody(p0,  p1);
 		return result;
 	}
+}
+
+%rename(SKY_coin_VerifyInputSignatures) Java_skycoin_libjava_skycoinJNI_SKY_coin_VerifyInputSignatures;
+%inline {
+	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_coin_VerifyInputSignatures(Transaction__Handle handle , coin_UxOutArray* __uxIn){
+		coin__UxArray dataIn;
+		dataIn.data = __uxIn->data;
+		dataIn.len = __uxIn->count;
+		dataIn.cap = __uxIn->count;
+		GoUint32 result = SKY_coin_VerifyInputSignatures(handle,&dataIn);
+		return result;
+	};
 }
