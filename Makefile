@@ -102,10 +102,13 @@ build-libjava:
 	gcc -v $(LDFLAGS) -fPIC -o $(FOLDERLIB)/$(LDNAME) skycoin_wrap.o $(BUILDLIBC_DIR)/libskycoin.a
 
 test: build-libc build-swig build-libjava ## Running test
-	ls -o $(FOLDERLIB)
-	mvn clean
 	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
+
+clean: ## Clean all trash
+	GOPATH="$(REPO_ROOT)/$(GOPATH_DIR)" make -C $(SKYLIBC_DIR) clean-libc
+	mvn pre-clean
 	mvn clean
+	mvn post-clean
 
 help: ## List available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
