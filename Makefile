@@ -15,6 +15,8 @@ SRC_FILES = $(shell find $(SKYCOIN_DIR)/src -type f -name "*.go")
 SWIG_FILES = $(shell find $(LIBSWIG_DIR) -type f -name "*.i")
 HEADER_FILES = $(shell find $(SKYCOIN_DIR)/include -type f -name "*.h")
 
+LIB_JAVA_WRAPPER = lib/skyapi
+
 configure:
 	mkdir -p $(BUILD_DIR)/usr/tmp $(BUILD_DIR)/usr/lib $(BUILD_DIR)/usr/include
 	mkdir -p $(BUILDLIBC_DIR) $(BIN_DIR) $(INCLUDE_DIR)
@@ -61,3 +63,6 @@ test: build-libc build-swig build-libjava
 	mvn clean
 	mvn test
 	mvn clean
+	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
+	(cd $(LIB_JAVA_WRAPPER) && mvn test)
+	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
