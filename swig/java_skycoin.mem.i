@@ -14,13 +14,7 @@
 	}
 }
 
-%rename(SKY_cipher_ChkSig) Java_skycoin_libjava_skycoinJNI_SKY_cipher_ChkSig;
-%inline {
-	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_cipher_ChkSig(cipher__Address *a,cipher_SHA256 *sha,cipher_Sig *s){
-		GoUint32 result = SKY_cipher_ChkSig(a,sha,s);
-		return result;
-	}
-}
+
 
 %rename(SKY_cipher_PubKeyFromSig) Java_skycoin_libjava_skycoinJNI_SKY_cipher_PubKeyFromSig;
 %inline {
@@ -30,21 +24,7 @@
 	}
 }
 
-%rename(SKY_cipher_VerifySignature) Java_skycoin_libjava_skycoinJNI_SKY_cipher_VerifySignature;
-%inline {
-	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_cipher_VerifySignature(cipher_PubKey *p,cipher_Sig *sig,cipher_SHA256 *h){
-		GoUint32 result = SKY_cipher_VerifySignature(p,sig,h);
-		return result;
-	}
-}
 
-// %rename(SKY_cipher_TestSecKeyHash) Java_skycoin_libjava_skycoinJNI_SKY_cipher_TestSecKeyHash;
-// %inline {
-// 	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_cipher_TestSecKeyHash(cipher_SecKey *s,cipher_SHA256 *h){
-// 		GoUint32 result = SKY_cipher_TestSecKeyHash(s,h);
-// 		return result;
-// 	}
-// }
 
 %rename(SKY_cipher_SHA256_Set) Java_skycoin_libjava_skycoinJNI_SKY_cipher_SHA256_Set;
 %inline {

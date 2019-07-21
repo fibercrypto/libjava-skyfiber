@@ -634,14 +634,6 @@ public class skycoin implements skycoinConstants {
     skycoinJNI.freeRegisteredMemCleanup(SWIGTYPE_p_void.getCPtr(p));
   }
 
-  public static int registerJsonFree(SWIGTYPE_p_void p) {
-    return skycoinJNI.registerJsonFree(SWIGTYPE_p_void.getCPtr(p));
-  }
-
-  public static void freeRegisteredJson(SWIGTYPE_p_void p) {
-    skycoinJNI.freeRegisteredJson(SWIGTYPE_p_void.getCPtr(p));
-  }
-
   public static int registerWalletClean(SWIGTYPE_p_Client__Handle clientHandle, SWIGTYPE_p_WalletResponse__Handle walletHandle) {
     return skycoinJNI.registerWalletClean(SWIGTYPE_p_Client__Handle.getCPtr(clientHandle), SWIGTYPE_p_WalletResponse__Handle.getCPtr(walletHandle));
   }
@@ -660,18 +652,6 @@ public class skycoin implements skycoinConstants {
 
   public static void cleanRegisteredWallet(SWIGTYPE_p_Client__Handle client, SWIGTYPE_p_WalletResponse__Handle wallet) {
     skycoinJNI.cleanRegisteredWallet(SWIGTYPE_p_Client__Handle.getCPtr(client), SWIGTYPE_p_WalletResponse__Handle.getCPtr(wallet));
-  }
-
-  public static void cleanupMem() {
-    skycoinJNI.cleanupMem();
-  }
-
-  public static void setup() {
-    skycoinJNI.setup();
-  }
-
-  public static void teardown() {
-    skycoinJNI.teardown();
   }
 
   public static void fprintbuff(SWIGTYPE_p_FILE f, SWIGTYPE_p_void buff, long n) {
@@ -800,16 +780,8 @@ long tmpresultHash = cipher_SecKey.getCPtr (resultHash);
     return skycoinJNI.SKY_cipher_SignHash__SWIG_0(cipher_SHA256.getCPtr(sha), sha, cipher_SecKey.getCPtr(sec), sec, cipher_Sig.getCPtr(s), s);
   }
 
-  public static long SKY_cipher_ChkSig(cipher__Address a, cipher_SHA256 sha, cipher_Sig s) {
-    return skycoinJNI.SKY_cipher_ChkSig(cipher__Address.getCPtr(a), a, cipher_SHA256.getCPtr(sha), sha, cipher_Sig.getCPtr(s), s);
-  }
-
   public static long SKY_cipher_PubKeyFromSig(cipher_Sig sig, cipher_SHA256 h, cipher_PubKey p) {
     return skycoinJNI.SKY_cipher_PubKeyFromSig__SWIG_0(cipher_Sig.getCPtr(sig), sig, cipher_SHA256.getCPtr(h), h, cipher_PubKey.getCPtr(p), p);
-  }
-
-  public static long SKY_cipher_VerifySignature(cipher_PubKey p, cipher_Sig sig, cipher_SHA256 h) {
-    return skycoinJNI.SKY_cipher_VerifySignature(cipher_PubKey.getCPtr(p), p, cipher_Sig.getCPtr(sig), sig, cipher_SHA256.getCPtr(h), h);
   }
 
   public static long SKY_cipher_SHA256_Set(cipher_SHA256 h, GoSlice s) {
