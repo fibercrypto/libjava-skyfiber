@@ -469,7 +469,7 @@ FeeCalculator overflow(){
 			return 1;
 		return result;
 	}
-	coin__Transaction *makeTransactionFromUxOut(coin__UxOut * puxOut, cipher__SecKey * pseckey, Transaction__Handle * handle)
+coin__Transaction *makeTransactionFromUxOut(coin__UxOut * puxOut, cipher__SecKey * pseckey, Transaction__Handle * handle)
 	{
 		int result;
 		coin__Transaction *ptransaction = NULL;
@@ -482,8 +482,7 @@ FeeCalculator overflow(){
 		result = SKY_coin_UxOut_Hash(puxOut, &sha256);
 		//   cr_assert(result == SKY_OK, "SKY_coin_UxOut_Hash failed");
 		GoUint16 r;
-		result = SKY_coin_Transaction_PushInput(*handle, &sha256, &r);
-		//   cr_assert(result == SKY_OK, "SKY_coin_Transaction_PushInput failed");
+		r = SKY_coin_Transaction_PushInput(*handle, &sha256);
 
 		cipher__Address address1, address2;
 		result = makeAddress(&address1);

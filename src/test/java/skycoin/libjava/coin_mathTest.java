@@ -22,10 +22,10 @@
      @Test
      public void TestAddUint64() {
          SWIGTYPE_p_unsigned_long_long r = new_GoUint64Ptr();
-         long err = SKY_coin_AddUint64(BigInteger.valueOf(10), BigInteger.valueOf(11), r);
+         long err = SKY_util_AddUint64(BigInteger.valueOf(10), BigInteger.valueOf(11), r);
          assertEquals(err, SKY_OK);
          assertEquals(GoUint64Ptr_value(r), BigInteger.valueOf(21));
-         err = SKY_coin_AddUint64(MaxBigInteger, BigInteger.valueOf(1), r);
+         err = SKY_util_AddUint64(MaxBigInteger, BigInteger.valueOf(1), r);
          assertEquals(err, SKY_OK);
      }
 
@@ -63,7 +63,7 @@
          FullCases();
          for (int i = 0; i < cases.length; i++) {
              SWIGTYPE_p_long_long r = new_GointPtr();
-             long err = SKY_coin_Uint64ToInt64(cases[i].a, r);
+             long err = SKY_util_Uint64ToInt64(cases[i].a, r);
              assertEquals(err, cases[i].failure);
              assertEquals(cases[i].b, BigInteger.valueOf(GointPtr_value(r)));
          }

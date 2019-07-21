@@ -25,7 +25,7 @@ __pycache__/
 # Mac
 .DS_Store
 
-#Copy of libskycoin.h in pyskycoin
+#Copy of libskycoin.h in libjava
 swig/include/libskycoin.h
 
 #Just for testing outside tox
@@ -40,6 +40,11 @@ tests/mytest.py
 
 # IDE
 .idea
+.vscode
+
+# Compile
+*.so
+skycoin_wrap.*
 
 # Maven
 log/

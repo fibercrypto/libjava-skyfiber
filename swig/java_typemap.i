@@ -22,6 +22,7 @@
 %pointer_functions(Transactions__Handle, Transactions__HandlePtr);
 %pointer_functions(Transaction__Handle, Transaction__HandlePtr);
 %pointer_functions(Block__Handle,Block__HandlePtr);
+%pointer_functions(BlockHeader__Handle,BlockHeader__HandlePtr);
 %pointer_functions(BlockBody__Handle,BlockBody__HandlePtr);
 %pointer_functions(Signature_Handle,Signature_HandlePtr);
 %pointer_functions(Number_Handle,Number_HandlePtr);

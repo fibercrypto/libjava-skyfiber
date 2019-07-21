@@ -8,18 +8,18 @@
 
 package skycoin.libjava;
 
-public class SWIGTYPE_p_WebRpcClient__Handle {
+public class SWIGTYPE_p_CLI__Handle {
   private transient long swigCPtr;
 
-  protected SWIGTYPE_p_WebRpcClient__Handle(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+  protected SWIGTYPE_p_CLI__Handle(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_WebRpcClient__Handle() {
+  protected SWIGTYPE_p_CLI__Handle() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_WebRpcClient__Handle obj) {
+  protected static long getCPtr(SWIGTYPE_p_CLI__Handle obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

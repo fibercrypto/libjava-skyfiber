@@ -1,12 +1,3 @@
-%extend cipher__Address {
-	// char getVersion(){
-	// 	return $self->Version;
-    // }
-    // 	void setVersion(char pValue){
-	// 	$self->Version = pValue;
-    // }
-}
-
 %extend GoSlice {
 	int isEqual(GoSlice *slice){
 		return (($self->len == slice->len)) && (memcmp($self->data,slice->data, sizeof(GoSlice_))==0 );
