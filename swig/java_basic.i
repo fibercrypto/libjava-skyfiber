@@ -104,34 +104,8 @@ FeeCalculator overflow(){
 		}
 	}
 
-	int registerJsonFree(void *p)
-	{
-		int i;
-		for (i = 0; i < JSONPOOLIDX; i++)
-		{
-			if (JSON_POOL[i] == NULL)
-			{
-				JSON_POOL[i] = p;
-				return i;
-			}
-		}
-		JSON_POOL[JSONPOOLIDX++] = p;
-		return JSONPOOLIDX - 1;
-	}
 
-	void freeRegisteredJson(void *p)
-	{
-		int i;
-		for (i = 0; i < JSONPOOLIDX; i++)
-		{
-			if (JSON_POOL[i] == p)
-			{
-				JSON_POOL[i] = NULL;
-				json_value_free((json_value *)p);
-				break;
-			}
-		}
-	}
+
 
 	int registerWalletClean(Client__Handle clientHandle,
 													WalletResponse__Handle walletHandle)
@@ -242,47 +216,6 @@ FeeCalculator overflow(){
 		}
 	}
 
-	void cleanupMem()
-	{
-		int i;
-
-		for (i = 0; i < WALLETPOOLIDX; i++)
-		{
-			if (WALLET_POOL[i].client != 0 && WALLET_POOL[i].wallet != 0)
-			{
-				cleanupWallet(WALLET_POOL[i].client, WALLET_POOL[i].wallet);
-			}
-		}
-
-		void **ptr;
-		for (i = MEMPOOLIDX, ptr = MEMPOOL; i; --i)
-		{
-			if (*ptr)
-				free(*ptr);
-			ptr++;
-		}
-		for (i = JSONPOOLIDX, ptr = (void *)JSON_POOL; i; --i)
-		{
-			if (*ptr)
-				json_value_free(*ptr);
-			ptr++;
-		}
-		for (i = 0; i < HANDLEPOOLIDX; i++)
-		{
-			if (HANDLE_POOL[i])
-				SKY_handle_close(HANDLE_POOL[i]);
-		}
-	}
-
-	void setup(void)
-	{
-		srand((unsigned int)time(NULL));
-	}
-
-	void teardown(void)
-	{
-		cleanupMem();
-	}
 
 	// TODO: Move to libsky_io.c
 	void fprintbuff(FILE * f, void *buff, size_t n)
@@ -536,7 +469,7 @@ FeeCalculator overflow(){
 			return 1;
 		return result;
 	}
-	coin__Transaction *makeTransactionFromUxOut(coin__UxOut * puxOut, cipher__SecKey * pseckey, Transaction__Handle * handle)
+coin__Transaction *makeTransactionFromUxOut(coin__UxOut * puxOut, cipher__SecKey * pseckey, Transaction__Handle * handle)
 	{
 		int result;
 		coin__Transaction *ptransaction = NULL;
@@ -549,8 +482,7 @@ FeeCalculator overflow(){
 		result = SKY_coin_UxOut_Hash(puxOut, &sha256);
 		//   cr_assert(result == SKY_OK, "SKY_coin_UxOut_Hash failed");
 		GoUint16 r;
-		result = SKY_coin_Transaction_PushInput(*handle, &sha256, &r);
-		//   cr_assert(result == SKY_OK, "SKY_coin_Transaction_PushInput failed");
+		r = SKY_coin_Transaction_PushInput(*handle, &sha256);
 
 		cipher__Address address1, address2;
 		result = makeAddress(&address1);

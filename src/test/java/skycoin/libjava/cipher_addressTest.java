@@ -1,6 +1,6 @@
 package skycoin.libjava;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -8,12 +8,13 @@ import org.junit.Test;
  * Unit test for simple App.
  */
 public class cipher_addressTest extends skycoin {
-  static { System.loadLibrary("skycoin"); }
-
+  static {
+    System.loadLibrary("skycoin");
+  }
+  transutils utils = new transutils();
   @Test
   public void TestDecodeBase58Address() {
-    long err = 0;
-
+    long err;
     cipher_SecKey s = new cipher_SecKey();
     cipher_PubKey p = new cipher_PubKey();
     err = SKY_cipher_GenerateKeyPair(p, s);
@@ -35,11 +36,15 @@ public class cipher_addressTest extends skycoin {
 
     str.SetString("");
     err = SKY_cipher_DecodeBase58Address(str, a1);
-    assertEquals(err, SKY_ErrInvalidBase58String);
+    assertEquals(err, SKY_ERROR);
     str = new _GoString_();
     str.SetString("asa");
     err = SKY_cipher_DecodeBase58Address(str, a1);
-    assertEquals(err, SKY_ErrInvalidBase58Char);
+    if (utils.OS.equals("Linux")){
+      assertEquals(err, SKY_ERROR);}else{
+          assertEquals(err, SKY_ErrAddressInvalidLength);
+      }
+
     _GoString_ addrStr = new _GoString_();
     err = SKY_cipher_Address_String(a, addrStr);
     assertEquals(err, SKY_OK);
@@ -49,15 +54,15 @@ public class cipher_addressTest extends skycoin {
     String as2 = " " + addrStr.getP();
     _GoString_ strAs2 = new _GoString_();
     err = SKY_cipher_DecodeBase58Address(strAs2, a1);
-    assertEquals(err, SKY_ErrInvalidBase58String);
+    assertEquals(err, SKY_ERROR);
 
     strAs2.SetString("000" + addrStr.getP());
     err = SKY_cipher_DecodeBase58Address(strAs2, a1);
-    assertEquals(err, SKY_ErrInvalidBase58Char);
+    assertEquals(err, SKY_ERROR);
 
     strAs2.SetString(addrStr.getP() + "000");
     err = SKY_cipher_DecodeBase58Address(strAs2, a1);
-    assertEquals(err, SKY_ErrInvalidBase58Char);
+    assertEquals(err, SKY_ERROR);
   }
 
   @Test
