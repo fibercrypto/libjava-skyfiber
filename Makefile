@@ -66,3 +66,7 @@ test: build-libc build-swig build-libjava
 	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
 	(cd $(LIB_JAVA_WRAPPER) && mvn test)
 	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
+
+package:
+	mvn package
+	(cd $(LIB_JAVA_WRAPPER) && mvn package)
