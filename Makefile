@@ -25,7 +25,7 @@ LIB_FILES = $(shell find $(SKYLIBC_DIR)/lib/cgo -type f -name "*.go")
 SRC_FILES = $(shell find $(SKYCOIN_DIR)/src -type f -name "*.go")
 SWIG_FILES = $(shell find $(LIBSWIG_DIR) -type f -name "*.i")
 HEADER_FILES = $(shell find $(INCLUDE_DIR) -type f -name "*.h")
-
+LIB_JAVA_WRAPPER= $(REPO_ROOT)/lib/skyapi
 # Platform specific checks
 OSNAME = $(TRAVIS_OS_NAME)
 OS =
