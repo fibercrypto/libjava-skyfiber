@@ -1,60 +1,54 @@
 language: java
-
 matrix:
   include:
-   - os: linux
-     jdk: openjdk8
-   - os: linux
-     jdk: openjdk9
-   - os: linux
-     jdk: openjdk10
-   - os: linux
-     jdk: openjdk11
-   - os: linux
-     jdk: openjdk12
-   - os: osx
-     osx_image: xcode8.3
-     jdk: oraclejdk8
-   - os: osx
-     osx_image: xcode8.3
-     jdk: openjdk9
-   - os: osx
-     osx_image: xcode8.3
-     jdk: openjdk10
-   - os: osx
-     osx_image: xcode8.3
-     jdk: oraclejdk11
-   - os: osx
-     osx_image: xcode8.3
-     jdk: openjdk12
-
+  - os: linux
+    jdk: openjdk8
+  - os: linux
+    jdk: openjdk9
+  - os: linux
+    jdk: openjdk10
+  - os: linux
+    jdk: openjdk11
+  - os: linux
+    jdk: openjdk12
+  - os: osx
+    osx_image: xcode8.3
+    jdk: oraclejdk8
+  - os: osx
+    osx_image: xcode8.3
+    jdk: openjdk9
+  - os: osx
+    osx_image: xcode8.3
+    jdk: openjdk10
+  - os: osx
+    osx_image: xcode8.3
+    jdk: oraclejdk11
+  - os: osx
+    osx_image: xcode8.3
+    jdk: openjdk12
 before_install:
-  - npm config delete prefix
-
+- npm config delete prefix
 install:
-  - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then bash ./.travis/install-linux.sh ; fi
-  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then bash ./.travis/install-os.sh; fi
-  - cd $TRAVIS_BUILD_DIR
-  - eval "$(gimme 1.11)"
-
+- if [[ $TRAVIS_OS_NAME == 'linux' ]]; then bash ./.travis/install-linux.sh ; fi
+- if [[ $TRAVIS_OS_NAME == 'osx' ]]; then bash ./.travis/install-os.sh; fi
+- cd $TRAVIS_BUILD_DIR
+- eval "$(gimme 1.11)"
 script:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - make test
-
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+- make test
 before_deploy:
-  - make package
-
+- make package
 deploy:
   provider: releases
-  api_key: "1b6483754e66bd7cc6233db548ce9695cc8ecdc4"
+  api_key:
+    secure: izM0YQ+xhaeHMnJRTePEoTg+fuNDomci1Mv5h936yScFRr2kywz7SxkY28ST3OltxX7oaCt7YecPAK3+3N6yfxQSrAtYwQSP0KQ0TWmwTgQ9xhXLUyfr97bBfU1lqwv/GFAID3NVCeXY7adAo9Xvx8cwpChIdckXmxSAAkUNV3mDL4a6JtuzaAWk0c/aHY8wnR1Cjz52kLxV2gImcyMgBGl7SXtTyR+kdFWj/1udSqnP5vFAvug1qwRR2ELNxYeP7DusC60UoIVVyNKA9coE3R7z/5LUY6aD4IB/m46lGRKPXPeY8kv12glGOu53SCq4BF9Xadh2abUyz2HaAQIYf+jGufgwuInBSuYKYtRGEuBdbvTTNYKdWBOV0K/jCc5KFfLMIIqiBmWtvVow96xPaNglXPvlX+vvwRGutzCzv8qIA9XKF/YY1ZUQjj9lSf5kjHBnl9OfdZPbRNcZ8d9JwwxSOwkcGBn7Ceb9gckPMtbA/p0DllVPYu+2BJlh4CTPBli5KVZdq5pCWaKkeOt94CFGj+lMhsF5a6LubvaW9hvLWcFgOpLxVWdYM2L50rTCYdRDBDvOx4aXNBMIENGTdPhz/5kpjHwG2EZ2W5lu8J9s4QNqyCuUtKH9eaU/Q3ZqoI610pV6xiKOS0pxdcEbvW0I0F+rQLCVT0CPWtyUYn0=
   file:
-    - ./lib/skyapi/target/skyapi-${TRAVIS_TAG}.jar
-    - ./target/libskycoin-java-${TRAVIS_TAG}.jar
+  - "./lib/skyapi/target/skyapi-${TRAVIS_TAG}.jar"
+  - "./target/libskycoin-java-${TRAVIS_TAG}.jar"
   skip_cleanup: true
   on:
     tags: true
     repo: simelo/libjava-skycoin
-
 notifications:
   email: false
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify
