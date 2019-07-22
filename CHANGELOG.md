@@ -9,10 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Add `skyapi`, a wrapper for Skycoin api in version 0.25.1
+- Feature compatible with Skycoin `v0.26.0`
+- .Java specific SWIG typemaps
+- Support for `api`, `cipher`, `cli`, `coin`, `params`, `util`, `wallet`, `wallet_option`
+- Development setup instructions in README.md
+- Release process documented in README.md
+- Add `make build` target to build solution based on SWIG-generated PInvoke wrappers
+- Add `make help`
+- Add `skyapi`, a wrapper for Skycoin api in version 0.26.0
+
 
 ### Fixed
 
-- Fix #15 - Java API wrapper for the Skycoin node API
+### Changed
 
+### Removed
 
