@@ -25,11 +25,11 @@ LIB_FILES = $(shell find $(SKYLIBC_DIR)/lib/cgo -type f -name "*.go")
 SRC_FILES = $(shell find $(SKYCOIN_DIR)/src -type f -name "*.go")
 SWIG_FILES = $(shell find $(LIBSWIG_DIR) -type f -name "*.i")
 HEADER_FILES = $(shell find $(INCLUDE_DIR) -type f -name "*.h")
-
+LIB_JAVA_WRAPPER= $(REPO_ROOT)/lib/skyapi
 # Platform specific checks
 OSNAME = $(TRAVIS_OS_NAME)
-OS = 
-JAVA_HOME = 
+OS =
+JAVA_HOME =
 LDFLAGS =
 OTHERLIB =
 FOLDERLIB = $(PWD)/build/usr/lib
@@ -56,10 +56,11 @@ endif
   OTHERLIB=-I/System/Library/Frameworks/JavaVM.framework/Headers
   FOLDERLIB=~/Library/Java/Extensions
 else
-  
+
 endif
 
 configure-linux:
+	@echo ""
 
 configure-darwin:
 	mkdir -p ~/Library/ ~/Library/Java ~/Library/Java/Extensions
@@ -102,12 +103,18 @@ build-libjava:
 
 test: clean build-libc build-swig build-libjava ## Running test
 	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
+	(cd $(LIB_JAVA_WRAPPER) && mvn test)
 
 clean: ## Clean all trash
 	GOPATH="$(REPO_ROOT)/$(GOPATH_DIR)" make -C $(SKYLIBC_DIR) clean-libc
 	mvn pre-clean
 	mvn clean
 	mvn post-clean
+	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
+
+package:
+	mvn package
+	(cd $(LIB_JAVA_WRAPPER) && mvn package)
 
 help: ## List available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
