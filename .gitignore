@@ -1,0 +1,69 @@
+# general things to ignore
+build/
+dist/
+*.egg-info/
+*.egg
+*.py[cod]
+__pycache__/
+.pytest_cache
+*.so
+*.o
+*.orig
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+*~
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+#Copy of libskycoin.h in libjava
+swig/include/libskycoin.h
+
+#Just for testing outside tox
+tests/mytest.py
+
+# due to using tox and pytest
+.tox
+.cache
+
+*.swp
+*.swo
+
+# IDE
+.idea
+.vscode
+
+# Compile
+*.so
+skycoin_wrap.*
+
+# Maven
+log/
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+/.metadata/
+.directory
+
+#IDE
+.idea
+.vscode
+
+#Generate
+skycoin_wrap.*
