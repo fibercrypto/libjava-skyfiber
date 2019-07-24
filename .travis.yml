@@ -36,7 +36,6 @@ install:
 script:
 - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 - make test
-before_deploy:
 - make package
 deploy:
   provider: releases
