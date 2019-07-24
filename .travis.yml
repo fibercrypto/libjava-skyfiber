@@ -45,6 +45,7 @@ deploy:
   file:
   - "./lib/skyapi/target/skyapi-$(echo ${TRAVIS_TAG} | cut -d'v' -f 2).jar"
   - "./target/libskycoin-java-$(echo ${TRAVIS_TAG} | cut -d'v' -f 2).jar"
+  skip_cleanup: true
   on:
     repo: simelo/libjava-skycoin
     tags: true
