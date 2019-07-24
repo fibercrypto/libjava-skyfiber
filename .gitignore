@@ -67,3 +67,4 @@ buildNumber.properties
 
 #Generate
 skycoin_wrap.*
+swig_build/*
