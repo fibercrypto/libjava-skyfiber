@@ -104,6 +104,7 @@ build-libjava:
 test: clean build-libc build-swig build-libjava ## Running test
 	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
 	(cd $(LIB_JAVA_WRAPPER) && mvn test)
+	(cd lib/skyapi-jersey && mvn test)
 
 clean: ## Clean all trash
 	GOPATH="$(REPO_ROOT)/$(GOPATH_DIR)" make -C $(SKYLIBC_DIR) clean-libc
@@ -111,6 +112,7 @@ clean: ## Clean all trash
 	mvn clean
 	mvn post-clean
 	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
+	(cd lib/skyapi-jersey && mvn clean)
 
 package:
 	mvn package
