@@ -4,9 +4,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
-*.war
-*.ear
 
 # exclude jar for gradle wrapper
 !gradle/wrapper/*.jar
