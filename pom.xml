@@ -66,4 +66,13 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <!-- Deploy github -->
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Skycoin Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/simelo/libjava-skycoin</url>
+    </repository>
+  </distributionManagement>
 </project>
