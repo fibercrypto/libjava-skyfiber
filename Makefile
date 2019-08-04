@@ -112,9 +112,13 @@ clean: ## Clean all trash
 	mvn post-clean
 	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
 
-package:
-	mvn package
+package: ## Package libskycoin and libskyapi
+	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)"  mvn package
 	(cd $(LIB_JAVA_WRAPPER) && mvn package)
+
+deploy-travis: ## Deploy to  libskycoin and libskyapi
+	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)"  mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true
+	(cd $(LIB_JAVA_WRAPPER) && mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true -Dskip=true) 
 
 help: ## List available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
