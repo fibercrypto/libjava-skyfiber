@@ -112,7 +112,7 @@ clean: ## Clean all trash
 	mvn clean
 	mvn post-clean
 	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
-	(cd lib/resteasy && mvn clean)
+	(cd lib/skyapi-resteasy && mvn clean)
 
 package:
 	mvn package
