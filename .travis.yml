@@ -44,6 +44,7 @@ deploy:
     secure: izM0YQ+xhaeHMnJRTePEoTg+fuNDomci1Mv5h936yScFRr2kywz7SxkY28ST3OltxX7oaCt7YecPAK3+3N6yfxQSrAtYwQSP0KQ0TWmwTgQ9xhXLUyfr97bBfU1lqwv/GFAID3NVCeXY7adAo9Xvx8cwpChIdckXmxSAAkUNV3mDL4a6JtuzaAWk0c/aHY8wnR1Cjz52kLxV2gImcyMgBGl7SXtTyR+kdFWj/1udSqnP5vFAvug1qwRR2ELNxYeP7DusC60UoIVVyNKA9coE3R7z/5LUY6aD4IB/m46lGRKPXPeY8kv12glGOu53SCq4BF9Xadh2abUyz2HaAQIYf+jGufgwuInBSuYKYtRGEuBdbvTTNYKdWBOV0K/jCc5KFfLMIIqiBmWtvVow96xPaNglXPvlX+vvwRGutzCzv8qIA9XKF/YY1ZUQjj9lSf5kjHBnl9OfdZPbRNcZ8d9JwwxSOwkcGBn7Ceb9gckPMtbA/p0DllVPYu+2BJlh4CTPBli5KVZdq5pCWaKkeOt94CFGj+lMhsF5a6LubvaW9hvLWcFgOpLxVWdYM2L50rTCYdRDBDvOx4aXNBMIENGTdPhz/5kpjHwG2EZ2W5lu8J9s4QNqyCuUtKH9eaU/Q3ZqoI610pV6xiKOS0pxdcEbvW0I0F+rQLCVT0CPWtyUYn0=
   file:
   - "./lib/skyapi/target/skyapi-${TRAVIS_TAG}.jar"
+  - "./lib/skyapi-retrofit2/target/skyapi-retrofit2-${TRAVIS_TAG}.jar"
   - "./target/libskycoin-java-${TRAVIS_TAG}.jar"
   skip_cleanup: true
   on:
