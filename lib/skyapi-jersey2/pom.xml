@@ -1,17 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.openapitools</groupId>
-    <artifactId>openapi-java-client</artifactId>
+    <groupId>skycoin</groupId>
+    <artifactId>skyapi-jersey2</artifactId>
     <packaging>jar</packaging>
-    <name>openapi-java-client</name>
+    <name>skyapi-jersey2</name>
     <version>0.27.0</version>
-    <url>https://github.com/openapitools/openapi-generator</url>
-    <description>OpenAPI Java</description>
+    <url>https://github.com/simelo/libjava-skycoin</url>
+    <description>OpenAPI Java Skycoin</description>
     <scm>
-        <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
-        <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
-        <url>https://github.com/openapitools/openapi-generator</url>
+        <connection>scm:git:git@github.com:simelo:libjava-skycoin.git</connection>
+        <developerConnection>scm:git:git@github.com:simelo:libjava-skycoin.git</developerConnection>
+        <url>https://github.com/simelo/libjava-skycoin</url>
     </scm>
 
     <licenses>
