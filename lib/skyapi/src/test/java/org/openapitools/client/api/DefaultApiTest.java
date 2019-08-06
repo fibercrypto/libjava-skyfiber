@@ -42,6 +42,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.openapitools.client.model.Address;
+
 /**
  * API tests for DefaultApi
  */
@@ -524,7 +526,8 @@ public class DefaultApiTest {
     @Test
     public void transactionInjectTest() throws ApiException {
         String rawtx = null;
-        String response = api.transactionInject(rawtx);
+        Boolean noBroadcast = true;
+        String response = api.transactionInject(rawtx, noBroadcast);
 
         // TODO: test validations
     }
@@ -653,7 +656,7 @@ public class DefaultApiTest {
      */
     @Test
     public void verifyAddressTest() throws ApiException {
-        Object address = null;
+        Address address = null;
         Object response = api.verifyAddress(address);
 
         // TODO: test validations
@@ -721,8 +724,11 @@ public class DefaultApiTest {
         Integer scan = null;
         Boolean encrypt = null;
         String password = null;
-        Object response = api.walletCreate(seed, label, scan, encrypt, password);
-
+        String type = null;
+        String seedPassphrase = null;
+        String bip44Coin = null;
+        String xpub = null;
+        Object response = api.walletCreate(type ,seed, label,seedPassphrase, bip44Coin, xpub, scan, encrypt, password);
         // TODO: test validations
     }
     
@@ -823,7 +829,8 @@ public class DefaultApiTest {
         String id = null;
         String seed = null;
         String password = null;
-        Object response = api.walletRecover(id, seed, password);
+        String seedPassphrase = null;
+        Object response = api.walletRecover(id, seed, seedPassphrase, password);
 
         // TODO: test validations
     }
