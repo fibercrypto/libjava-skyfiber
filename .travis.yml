@@ -45,6 +45,7 @@ deploy:
   file:
   - "./lib/skyapi/target/skyapi-${TRAVIS_TAG}.jar"
   - "./target/libskycoin-java-${TRAVIS_TAG}.jar"
+  - "./lib/skyapi-vertx/target/skyapi-vertx-${TRAVIS_TAG}.jar"
   - "./lib/skyapi-restassured/target/skyapi-rest-assured-${TRAVIS_TAG}.jar"
   skip_cleanup: true
   on:
