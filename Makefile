@@ -104,6 +104,9 @@ build-libjava:
 test: clean build-libc build-swig build-libjava ## Running test
 	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
 	(cd $(LIB_JAVA_WRAPPER) && mvn test)
+	(cd lib/skyapi-resttemplate && mvn test)
+	(cd lib/skyapi-vertx && mvn test)
+	(cd lib/skyapi-restassured && mvn test)
 	(cd lib/skyapi-retrofit2 && mvn test)
 
 clean: ## Clean all trash
@@ -112,11 +115,17 @@ clean: ## Clean all trash
 	mvn clean
 	mvn post-clean
 	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
+	(cd lib/skyapi-resttemplate && mvn clean)
+	(cd lib/skyapi-vertx && mvn clean)
+	(cd lib/skyapi-restassured && mvn clean)
 	(cd lib/skyapi-retrofit2 && mvn clean)
 
 package:
 	mvn package
 	(cd $(LIB_JAVA_WRAPPER) && mvn package)
+	(cd lib/skyapi-resttemplate && mvn package)
+	(cd lib/skyapi-vertx && mvn package)
+	(cd lib/skyapi-restassured && mvn package)
 	(cd lib/skyapi-retrofit2 && mvn package)
 
 help: ## List available commands
