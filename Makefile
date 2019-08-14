@@ -108,6 +108,7 @@ test: clean build-libc build-swig build-libjava ## Running test
 	(cd lib/skyapi-resttemplate && mvn test)
 	(cd lib/skyapi-vertx && mvn test)
 	(cd lib/skyapi-restassured && mvn test)
+	(cd lib/skyapi-retrofit2 && mvn test)
 
 clean: ## Clean all trash
 	GOPATH="$(REPO_ROOT)/$(GOPATH_DIR)" make -C $(SKYLIBC_DIR) clean-libc
@@ -119,6 +120,7 @@ clean: ## Clean all trash
 	(cd lib/skyapi-resttemplate && mvn clean)
 	(cd lib/skyapi-vertx && mvn clean)
 	(cd lib/skyapi-restassured && mvn clean)
+	(cd lib/skyapi-retrofit2 && mvn clean)
 
 package:
 	mvn package
@@ -127,6 +129,7 @@ package:
 	(cd lib/skyapi-resttemplate && mvn package)
 	(cd lib/skyapi-vertx && mvn package)
 	(cd lib/skyapi-restassured && mvn package)
+	(cd lib/skyapi-retrofit2 && mvn package)
 
 help: ## List available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
