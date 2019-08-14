@@ -107,6 +107,7 @@ test: clean build-libc build-swig build-libjava ## Running test
 	(cd lib/skyapi-resttemplate && mvn test)
 	(cd lib/skyapi-vertx && mvn test)
 	(cd lib/skyapi-restassured && mvn test)
+	(cd lib/skyapi-jersey2 && mvn test)
 	(cd lib/skyapi-retrofit2 && mvn test)
 
 clean: ## Clean all trash
@@ -118,6 +119,7 @@ clean: ## Clean all trash
 	(cd lib/skyapi-resttemplate && mvn clean)
 	(cd lib/skyapi-vertx && mvn clean)
 	(cd lib/skyapi-restassured && mvn clean)
+	(cd lib/skyapi-jersey2 && mvn clean)
 	(cd lib/skyapi-retrofit2 && mvn clean)
 
 package:
@@ -126,6 +128,7 @@ package:
 	(cd lib/skyapi-resttemplate && mvn package)
 	(cd lib/skyapi-vertx && mvn package)
 	(cd lib/skyapi-restassured && mvn package)
+	(cd lib/skyapi-jersey2 && mvn package)
 	(cd lib/skyapi-retrofit2 && mvn package)
 
 help: ## List available commands
