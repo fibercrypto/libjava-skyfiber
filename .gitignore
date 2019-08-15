@@ -64,6 +64,7 @@ buildNumber.properties
 #IDE
 .idea
 .vscode
+lib/skyapi/.sts4-cache/
 
 #Generate
 skycoin_wrap.*
