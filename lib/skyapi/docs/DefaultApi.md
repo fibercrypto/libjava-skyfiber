@@ -71,17 +71,29 @@ Returns the total number of unique address that have coins.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    InlineResponse200 result = apiInstance.addressCount();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#addressCount");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      InlineResponse200 result = apiInstance.addressCount();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#addressCount");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -101,6 +113,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | addressCount response object |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="addressUxouts"></a>
 # **addressUxouts**
 > List&lt;Object&gt; addressUxouts(address)
@@ -112,18 +130,30 @@ Returns the historical, spent outputs associated with an address
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String address = "address_example"; // String | address to filter by
-try {
-    List<Object> result = apiInstance.addressUxouts(address);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#addressUxouts");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String address = "address_example"; // String | address to filter by
+    try {
+      List<Object> result = apiInstance.addressUxouts(address);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#addressUxouts");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -146,6 +176,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Return address uxouts |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="apiV1RawtxGet"></a>
 # **apiV1RawtxGet**
 > String apiV1RawtxGet()
@@ -155,17 +191,29 @@ No authorization required
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    String result = apiInstance.apiV1RawtxGet();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#apiV1RawtxGet");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      String result = apiInstance.apiV1RawtxGet();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#apiV1RawtxGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -184,6 +232,11 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: text/plain
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response is araw transaction by id |  -  |
 
 <a name="apiV2MetricsGet"></a>
 # **apiV2MetricsGet**
@@ -194,17 +247,29 @@ No authorization required
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    String result = apiInstance.apiV2MetricsGet();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#apiV2MetricsGet");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      String result = apiInstance.apiV2MetricsGet();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#apiV2MetricsGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -224,6 +289,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Metrics |  -  |
+
 <a name="balanceGet"></a>
 # **balanceGet**
 > Object balanceGet(addrs)
@@ -233,18 +303,30 @@ Returns the balance of one or more addresses, both confirmed and predicted. The 
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String addrs = "addrs_example"; // String | command separated list of addresses
-try {
-    Object result = apiInstance.balanceGet(addrs);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#balanceGet");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String addrs = "addrs_example"; // String | command separated list of addresses
+    try {
+      Object result = apiInstance.balanceGet(addrs);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#balanceGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -267,6 +349,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns the balance of one or more addresses |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="balancePost"></a>
 # **balancePost**
 > Object balancePost(addrs)
@@ -276,28 +364,37 @@ Returns the balance of one or more addresses, both confirmed and predicted. The 
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String addrs = "addrs_example"; // String | command separated list of addresses
-try {
-    Object result = apiInstance.balancePost(addrs);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#balancePost");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String addrs = "addrs_example"; // String | command separated list of addresses
+    try {
+      Object result = apiInstance.balancePost(addrs);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#balancePost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -320,6 +417,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns the balance of one or more addresses |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="block"></a>
 # **block**
 > List&lt;BlockSchema&gt; block(hash, seq)
@@ -329,19 +432,31 @@ Returns the balance of one or more addresses, both confirmed and predicted. The 
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String hash = "hash_example"; // String | get block by hash
-Integer seq = 56; // Integer | get block by sequence number
-try {
-    List<BlockSchema> result = apiInstance.block(hash, seq);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#block");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String hash = "hash_example"; // String | get block by hash
+    Integer seq = 56; // Integer | get block by sequence number
+    try {
+      List<BlockSchema> result = apiInstance.block(hash, seq);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#block");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -365,6 +480,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Return block Array |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="blockchainMetadata"></a>
 # **blockchainMetadata**
 > Object blockchainMetadata()
@@ -374,17 +495,29 @@ Returns the blockchain metadata.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    Object result = apiInstance.blockchainMetadata();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#blockchainMetadata");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      Object result = apiInstance.blockchainMetadata();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#blockchainMetadata");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -403,6 +536,12 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns the blockchain metadata. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 
 <a name="blockchainProgress"></a>
 # **blockchainProgress**
@@ -413,17 +552,29 @@ Returns the blockchain sync progress.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    Object result = apiInstance.blockchainProgress();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#blockchainProgress");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      Object result = apiInstance.blockchainProgress();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#blockchainProgress");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -443,6 +594,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns the blockchain sync progress |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="blocks"></a>
 # **blocks**
 > InlineResponse2001 blocks(start, end, seq)
@@ -452,20 +609,32 @@ Returns the balance of one or more addresses, both confirmed and predicted. The 
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-Integer start = 56; // Integer | start seq
-Integer end = 56; // Integer | end seq
-List<Integer> seq = Arrays.asList(); // List<Integer> | comma-separated list of block seqs
-try {
-    InlineResponse2001 result = apiInstance.blocks(start, end, seq);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#blocks");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer start = 56; // Integer | start seq
+    Integer end = 56; // Integer | end seq
+    List<Integer> seq = Arrays.asList(); // List<Integer> | comma-separated list of block seqs
+    try {
+      InlineResponse2001 result = apiInstance.blocks(start, end, seq);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#blocks");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -490,6 +659,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Get blocks in specific range |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="coinSupply"></a>
 # **coinSupply**
 > InlineResponse2002 coinSupply()
@@ -501,17 +676,29 @@ coinSupplyHandler returns coin distribution supply stats
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    InlineResponse2002 result = apiInstance.coinSupply();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#coinSupply");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      InlineResponse2002 result = apiInstance.coinSupply();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#coinSupply");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -531,6 +718,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | CoinSupply records the coin supply info. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="csrf"></a>
 # **csrf**
 > InlineResponse2003 csrf()
@@ -540,17 +733,29 @@ Creates a new CSRF token. Previous CSRF tokens are invalidated by this call.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    InlineResponse2003 result = apiInstance.csrf();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#csrf");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      InlineResponse2003 result = apiInstance.csrf();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#csrf");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -570,6 +775,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Return a csrf Token. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="dataDELETE"></a>
 # **dataDELETE**
 > dataDELETE(type, key)
@@ -579,18 +790,30 @@ No authorization required
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String type = "type_example"; // String | storage type.
-String key = "key_example"; // String | key of the specific value to get.
-try {
-    apiInstance.dataDELETE(type, key);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#dataDELETE");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String type = "type_example"; // String | storage type.
+    String key = "key_example"; // String | key of the specific value to get.
+    try {
+      apiInstance.dataDELETE(type, key);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#dataDELETE");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -614,6 +837,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns empty json |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="dataGET"></a>
 # **dataGET**
 > Object dataGET(type, key)
@@ -623,19 +852,31 @@ No authorization required
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String type = "type_example"; // String | storage type.
-String key = "key_example"; // String | key of the specific value to get.
-try {
-    Object result = apiInstance.dataGET(type, key);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#dataGET");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String type = "type_example"; // String | storage type.
+    String key = "key_example"; // String | key of the specific value to get.
+    try {
+      Object result = apiInstance.dataGET(type, key);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#dataGET");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -659,6 +900,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Return multiKey |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="dataPOST"></a>
 # **dataPOST**
 > dataPOST(type, key, val)
@@ -668,19 +915,31 @@ No authorization required
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String type = "type_example"; // String | storage type.
-String key = "key_example"; // String | key of the specific value to get.
-String val = "val_example"; // String | additional value.
-try {
-    apiInstance.dataPOST(type, key, val);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#dataPOST");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String type = "type_example"; // String | storage type.
+    String key = "key_example"; // String | key of the specific value to get.
+    String val = "val_example"; // String | additional value.
+    try {
+      apiInstance.dataPOST(type, key, val);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#dataPOST");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -705,6 +964,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns empty json |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="defaultConnections"></a>
 # **defaultConnections**
 > List&lt;String&gt; defaultConnections()
@@ -714,17 +979,29 @@ defaultConnectionsHandler returns the list of default hardcoded bootstrap addres
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    List<String> result = apiInstance.defaultConnections();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#defaultConnections");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      List<String> result = apiInstance.defaultConnections();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#defaultConnections");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -744,6 +1021,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return an list of default connections. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="health"></a>
 # **health**
 > Object health()
@@ -753,17 +1036,29 @@ Returns node health data.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    Object result = apiInstance.health();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#health");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      Object result = apiInstance.health();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#health");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -783,6 +1078,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns node health data. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="lastBlocks"></a>
 # **lastBlocks**
 > Object lastBlocks(num)
@@ -794,18 +1095,30 @@ Returns the most recent N blocks on the blockchain
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-Integer num = 56; // Integer | Num of blockss
-try {
-    Object result = apiInstance.lastBlocks(num);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#lastBlocks");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer num = 56; // Integer | Num of blockss
+    try {
+      Object result = apiInstance.lastBlocks(num);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#lastBlocks");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -828,6 +1141,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns the most recent N blocks on the blockchain |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="networkConnection"></a>
 # **networkConnection**
 > NetworkConnectionSchema networkConnection(addr)
@@ -837,18 +1156,30 @@ This endpoint returns a specific connection.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String addr = "addr_example"; // String | Address port
-try {
-    NetworkConnectionSchema result = apiInstance.networkConnection(addr);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#networkConnection");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String addr = "addr_example"; // String | Address port
+    try {
+      NetworkConnectionSchema result = apiInstance.networkConnection(addr);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#networkConnection");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -871,6 +1202,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return a connection struct |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="networkConnections"></a>
 # **networkConnections**
 > InlineResponse2004 networkConnections(states, direction)
@@ -880,29 +1217,38 @@ This endpoint returns all outgoings connections.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String states = "states_example"; // String | Connection status.
-String direction = "direction_example"; // String | Direction of the connection.
-try {
-    InlineResponse2004 result = apiInstance.networkConnections(states, direction);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#networkConnections");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String states = "states_example"; // String | Connection status.
+    String direction = "direction_example"; // String | Direction of the connection.
+    try {
+      InlineResponse2004 result = apiInstance.networkConnections(states, direction);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#networkConnections");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -926,6 +1272,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return networks connections |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="networkConnectionsDisconnect"></a>
 # **networkConnectionsDisconnect**
 > networkConnectionsDisconnect(id)
@@ -937,27 +1289,36 @@ This endpoint disconnects a connection by ID or address
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Address id.
-try {
-    apiInstance.networkConnectionsDisconnect(id);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#networkConnectionsDisconnect");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | Address id.
+    try {
+      apiInstance.networkConnectionsDisconnect(id);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#networkConnectionsDisconnect");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -980,6 +1341,12 @@ null (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="networkConnectionsExchange"></a>
 # **networkConnectionsExchange**
 > List&lt;String&gt; networkConnectionsExchange()
@@ -991,17 +1358,29 @@ This endpoint returns all connections found through peer exchange
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    List<String> result = apiInstance.networkConnectionsExchange();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#networkConnectionsExchange");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      List<String> result = apiInstance.networkConnectionsExchange();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#networkConnectionsExchange");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1020,6 +1399,12 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return a list of all connections found through peer exchange. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 
 <a name="networkConnectionsTrust"></a>
 # **networkConnectionsTrust**
@@ -1030,17 +1415,29 @@ trustConnectionsHandler returns all trusted connections.\\n They are not necessa
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    List<String> result = apiInstance.networkConnectionsTrust();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#networkConnectionsTrust");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      List<String> result = apiInstance.networkConnectionsTrust();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#networkConnectionsTrust");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1060,6 +1457,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return a list of trusted connections. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="outputsGet"></a>
 # **outputsGet**
 > Object outputsGet(address, hash)
@@ -1069,19 +1472,31 @@ If neither addrs nor hashes are specificed, return all unspent outputs. If only 
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-List<String> address = Arrays.asList(); // List<String> | 
-List<String> hash = Arrays.asList(); // List<String> | 
-try {
-    Object result = apiInstance.outputsGet(address, hash);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#outputsGet");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    List<String> address = Arrays.asList(); // List<String> | 
+    List<String> hash = Arrays.asList(); // List<String> | 
+    try {
+      Object result = apiInstance.outputsGet(address, hash);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#outputsGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1105,6 +1520,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | UnspentOutputsSummary records unspent outputs in different status. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="outputsPost"></a>
 # **outputsPost**
 > Object outputsPost(address, hash)
@@ -1114,29 +1535,38 @@ If neither addrs nor hashes are specificed, return all unspent outputs. If only 
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String address = "address_example"; // String | 
-String hash = "hash_example"; // String | 
-try {
-    Object result = apiInstance.outputsPost(address, hash);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#outputsPost");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String address = "address_example"; // String | 
+    String hash = "hash_example"; // String | 
+    try {
+      Object result = apiInstance.outputsPost(address, hash);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#outputsPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1160,6 +1590,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | UnspentOutputsSummary records unspent outputs in different status. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="pendingTxs"></a>
 # **pendingTxs**
 > List&lt;InlineResponse20010&gt; pendingTxs()
@@ -1169,17 +1605,29 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    List<InlineResponse20010> result = apiInstance.pendingTxs();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#pendingTxs");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      List<InlineResponse20010> result = apiInstance.pendingTxs();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#pendingTxs");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1199,6 +1647,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Transaction inputs include the owner address, coins, hours and calculated hours. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="resendUnconfirmedTxns"></a>
 # **resendUnconfirmedTxns**
 > Object resendUnconfirmedTxns()
@@ -1210,27 +1664,36 @@ Broadcasts all unconfirmed transactions from the unconfirmed transaction pool
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-try {
-    Object result = apiInstance.resendUnconfirmedTxns();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#resendUnconfirmedTxns");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      Object result = apiInstance.resendUnconfirmedTxns();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#resendUnconfirmedTxns");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1250,6 +1713,12 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application-json, application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK, Broadcasts all unconfirmed transactions from the unconfirmed transaction pool |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="richlist"></a>
 # **richlist**
 > Object richlist(includeDistribution, n)
@@ -1259,19 +1728,31 @@ Returns the top skycoin holders.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-Boolean includeDistribution = true; // Boolean | include distribution addresses or not, default value false
-String n = "n_example"; // String | include distribution addresses or not, default value false
-try {
-    Object result = apiInstance.richlist(includeDistribution, n);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#richlist");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Boolean includeDistribution = true; // Boolean | include distribution addresses or not, default value false
+    String n = "n_example"; // String | include distribution addresses or not, default value false
+    try {
+      Object result = apiInstance.richlist(includeDistribution, n);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#richlist");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1295,6 +1776,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Represent richlist response |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="transaction"></a>
 # **transaction**
 > Transaction transaction(txid)
@@ -1306,18 +1793,30 @@ Returns a transaction identified by its txid hash with just id
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String txid = "txid_example"; // String | transaction Id
-try {
-    Transaction result = apiInstance.transaction(txid);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#transaction");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String txid = "txid_example"; // String | transaction Id
+    try {
+      Transaction result = apiInstance.transaction(txid);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#transaction");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1340,37 +1839,53 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns a transaction identified by its txid hash. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="transactionInject"></a>
 # **transactionInject**
-> String transactionInject(rawtx)
+> String transactionInject(rawtx, noBroadcast)
 
 Broadcast a hex-encoded, serialized transaction to the network.
 
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String rawtx = "rawtx_example"; // String | hex-encoded serialized transaction string.
-try {
-    String result = apiInstance.transactionInject(rawtx);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#transactionInject");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String rawtx = "rawtx_example"; // String | hex-encoded serialized transaction string.
+    Boolean noBroadcast = true; // Boolean | Disable the network broadcast
+    try {
+      String result = apiInstance.transactionInject(rawtx, noBroadcast);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#transactionInject");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1379,6 +1894,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **rawtx** | **String**| hex-encoded serialized transaction string. |
+ **noBroadcast** | **Boolean**| Disable the network broadcast | [optional]
 
 ### Return type
 
@@ -1393,6 +1909,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Broadcasts a hex-encoded, serialized transaction to the network |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="transactionPost"></a>
 # **transactionPost**
 > InlineResponse2008 transactionPost(transactionV2ParamsAddress)
@@ -1402,28 +1924,37 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-TransactionV2ParamsAddress transactionV2ParamsAddress = new TransactionV2ParamsAddress(); // TransactionV2ParamsAddress | 
-try {
-    InlineResponse2008 result = apiInstance.transactionPost(transactionV2ParamsAddress);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#transactionPost");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    TransactionV2ParamsAddress transactionV2ParamsAddress = new TransactionV2ParamsAddress(); // TransactionV2ParamsAddress | 
+    try {
+      InlineResponse2008 result = apiInstance.transactionPost(transactionV2ParamsAddress);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#transactionPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1446,6 +1977,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response is a transaction |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="transactionPostUnspent"></a>
 # **transactionPostUnspent**
 > InlineResponse2008 transactionPostUnspent(transactionV2ParamsUnspent)
@@ -1455,28 +1992,37 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-TransactionV2ParamsUnspent transactionV2ParamsUnspent = new TransactionV2ParamsUnspent(); // TransactionV2ParamsUnspent | Unspent parameters
-try {
-    InlineResponse2008 result = apiInstance.transactionPostUnspent(transactionV2ParamsUnspent);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#transactionPostUnspent");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    TransactionV2ParamsUnspent transactionV2ParamsUnspent = new TransactionV2ParamsUnspent(); // TransactionV2ParamsUnspent | Unspent parameters
+    try {
+      InlineResponse2008 result = apiInstance.transactionPostUnspent(transactionV2ParamsUnspent);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#transactionPostUnspent");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1499,6 +2045,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response is a transaction |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="transactionRaw"></a>
 # **transactionRaw**
 > Object transactionRaw(txid)
@@ -1508,18 +2060,30 @@ Returns the hex-encoded byte serialization of a transaction. The transaction may
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String txid = "txid_example"; // String | Transaction id hash
-try {
-    Object result = apiInstance.transactionRaw(txid);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#transactionRaw");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String txid = "txid_example"; // String | Transaction id hash
+    try {
+      Object result = apiInstance.transactionRaw(txid);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#transactionRaw");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1542,6 +2106,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns the hex-encoded byte serialization of a transaction |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="transactionVerify"></a>
 # **transactionVerify**
 > Object transactionVerify(transactionVerifyRequest)
@@ -1553,28 +2123,37 @@ Decode and verify an encoded transaction
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-TransactionVerifyRequest transactionVerifyRequest = new TransactionVerifyRequest(); // TransactionVerifyRequest | 
-try {
-    Object result = apiInstance.transactionVerify(transactionVerifyRequest);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#transactionVerify");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    TransactionVerifyRequest transactionVerifyRequest = new TransactionVerifyRequest(); // TransactionVerifyRequest | 
+    try {
+      Object result = apiInstance.transactionVerify(transactionVerifyRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#transactionVerify");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1597,6 +2176,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Responses ok |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="transactionsGet"></a>
 # **transactionsGet**
 > Object transactionsGet(addrs, confirmed)
@@ -1606,19 +2191,31 @@ Returns transactions that match the filters.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String addrs = "addrs_example"; // String | command separated list of addresses
-String confirmed = "confirmed_example"; // String | Whether the transactions should be confirmed [optional, must be 0 or 1; if not provided, returns all]
-try {
-    Object result = apiInstance.transactionsGet(addrs, confirmed);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#transactionsGet");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String addrs = "addrs_example"; // String | command separated list of addresses
+    String confirmed = "confirmed_example"; // String | Whether the transactions should be confirmed [optional, must be 0 or 1; if not provided, returns all]
+    try {
+      Object result = apiInstance.transactionsGet(addrs, confirmed);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#transactionsGet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1642,6 +2239,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns transactions that match the filters. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="transactionsPost"></a>
 # **transactionsPost**
 > Object transactionsPost(addrs, confirmed)
@@ -1651,29 +2254,38 @@ Returns transactions that match the filters.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String addrs = "addrs_example"; // String | command separated list of addresses
-String confirmed = "confirmed_example"; // String | Whether the transactions should be confirmed [optional, must be 0 or 1; if not provided, returns all]
-try {
-    Object result = apiInstance.transactionsPost(addrs, confirmed);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#transactionsPost");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String addrs = "addrs_example"; // String | command separated list of addresses
+    String confirmed = "confirmed_example"; // String | Whether the transactions should be confirmed [optional, must be 0 or 1; if not provided, returns all]
+    try {
+      Object result = apiInstance.transactionsPost(addrs, confirmed);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#transactionsPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1697,6 +2309,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns transactions that match the filters. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="uxout"></a>
 # **uxout**
 > Object uxout(uxid)
@@ -1706,18 +2324,30 @@ Returns an unspent output by ID.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String uxid = "uxid_example"; // String | uxid to filter by
-try {
-    Object result = apiInstance.uxout(uxid);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#uxout");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String uxid = "uxid_example"; // String | uxid to filter by
+    try {
+      Object result = apiInstance.uxout(uxid);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#uxout");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1740,6 +2370,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response for endpoint /api/v1/uxout |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="verifyAddress"></a>
 # **verifyAddress**
 > Object verifyAddress(address)
@@ -1749,28 +2385,37 @@ Verifies a Skycoin address.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-Object address = null; // Object | Address id.
-try {
-    Object result = apiInstance.verifyAddress(address);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#verifyAddress");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Address address = new Address(); // Address | Address id.
+    try {
+      Object result = apiInstance.verifyAddress(address);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#verifyAddress");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1778,7 +2423,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **address** | [**Object**](.md)| Address id. | [default to null]
+ **address** | [**Address**](.md)| Address id. | [default to null]
 
 ### Return type
 
@@ -1793,6 +2438,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** |  |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="version"></a>
 # **version**
 > InlineResponse2005 version()
@@ -1804,17 +2455,29 @@ versionHandler returns the application version info
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    InlineResponse2005 result = apiInstance.version();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#version");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      InlineResponse2005 result = apiInstance.version();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#version");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1834,6 +2497,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | BuildInfo represents the build info |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="wallet"></a>
 # **wallet**
 > Object wallet(id)
@@ -1843,18 +2512,30 @@ Returns a wallet by id.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | tags to filter by
-try {
-    Object result = apiInstance.wallet(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#wallet");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | tags to filter by
+    try {
+      Object result = apiInstance.wallet(id);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#wallet");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1876,6 +2557,12 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response for endpoint /api/v1/wallet |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 
 <a name="walletBalance"></a>
 # **walletBalance**
@@ -1886,18 +2573,30 @@ Returns the wallet&#39;s balance, both confirmed and predicted.  The predicted b
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | tags to filter by
-try {
-    Object result = apiInstance.walletBalance(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletBalance");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | tags to filter by
+    try {
+      Object result = apiInstance.walletBalance(id);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletBalance");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1920,43 +2619,62 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns the wallets balance |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletCreate"></a>
 # **walletCreate**
-> Object walletCreate(seed, label, scan, encrypt, password)
+> Object walletCreate(type, seed, label, seedPassphrase, bip44Coin, xpub, scan, encrypt, password)
 
 
 
-Loads wallet from seed, will scan ahead N address and load addresses till the last one that have coins.
+Create a wallet
 
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String seed = "seed_example"; // String | Wallet seed.
-String label = "label_example"; // String | Wallet label.
-Integer scan = 56; // Integer | The number of addresses to scan ahead for balances.
-Boolean encrypt = true; // Boolean | Encrypt wallet.
-String password = "password_example"; // String | Wallet Password
-try {
-    Object result = apiInstance.walletCreate(seed, label, scan, encrypt, password);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletCreate");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String type = "type_example"; // String | wallet seed passphrase [optional, bip44 type wallet only]
+    String seed = "seed_example"; // String | Wallet seed.
+    String label = "label_example"; // String | Wallet label.
+    String seedPassphrase = "seedPassphrase_example"; // String | wallet seed passphrase [optional, bip44 type wallet only]
+    String bip44Coin = "bip44Coin_example"; // String | BIP44 coin type [optional, defaults to 8000 (skycoin's coin type), only valid if type is \"bip44\"]
+    String xpub = "xpub_example"; // String | xpub key [required for xpub wallets]
+    Integer scan = 56; // Integer | The number of addresses to scan ahead for balances.
+    Boolean encrypt = true; // Boolean | Encrypt wallet.
+    String password = "password_example"; // String | Wallet Password
+    try {
+      Object result = apiInstance.walletCreate(type, seed, label, seedPassphrase, bip44Coin, xpub, scan, encrypt, password);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletCreate");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -1964,8 +2682,12 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **type** | **String**| wallet seed passphrase [optional, bip44 type wallet only] |
  **seed** | **String**| Wallet seed. |
  **label** | **String**| Wallet label. |
+ **seedPassphrase** | **String**| wallet seed passphrase [optional, bip44 type wallet only] | [optional]
+ **bip44Coin** | **String**| BIP44 coin type [optional, defaults to 8000 (skycoin&#39;s coin type), only valid if type is \&quot;bip44\&quot;] | [optional]
+ **xpub** | **String**| xpub key [required for xpub wallets] | [optional]
  **scan** | **Integer**| The number of addresses to scan ahead for balances. | [optional]
  **encrypt** | **Boolean**| Encrypt wallet. | [optional]
  **password** | **String**| Wallet Password | [optional]
@@ -1983,6 +2705,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Response for endpoint /api/v1/wallet |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletDecrypt"></a>
 # **walletDecrypt**
 > Object walletDecrypt(id, password)
@@ -1992,29 +2720,38 @@ Decrypts wallet.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Wallet id.
-String password = "password_example"; // String | Wallet password.
-try {
-    Object result = apiInstance.walletDecrypt(id, password);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletDecrypt");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | Wallet id.
+    String password = "password_example"; // String | Wallet password.
+    try {
+      Object result = apiInstance.walletDecrypt(id, password);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletDecrypt");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2037,6 +2774,12 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint decrypts wallets. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 
 <a name="walletEncrypt"></a>
 # **walletEncrypt**
@@ -2047,29 +2790,38 @@ Encrypt wallet.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Wallet id.
-String password = "password_example"; // String | Wallet password.
-try {
-    Object result = apiInstance.walletEncrypt(id, password);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletEncrypt");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | Wallet id.
+    String password = "password_example"; // String | Wallet password.
+    try {
+      Object result = apiInstance.walletEncrypt(id, password);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletEncrypt");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2092,6 +2844,12 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint encrypt wallets. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 
 <a name="walletFolder"></a>
 # **walletFolder**
@@ -2104,18 +2862,30 @@ Returns the wallet directory path
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String addr = "addr_example"; // String | Address port
-try {
-    InlineResponse2007 result = apiInstance.walletFolder(addr);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletFolder");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String addr = "addr_example"; // String | Address port
+    try {
+      InlineResponse2007 result = apiInstance.walletFolder(addr);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletFolder");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2138,6 +2908,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return the wallet directory path |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletNewAddress"></a>
 # **walletNewAddress**
 > Object walletNewAddress(id, num, password)
@@ -2149,30 +2925,39 @@ Generates new addresses
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Wallet Id
-String num = "num_example"; // String | The number you want to generate
-String password = "password_example"; // String | Wallet Password
-try {
-    Object result = apiInstance.walletNewAddress(id, num, password);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletNewAddress");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | Wallet Id
+    String num = "num_example"; // String | The number you want to generate
+    String password = "password_example"; // String | Wallet Password
+    try {
+      Object result = apiInstance.walletNewAddress(id, num, password);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletNewAddress");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2197,6 +2982,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint generate new addresses |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletNewSeed"></a>
 # **walletNewSeed**
 > Object walletNewSeed(entropy)
@@ -2208,18 +2999,30 @@ Returns the wallet directory path
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String entropy = "entropy_example"; // String | Entropy bitSize.
-try {
-    Object result = apiInstance.walletNewSeed(entropy);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletNewSeed");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String entropy = "entropy_example"; // String | Entropy bitSize.
+    try {
+      Object result = apiInstance.walletNewSeed(entropy);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletNewSeed");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2242,39 +3045,57 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Generates wallet seed |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletRecover"></a>
 # **walletRecover**
-> Object walletRecover(id, seed, password)
+> Object walletRecover(id, seed, seedPassphrase, password)
 
 Recovers an encrypted wallet by providing the seed. The first address will be generated from seed and compared to the first address of the specified wallet. If they match, the wallet will be regenerated with an optional password. If the wallet is not encrypted, an error is returned.
+
+Recovers an encrypted wallet by providing the wallet seed and optional seed passphrase
 
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Wallet id.
-String seed = "seed_example"; // String | Wallet seed.
-String password = "password_example"; // String | Wallet password.
-try {
-    Object result = apiInstance.walletRecover(id, seed, password);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletRecover");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | Wallet id.
+    String seed = "seed_example"; // String | Wallet seed.
+    String seedPassphrase = "seedPassphrase_example"; // String | Wallet seed-passphrase.
+    String password = "password_example"; // String | Wallet password.
+    try {
+      Object result = apiInstance.walletRecover(id, seed, seedPassphrase, password);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletRecover");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2284,6 +3105,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Wallet id. |
  **seed** | **String**| Wallet seed. |
+ **seedPassphrase** | **String**| Wallet seed-passphrase. | [optional]
  **password** | **String**| Wallet password. | [optional]
 
 ### Return type
@@ -2299,6 +3121,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint recover wallets. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletSeed"></a>
 # **walletSeed**
 > Object walletSeed(id, password)
@@ -2308,29 +3136,38 @@ This endpoint only works for encrypted wallets. If the wallet is unencrypted, Th
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Wallet Id.
-String password = "password_example"; // String | Wallet password.
-try {
-    Object result = apiInstance.walletSeed(id, password);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletSeed");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | Wallet Id.
+    String password = "password_example"; // String | Wallet password.
+    try {
+      Object result = apiInstance.walletSeed(id, password);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletSeed");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2354,6 +3191,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint Returns seed of wallet of given id |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletSeedVerify"></a>
 # **walletSeedVerify**
 > Object walletSeedVerify(seed)
@@ -2363,28 +3206,37 @@ Verifies a wallet seed.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String seed = "seed_example"; // String | Seed to be verified.
-try {
-    Object result = apiInstance.walletSeedVerify(seed);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletSeedVerify");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String seed = "seed_example"; // String | Seed to be verified.
+    try {
+      Object result = apiInstance.walletSeedVerify(seed);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletSeedVerify");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2407,6 +3259,13 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Verifies a wallet seed. |  -  |
+**422** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletTransaction"></a>
 # **walletTransaction**
 > Object walletTransaction(walletTransactionRequest)
@@ -2416,28 +3275,37 @@ Creates a signed transaction
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-WalletTransactionRequest walletTransactionRequest = new WalletTransactionRequest(); // WalletTransactionRequest | 
-try {
-    Object result = apiInstance.walletTransaction(walletTransactionRequest);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletTransaction");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    WalletTransactionRequest walletTransactionRequest = new WalletTransactionRequest(); // WalletTransactionRequest | 
+    try {
+      Object result = apiInstance.walletTransaction(walletTransactionRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletTransaction");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2460,6 +3328,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Returns blocks between a start and end point. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletTransactionSign"></a>
 # **walletTransactionSign**
 > InlineResponse2009 walletTransactionSign(walletTransactionSignRequest)
@@ -2469,28 +3343,37 @@ Creates a signed transaction
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-WalletTransactionSignRequest walletTransactionSignRequest = new WalletTransactionSignRequest(); // WalletTransactionSignRequest | 
-try {
-    InlineResponse2009 result = apiInstance.walletTransactionSign(walletTransactionSignRequest);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletTransactionSign");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    WalletTransactionSignRequest walletTransactionSignRequest = new WalletTransactionSignRequest(); // WalletTransactionSignRequest | 
+    try {
+      InlineResponse2009 result = apiInstance.walletTransactionSign(walletTransactionSignRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletTransactionSign");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2513,6 +3396,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Signs an unsigned transaction, returning the transaction with updated signatures and the encoded, serialized transaction. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletTransactions"></a>
 # **walletTransactions**
 > InlineResponse2006 walletTransactions(id)
@@ -2522,18 +3411,30 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Wallet Id.
-try {
-    InlineResponse2006 result = apiInstance.walletTransactions(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletTransactions");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | Wallet Id.
+    try {
+      InlineResponse2006 result = apiInstance.walletTransactions(id);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletTransactions");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2556,6 +3457,12 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns all unconfirmed transactions for all addresses in a given wallet. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletUnload"></a>
 # **walletUnload**
 > walletUnload(id)
@@ -2565,27 +3472,36 @@ Unloads wallet from the wallet service.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Wallet Id.
-try {
-    apiInstance.walletUnload(id);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletUnload");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | Wallet Id.
+    try {
+      apiInstance.walletUnload(id);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletUnload");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2608,6 +3524,12 @@ null (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint returns nothing. |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="walletUpdate"></a>
 # **walletUpdate**
 > String walletUpdate(id, label)
@@ -2617,29 +3539,38 @@ Update the wallet.
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiClient;
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.Configuration;
-//import org.openapitools.client.auth.*;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.auth.*;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
-ApiClient defaultClient = Configuration.getDefaultApiClient();
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
+    
+    // Configure API key authorization: csrfAuth
+    ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
+    csrfAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //csrfAuth.setApiKeyPrefix("Token");
 
-// Configure API key authorization: csrfAuth
-ApiKeyAuth csrfAuth = (ApiKeyAuth) defaultClient.getAuthentication("csrfAuth");
-csrfAuth.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//csrfAuth.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | Wallet Id.
-String label = "label_example"; // String | The label the wallet will be updated to.
-try {
-    String result = apiInstance.walletUpdate(id, label);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#walletUpdate");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String id = "id_example"; // String | Wallet Id.
+    String label = "label_example"; // String | The label the wallet will be updated to.
+    try {
+      String result = apiInstance.walletUpdate(id, label);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#walletUpdate");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2663,6 +3594,12 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, application/xml
 
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint Returns the label the wallet will be updated to . |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
+
 <a name="wallets"></a>
 # **wallets**
 > List&lt;Object&gt; wallets()
@@ -2674,17 +3611,29 @@ Returns all loaded wallets
 ### Example
 ```java
 // Import classes:
-//import org.openapitools.client.ApiException;
-//import org.openapitools.client.api.DefaultApi;
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
 
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://127.0.0.1:6420");
 
-DefaultApi apiInstance = new DefaultApi();
-try {
-    List<Object> result = apiInstance.wallets();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#wallets");
-    e.printStackTrace();
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      List<Object> result = apiInstance.wallets();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#wallets");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
 }
 ```
 
@@ -2703,4 +3652,10 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: application/json, application/xml, 
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | This endpoint return all loaded wallets |  -  |
+**0** | A GenericError is the default error message that is generated. For certain status codes there are more appropriate error structures. |  -  |
 

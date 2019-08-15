@@ -104,6 +104,13 @@ build-libjava:
 test: clean build-libc build-swig build-libjava ## Running test
 	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
 	(cd $(LIB_JAVA_WRAPPER) && mvn test)
+	(cd lib/skyapi-feign && mvn test)
+	(cd lib/skyapi-resttemplate && mvn test)
+	(cd lib/skyapi-vertx && mvn test)
+	(cd lib/skyapi-restassured && mvn test)
+	(cd lib/skyapi-jersey2 && mvn test)
+	(cd lib/skyapi-retrofit2 && mvn test)
+	(cd lib/skyapi-resteasy && mvn test)
 
 clean: ## Clean all trash
 	GOPATH="$(REPO_ROOT)/$(GOPATH_DIR)" make -C $(SKYLIBC_DIR) clean-libc
@@ -111,10 +118,24 @@ clean: ## Clean all trash
 	mvn clean
 	mvn post-clean
 	(cd $(LIB_JAVA_WRAPPER) && mvn clean)
+	(cd lib/skyapi-feign && mvn clean)
+	(cd lib/skyapi-resttemplate && mvn clean)
+	(cd lib/skyapi-vertx && mvn clean)
+	(cd lib/skyapi-restassured && mvn clean)
+	(cd lib/skyapi-jersey2 && mvn clean)
+	(cd lib/skyapi-retrofit2 && mvn clean)
+	(cd lib/skyapi-resteasy && mvn clean)
 
 package: ## Package libskycoin and libskyapi
 	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)"  mvn package
 	(cd $(LIB_JAVA_WRAPPER) && mvn package)
+	(cd lib/skyapi-feign && mvn package)
+	(cd lib/skyapi-resttemplate && mvn package)
+	(cd lib/skyapi-vertx && mvn package)
+	(cd lib/skyapi-restassured && mvn package)
+	(cd lib/skyapi-jersey2 && mvn package)
+	(cd lib/skyapi-retrofit2 && mvn package)
+	(cd lib/skyapi-resteasy && mvn package)
 
 deploy-travis: ## Deploy to  libskycoin and libskyapi
 	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)"  mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true
