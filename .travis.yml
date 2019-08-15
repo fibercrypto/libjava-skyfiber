@@ -50,6 +50,7 @@ deploy:
   - "./lib/skyapi-vertx/target/skyapi-vertx-${TRAVIS_TAG}.jar"
   - "./lib/skyapi-restassured/target/skyapi-rest-assured-${TRAVIS_TAG}.jar"
   - "./lib/skyapi-feign/target/skyapi-feign-${TRAVIS_TAG}.jar"
+  - "./lib/skyapi/target/skyapi-resteasy-${TRAVIS_TAG}.jar"
   skip_cleanup: true
   on:
     tags: true
