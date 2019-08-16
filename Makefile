@@ -126,8 +126,8 @@ clean: ## Clean all trash
 	(cd lib/skyapi-retrofit2 && mvn clean)
 	(cd lib/skyapi-resteasy && mvn clean)
 
-package:
-	mvn package
+package: ## Package libskycoin and libskyapi
+	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)"  mvn package
 	(cd $(LIB_JAVA_WRAPPER) && mvn package)
 	(cd lib/skyapi-feign && mvn package)
 	(cd lib/skyapi-resttemplate && mvn package)
@@ -136,6 +136,17 @@ package:
 	(cd lib/skyapi-jersey2 && mvn package)
 	(cd lib/skyapi-retrofit2 && mvn package)
 	(cd lib/skyapi-resteasy && mvn package)
+
+deploy-travis: ## Deploy to  libskycoin and libskyapi
+	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)"  mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true
+	(cd $(LIB_JAVA_WRAPPER) && mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true -Dskip=true) 
+	(cd lib/skyapi-feign && mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true -Dskip=true) 
+	(cd lib/skyapi-resttemplate && mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true -Dskip=true) 
+	(cd lib/skyapi-vertx && mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true -Dskip=true) 
+	(cd lib/skyapi-restassured && mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true -Dskip=true) 
+	(cd lib/skyapi-jersey2 && mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true -Dskip=true) 
+	(cd lib/skyapi-retrofit2 && mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true -Dskip=true) 
+	(cd lib/skyapi-resteasy && mvn deploy --settings $(REPO_ROOT)/.travis/settings.xml -DskipTests=true -Dskip=true) 
 
 help: ## List available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

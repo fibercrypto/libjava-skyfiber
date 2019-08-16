@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>skycoin</groupId>
     <artifactId>skyapi-rest-assured</artifactId>
@@ -97,8 +96,7 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                </configuration>
+                <configuration></configuration>
             </plugin>
 
             <plugin>
@@ -167,6 +165,13 @@
                 </executions>
             </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>io.packagecloud.maven.wagon</groupId>
+                <artifactId>maven-packagecloud-wagon</artifactId>
+                <version>0.0.6</version>
+            </extension>
+        </extensions>
     </build>
 
     <profiles>
@@ -219,11 +224,11 @@
             <artifactId>gson-fire</artifactId>
             <version>${gson-fire-version}</version>
         </dependency>
-		<dependency>
-		    <groupId>com.squareup.okio</groupId>
-		    <artifactId>okio</artifactId>
-		<version>${okio-version}</version>
-		</dependency>
+        <dependency>
+            <groupId>com.squareup.okio</groupId>
+            <artifactId>okio</artifactId>
+            <version>${okio-version}</version>
+        </dependency>
         <!-- test dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -243,4 +248,17 @@
         <okio-version>1.13.0</okio-version>
         <junit-version>4.12</junit-version>
     </properties>
+
+    <!-- Deploy github -->
+    <distributionManagement>
+        <repository>
+            <id>packagecloud-skycoin</id>
+            <url>packagecloud+https://packagecloud.io/skycoin/libskyapi</url>
+        </repository>
+        <snapshotRepository>
+            <id>packagecloud-skycoin</id>
+            <url>packagecloud+https://packagecloud.io/skycoin/libskyapi</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>

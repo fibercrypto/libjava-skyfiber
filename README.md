@@ -36,6 +36,25 @@ Java client library for Skycoin API. This library is a .Net assembly generated w
 Download the repository from https://github.com/simelo/libjava-skycoin.git.
 Execute (`mvn compile`) to install the library. Although executing (`mvn test`) is a better choice for making changes to the library. However, when using tox these commands are not required at all because calling tox will make any necessary installation and execute the tests.
 
+## Install from Maven
+
+Add this dependency to your project's POM: 
+
+```xml
+<repositories>
+  <repository>
+    <id>skycoin-libjava-skycoin</id>
+    <url>https://packagecloud.io/skycoin/libjava-skycoin/maven2</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+</repositories>
+```
+
 ## Usage
 
 ### Naming
