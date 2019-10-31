@@ -8,16 +8,16 @@
 
 package skycoin.libjava;
 
-public class coin__BlockBody {
+public class bip32__Path {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected coin__BlockBody(long cPtr, boolean cMemoryOwn) {
+  protected bip32__Path(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(coin__BlockBody obj) {
+  protected static long getCPtr(bip32__Path obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -29,27 +29,22 @@ public class coin__BlockBody {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        skycoinJNI.delete_coin__BlockBody(swigCPtr);
+        skycoinJNI.delete_bip32__Path(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
-  public int isEqual(coin__BlockBody b) {
-    return skycoinJNI.coin__BlockBody_isEqual(swigCPtr, this, coin__BlockBody.getCPtr(b), b);
+  public void setElements(SWIGTYPE_p_GoSlice_ value) {
+    skycoinJNI.bip32__Path_Elements_set(swigCPtr, this, SWIGTYPE_p_GoSlice_.getCPtr(value));
   }
 
-  public void setTransactions(coin__Transactions value) {
-    skycoinJNI.coin__BlockBody_Transactions_set(swigCPtr, this, coin__Transactions.getCPtr(value), value);
+  public SWIGTYPE_p_GoSlice_ getElements() {
+    return new SWIGTYPE_p_GoSlice_(skycoinJNI.bip32__Path_Elements_get(swigCPtr, this), true);
   }
 
-  public coin__Transactions getTransactions() {
-    long cPtr = skycoinJNI.coin__BlockBody_Transactions_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new coin__Transactions(cPtr, false);
-  }
-
-  public coin__BlockBody() {
-    this(skycoinJNI.new_coin__BlockBody(), true);
+  public bip32__Path() {
+    this(skycoinJNI.new_bip32__Path(), true);
   }
 
 }

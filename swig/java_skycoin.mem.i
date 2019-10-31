@@ -123,7 +123,7 @@
 
 %rename(SKY_cipher_GenerateDeterministicKeyPairsSeed) Java_skycoin_libjava_skycoinJNI_SKY_cipher_GenerateDeterministicKeyPairsSeed;
 %inline {
-	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_cipher_GenerateDeterministicKeyPairsSeed(GoSlice seed, GoInt n, coin__UxArray* newSeed, cipher_SecKeys* __out_secKeys){
+	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_cipher_GenerateDeterministicKeyPairsSeed(GoSlice seed, GoInt n, GoSlice* newSeed, cipher_SecKeys* __out_secKeys){
 		__out_secKeys->data = NULL;
 		__out_secKeys->count = 0;
 		GoSlice_ data;
@@ -454,7 +454,7 @@
 %rename(SKY_fee_TransactionFee) Java_skycoin_libjava_skycoinJNI_SKY_fee_TransactionFee;
 %inline {
 	GoUint32 Java_skycoin_libjava_skycoinJNI_SKY_fee_TransactionFee(Transaction__Handle handle , GoUint64 p1,coin_UxOutArray* __uxIn, GoUint64* p3){
-		GoSlice_ dataIn;
+		GoSlice dataIn;
 		dataIn.data = __uxIn->data;
 		dataIn.len = __uxIn->count;
 		dataIn.cap = __uxIn->count;

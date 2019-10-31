@@ -8,16 +8,16 @@
 
 package skycoin.libjava;
 
-public class coin__BlockBody {
+public class wallet__CryptoType {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected coin__BlockBody(long cPtr, boolean cMemoryOwn) {
+  protected wallet__CryptoType(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(coin__BlockBody obj) {
+  protected static long getCPtr(wallet__CryptoType obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -29,27 +29,30 @@ public class coin__BlockBody {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        skycoinJNI.delete_coin__BlockBody(swigCPtr);
+        skycoinJNI.delete_wallet__CryptoType(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
-  public int isEqual(coin__BlockBody b) {
-    return skycoinJNI.coin__BlockBody_isEqual(swigCPtr, this, coin__BlockBody.getCPtr(b), b);
+  public void setP(String value) {
+    skycoinJNI.wallet__CryptoType_p_set(swigCPtr, this, value);
   }
 
-  public void setTransactions(coin__Transactions value) {
-    skycoinJNI.coin__BlockBody_Transactions_set(swigCPtr, this, coin__Transactions.getCPtr(value), value);
+  public String getP() {
+    return skycoinJNI.wallet__CryptoType_p_get(swigCPtr, this);
   }
 
-  public coin__Transactions getTransactions() {
-    long cPtr = skycoinJNI.coin__BlockBody_Transactions_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new coin__Transactions(cPtr, false);
+  public void setN(long value) {
+    skycoinJNI.wallet__CryptoType_n_set(swigCPtr, this, value);
   }
 
-  public coin__BlockBody() {
-    this(skycoinJNI.new_coin__BlockBody(), true);
+  public long getN() {
+    return skycoinJNI.wallet__CryptoType_n_get(swigCPtr, this);
+  }
+
+  public wallet__CryptoType() {
+    this(skycoinJNI.new_wallet__CryptoType(), true);
   }
 
 }

@@ -1,6 +1,12 @@
 
 %inline %{
-	jint hola1() {return 0;}
+
+	GoInt isGoSlice_Eq(GoSlice_* slice1, GoSlice_* slice2)
+{
+    return (slice1->len == slice2->len) &&
+           (memcmp(slice1->data, slice2->data, slice1->len) == 0);
+}
+
 #include "json.h"
 	//Define function SKY_handle_close to avoid including libskycoin.h
 	void SKY_handle_close(Handle p0);
@@ -104,6 +110,20 @@ FeeCalculator overflow(){
 		}
 	}
 
+	int registerJsonFree(void *p)
+	{
+		int i;
+		for (i = 0; i < JSONPOOLIDX; i++)
+		{
+			if (JSON_POOL[i] == NULL)
+			{
+				JSON_POOL[i] = p;
+				return i;
+			}
+		}
+		JSON_POOL[JSONPOOLIDX++] = p;
+		return JSONPOOLIDX - 1;
+	}
 
 
 
@@ -214,6 +234,11 @@ FeeCalculator overflow(){
 				return;
 			}
 		}
+	}
+
+	void setup(void)
+	{
+		srand((unsigned int)time(NULL));
 	}
 
 
@@ -469,7 +494,7 @@ FeeCalculator overflow(){
 			return 1;
 		return result;
 	}
-coin__Transaction *makeTransactionFromUxOut(coin__UxOut * puxOut, cipher__SecKey * pseckey, Transaction__Handle * handle)
+	coin__Transaction *makeTransactionFromUxOut(coin__UxOut * puxOut, cipher__SecKey * pseckey, Transaction__Handle * handle)
 	{
 		int result;
 		coin__Transaction *ptransaction = NULL;
@@ -537,13 +562,6 @@ coin__Transaction *makeTransactionFromUxOut(coin__UxOut * puxOut, cipher__SecKey
 
 	int b64_int(unsigned int ch)
 	{
-		// ASCII to base64_int
-		// 65-90 Upper Case >> 0-25
-		// 97-122 Lower Case >> 26-51
-		// 48-57 Numbers >> 52-61
-		// 43 Plus (+) >> 62
-		// 47 Slash (/) >> 63
-		// 61 Equal (=) >> 64~
 		if (ch == 43)
 			return 62;
 		if (ch == 47)
@@ -646,74 +664,155 @@ void hashKeyIndexNonce(GoSlice_ key, GoInt64 index,
 	SKY_cipher_AddSHA256(key.data, &indexNonceHash, resultHash);
 }
 
-void makeEncryptedData(GoSlice data, GoUint32 dataLength, GoSlice pwd, coin__UxArray* encrypted){
-	GoUint32 fullLength = dataLength + 4;
-	GoUint32 n = fullLength / 32;
-	GoUint32 m = fullLength % 32;
-	GoUint32 errcode;
-
-	if( m > 0 ){
-		fullLength += 32 - m;
-	}
-	if(32 == sizeof(cipher__SHA256)){  return ;}
-	fullLength += 32;
-	char* buffer = malloc(fullLength);
-	if(buffer != NULL){return;}
-	//Add data length to the beginning, saving space for the checksum
-	int i;
-	for(i = 0; i < 4; i++){
-		int shift = i * 8;
-		buffer[i + 32] = (dataLength & (0xFF << shift)) >> shift;
-	}
-	//Add the data
-	memcpy(buffer + 4 + 32,
-		data.data, dataLength);
-	//Add padding
-	for(i = dataLength + 4 + 32; i < fullLength; i++){
-		buffer[i] = 0;
-	}
-	//Buffer with space for the checksum, then data length, then data, and then padding
-	GoSlice _data = {buffer + 32,
-		fullLength - 32,
-		fullLength - 32};
-	//GoSlice _hash = {buffer, 0, 32};
-	errcode = SKY_cipher_SumSHA256(_data, (cipher__SHA256*)buffer);
-	char bufferNonce[32];
-	GoSlice sliceNonce = {bufferNonce, 0, 32};
-	randBytes(&sliceNonce, 32);
-	cipher__SHA256 hashNonce;
-	errcode = SKY_cipher_SumSHA256(sliceNonce, &hashNonce);
-	char bufferHash[1024];
-	coin__UxArray hashPassword = {bufferHash, 0, 1024};
-	errcode = SKY_secp256k1_Secp256k1Hash(pwd, &hashPassword);
-	cipher__SHA256 h;
-
-
-	int fullDestLength = fullLength + sizeof(cipher__SHA256) + 32;
-	int destBufferStart = sizeof(cipher__SHA256) + 32;
-	unsigned char* dest_buffer = malloc(fullDestLength);
-	if(dest_buffer != NULL){return;}
-	for(i = 0; i < n; i++){
-		hashKeyIndexNonce(hashPassword, i, &hashNonce, &h);
-		cipher__SHA256* pBuffer = (cipher__SHA256*)(buffer + i *32);
-		cipher__SHA256* xorResult = (cipher__SHA256*)(dest_buffer + destBufferStart + i *32);
-		SKY_cipher_SHA256_Xor(pBuffer, &h, xorResult);
-	}
-	// Prefix the nonce
-	memcpy(dest_buffer + sizeof(cipher__SHA256), bufferNonce, 32);
-	// Calculates the checksum
-	GoSlice nonceAndDataBytes = {dest_buffer + sizeof(cipher__SHA256),
-								fullLength + 32,
-								fullLength + 32
-						};
-	cipher__SHA256* checksum = (cipher__SHA256*)dest_buffer;
-	errcode = SKY_cipher_SumSHA256(nonceAndDataBytes, checksum);
-	unsigned char bufferb64[1024];
-	unsigned int size = b64_encode((const unsigned char*)dest_buffer, fullDestLength, encrypted->data);
-	encrypted->len = size;
-}
-
 void convertGoUint8toSHA256(GoUint8_* __in, cipher_SHA256* __out){
 memcpy(__out->data, __in, 32);
+}
+
+GoInt isPrivateKeyEq(PrivateKey__Handle handle1, PrivateKey__Handle handle2)
+{
+    GoUint8 bufferVersion1[1024];
+    GoUint8 bufferVersion2[1024];
+    GoSlice_ Version1 = {bufferVersion1, 0, 1024};
+    GoSlice_ Version2 = {bufferVersion2, 0, 1024};
+    GoUint8 bufferParentFingerprint1[1024];
+    GoUint8 bufferParentFingerprint2[1024];
+    GoSlice_ ParentFingerprint1 = {bufferParentFingerprint1, 0, 1024};
+    GoSlice_ ParentFingerprint2 = {bufferParentFingerprint2, 0, 1024};
+    GoUint32 childNumber1;
+    GoUint32 childNumber2;
+    GoUint8 bufferChainCode1[1024];
+    GoUint8 bufferChainCode2[1024];
+    GoSlice_ ChainCode1 = {bufferChainCode1, 0, 1024};
+    GoSlice_ ChainCode2 = {bufferChainCode2, 0, 1024};
+    GoUint8 bufferKey1[1024];
+    GoUint8 bufferKey2[1024];
+    GoSlice_ Key1 = {bufferKey1, 0, 1024};
+    GoSlice_ Key2 = {bufferKey2, 0, 1024};
+    GoUint8 Depth1;
+    GoUint8 Depth2;
+
+    GoUint32 err = SKY_bip32_PrivateKey_GetVersion(handle1, &Version1);
+    err = SKY_bip32_PrivateKey_GetVersion(handle2, &Version2);
+    if (!isGoSlice_Eq(&Version1, &Version2)) {
+        printf("Version not equal\n");
+        return 0;
+    }
+
+    err = SKY_bip32_PrivateKey_GetDepth(handle1, &Depth1);
+    err = SKY_bip32_PrivateKey_GetDepth(handle2, &Depth2);
+    if (Depth1 != Depth2) {
+        printf("Depth not equal\n");
+        return 0;
+    }
+
+    err = SKY_bip32_PrivateKey_GetParentFingerprint(handle1, &ParentFingerprint1);
+    err = SKY_bip32_PrivateKey_GetParentFingerprint(handle2, &ParentFingerprint2);
+    if (!isGoSlice_Eq(&ParentFingerprint1, &ParentFingerprint2)) {
+        printf("ParentFingerprint not equal\n");
+        return 0;
+    }
+
+    err = SKY_bip32_PrivateKey_ChildNumber(handle1, &childNumber1);
+    err = SKY_bip32_PrivateKey_ChildNumber(handle2, &childNumber2);
+    if (childNumber1 != childNumber2) {
+        printf("childNumber not equal\n");
+        return 0;
+    }
+
+    err = SKY_bip32_PrivateKey_GetChainCode(handle1, &ChainCode1);
+    err = SKY_bip32_PrivateKey_GetChainCode(handle2, &ChainCode2);
+    if (!isGoSlice_Eq(&ChainCode1, &ChainCode2)) {
+        printf("ChainCode not equal\n");
+        return 0;
+    }
+
+    err = SKY_bip32_PrivateKey_GetKey(handle1, &Key1);
+    err = SKY_bip32_PrivateKey_GetKey(handle2, &Key2);
+    if (!isGoSlice_Eq(&Key1, &Key2)) {
+        printf("Key not equal\n");
+        return 0;
+    }
+
+    return 1;
+}
+
+GoInt isGoSliceEq(GoSlice* slice1, GoSlice* slice2)
+{
+    return (slice1->len == slice2->len) &&
+           (memcmp(slice1->data, slice2->data, slice1->len) == 0);
+}
+
+
+
+GoInt isPublicKeyEq(PublicKey__Handle handle1, PublicKey__Handle handle2)
+{
+    GoUint8 bufferVersion1[1024];
+    GoUint8 bufferVersion2[1024];
+    GoSlice_ Version1 = {bufferVersion1, 0, 1024};
+    GoSlice_ Version2 = {bufferVersion2, 0, 1024};
+    GoUint8 bufferParentFingerprint1[1024];
+    GoUint8 bufferParentFingerprint2[1024];
+    GoSlice_ ParentFingerprint1 = {bufferParentFingerprint1, 0, 1024};
+    GoSlice_ ParentFingerprint2 = {bufferParentFingerprint2, 0, 1024};
+    GoUint32 childNumber1;
+    GoUint32 childNumber2;
+    GoUint8 bufferChainCode1[1024];
+    GoUint8 bufferChainCode2[1024];
+    GoSlice_ ChainCode1 = {bufferChainCode1, 0, 1024};
+    GoSlice_ ChainCode2 = {bufferChainCode2, 0, 1024};
+    GoUint8 bufferKey1[1024];
+    GoUint8 bufferKey2[1024];
+    GoSlice_ Key1 = {bufferKey1, 0, 1024};
+    GoSlice_ Key2 = {bufferKey2, 0, 1024};
+    GoUint8 Depth1;
+    GoUint8 Depth2;
+
+    GoUint32 err = SKY_bip32_PublicKey_GetVersion(handle1, &Version1);
+    err = SKY_bip32_PublicKey_GetVersion(handle2, &Version2);
+    if (!isGoSlice_Eq(&Version1, &Version2)) {
+        return 0;
+    }
+
+    err = SKY_bip32_PublicKey_GetDepth(handle1, &Depth1);
+    
+    err = SKY_bip32_PublicKey_GetDepth(handle2, &Depth2);
+    
+    if (Depth1 != Depth2) {
+        return 0;
+    }
+
+    err = SKY_bip32_PublicKey_GetParentFingerprint(handle1, &ParentFingerprint1);
+    
+    err = SKY_bip32_PublicKey_GetParentFingerprint(handle2, &ParentFingerprint2);
+    
+    if (!isGoSlice_Eq(&ParentFingerprint1, &ParentFingerprint2)) {
+        return 0;
+    }
+
+    err = SKY_bip32_PublicKey_ChildNumber(handle1, &childNumber1);
+    
+    err = SKY_bip32_PublicKey_ChildNumber(handle2, &childNumber2);
+    
+    if (childNumber1 != childNumber2) {
+        return 0;
+    }
+
+    err = SKY_bip32_PublicKey_GetChainCode(handle1, &ChainCode1);
+    
+    err = SKY_bip32_PublicKey_GetChainCode(handle2, &ChainCode2);
+    
+    if (!isGoSlice_Eq(&ChainCode1, &ChainCode2)) {
+        return 0;
+    }
+
+    err = SKY_bip32_PublicKey_GetKey(handle1, &Key1);
+    
+    err = SKY_bip32_PublicKey_GetKey(handle2, &Key2);
+    
+    if (!isGoSlice_Eq(&Key1, &Key2)) {
+        return 0;
+    }
+
+    return 1;
 }
 	%}

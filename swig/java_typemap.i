@@ -81,7 +81,7 @@
 %apply signed char  {GoInt8_, GoInt8};
 %apply unsigned long long  {GoUint64, GoUint64_,GoUint,GoUint_};
 %apply long long  {GoInt64, GoInt64_,GoInt_, GoInt };
-%apply GoSlice_* {coin__UxArray*,GoSlice_**};
+// %apply GoSlice_* {GoSlice_**};
 %apply int {GoInt32,GoInt32_,ptrdiff_t};
 %apply int* {GoInt32*,GoInt32_*,ptrdiff_t*};
 %apply float {GoFloat32};
