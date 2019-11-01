@@ -1010,7 +1010,7 @@ long tmps = _GoString_.getCPtr (s);
   }
 
   public static long SKY_fee_TransactionFee(SWIGTYPE_p_Transaction__Handle p0, java.math.BigInteger p1, coin__UxArray p2, SWIGTYPE_p_unsigned_long_long p3) {
-    return skycoinJNI.SKY_fee_TransactionFee__SWIG_1(SWIGTYPE_p_Transaction__Handle.getCPtr(p0), p1, coin__UxArray.getCPtr(p2), p2, SWIGTYPE_p_unsigned_long_long.getCPtr(p3));
+    return skycoinJNI.SKY_fee_TransactionFee__SWIG_1(SWIGTYPE_p_Transaction__Handle.getCPtr(p0), p1, coin__UxArray.getCPtr (p2), p2, SWIGTYPE_p_unsigned_long_long.getCPtr(p3));
   }
 
   public static long SKY_JsonEncode_Handle(SWIGTYPE_p_Handle p0, _GoString_ p1) {
@@ -1340,7 +1340,7 @@ long tmpp1 = _GoString_.getCPtr (p1);
   }
 
   public static long SKY_transaction_NewUxBalances(java.math.BigInteger p0, coin__UxArray p1, GoSlice p2) {
-    return skycoinJNI.SKY_transaction_NewUxBalances(p0, coin__UxArray.getCPtr(p1), p1, GoSlice.getCPtr (p2), p2);
+    return skycoinJNI.SKY_transaction_NewUxBalances(p0, coin__UxArray.getCPtr (p1), p1, GoSlice.getCPtr (p2), p2);
   }
 
   public static long SKY_cli_MakeAlphanumericSeed() {
@@ -1798,7 +1798,7 @@ long tmpp1 = cipher_SecKey.getCPtr (p1);
   }
 
   public static long SKY_coin_CreateUnspents(coin__BlockHeader p0, SWIGTYPE_p_Transaction__Handle p1, coin__UxArray p2) {
-    return skycoinJNI.SKY_coin_CreateUnspents__SWIG_1(coin__BlockHeader.getCPtr(p0), p0, SWIGTYPE_p_Transaction__Handle.getCPtr(p1), coin__UxArray.getCPtr(p2), p2);
+    return skycoinJNI.SKY_coin_CreateUnspents__SWIG_1(coin__BlockHeader.getCPtr(p0), p0, SWIGTYPE_p_Transaction__Handle.getCPtr(p1), coin__UxArray.getCPtr (p2), p2);
   }
 
   public static long SKY_coin_CreateUnspent(coin__BlockHeader p0, SWIGTYPE_p_Transaction__Handle p1, long p2, coin__UxOut p3) {
@@ -2722,15 +2722,15 @@ long tmpp1 = cipher_SecKey.getCPtr (p1);
   }
 
   public static long SKY_coin_VerifyTransactionCoinsSpending(coin__UxArray p0, coin__UxArray p1) {
-    return skycoinJNI.SKY_coin_VerifyTransactionCoinsSpending__SWIG_1(coin__UxArray.getCPtr(p0), p0, coin__UxArray.getCPtr(p1), p1);
+    return skycoinJNI.SKY_coin_VerifyTransactionCoinsSpending__SWIG_1(coin__UxArray.getCPtr (p0), p0, coin__UxArray.getCPtr (p1), p1);
   }
 
   public static long SKY_coin_VerifyTransactionHoursSpending(java.math.BigInteger p0, coin__UxArray p1, coin__UxArray p2) {
-    return skycoinJNI.SKY_coin_VerifyTransactionHoursSpending__SWIG_1(p0, coin__UxArray.getCPtr(p1), p1, coin__UxArray.getCPtr(p2), p2);
+    return skycoinJNI.SKY_coin_VerifyTransactionHoursSpending__SWIG_1(p0, coin__UxArray.getCPtr (p1), p1, coin__UxArray.getCPtr (p2), p2);
   }
 
   public static long SKY_coin_VerifyInputSignatures(SWIGTYPE_p_Transaction__Handle p0, coin__UxArray p1) {
-    return skycoinJNI.SKY_coin_VerifyInputSignatures__SWIG_1(SWIGTYPE_p_Transaction__Handle.getCPtr(p0), coin__UxArray.getCPtr(p1), p1);
+    return skycoinJNI.SKY_coin_VerifyInputSignatures__SWIG_1(SWIGTYPE_p_Transaction__Handle.getCPtr(p0), coin__UxArray.getCPtr (p1), p1);
   }
 
   public static long SKY_coin_Transaction_GetLength(SWIGTYPE_p_Transaction__Handle p0, SWIGTYPE_p_unsigned_int p1) {
@@ -2893,47 +2893,47 @@ long tmpp1 = cipher_SecKey.getCPtr (p1);
   }
 
   public static long SKY_coin_UxArray_Hashes(coin__UxArray p0, GoSlice p1) {
-    return skycoinJNI.SKY_coin_UxArray_Hashes__SWIG_1(coin__UxArray.getCPtr(p0), p0, GoSlice.getCPtr (p1), p1);
+    return skycoinJNI.SKY_coin_UxArray_Hashes__SWIG_1(coin__UxArray.getCPtr (p0), p0, GoSlice.getCPtr (p1), p1);
   }
 
   public static long SKY_coin_UxArray_HasDupes(coin__UxArray p0, SWIGTYPE_p_unsigned_char p1) {
-    return skycoinJNI.SKY_coin_UxArray_HasDupes__SWIG_1(coin__UxArray.getCPtr(p0), p0, SWIGTYPE_p_unsigned_char.getCPtr(p1));
+    return skycoinJNI.SKY_coin_UxArray_HasDupes__SWIG_1(coin__UxArray.getCPtr (p0), p0, SWIGTYPE_p_unsigned_char.getCPtr(p1));
   }
 
   public static long SKY_coin_UxArray_Sort(coin__UxArray p0) {
-    return skycoinJNI.SKY_coin_UxArray_Sort(coin__UxArray.getCPtr(p0), p0);
+    return skycoinJNI.SKY_coin_UxArray_Sort(coin__UxArray.getCPtr (p0), p0);
   }
 
   public static long SKY_coin_UxArray_Len(coin__UxArray p0, SWIGTYPE_p_long_long p1) {
-    return skycoinJNI.SKY_coin_UxArray_Len(coin__UxArray.getCPtr(p0), p0, SWIGTYPE_p_long_long.getCPtr(p1));
+    return skycoinJNI.SKY_coin_UxArray_Len(coin__UxArray.getCPtr (p0), p0, SWIGTYPE_p_long_long.getCPtr(p1));
   }
 
   public static long SKY_coin_UxArray_Less(coin__UxArray p0, long p1, long p2, SWIGTYPE_p_unsigned_char p3) {
-    return skycoinJNI.SKY_coin_UxArray_Less__SWIG_1(coin__UxArray.getCPtr(p0), p0, p1, p2, SWIGTYPE_p_unsigned_char.getCPtr(p3));
+    return skycoinJNI.SKY_coin_UxArray_Less__SWIG_1(coin__UxArray.getCPtr (p0), p0, p1, p2, SWIGTYPE_p_unsigned_char.getCPtr(p3));
   }
 
   public static long SKY_coin_UxArray_Swap(coin__UxArray p0, long p1, long p2) {
-    return skycoinJNI.SKY_coin_UxArray_Swap__SWIG_1(coin__UxArray.getCPtr(p0), p0, p1, p2);
+    return skycoinJNI.SKY_coin_UxArray_Swap__SWIG_1(coin__UxArray.getCPtr (p0), p0, p1, p2);
   }
 
   public static long SKY_coin_UxArray_Coins(coin__UxArray p0, SWIGTYPE_p_unsigned_long_long p1) {
-    return skycoinJNI.SKY_coin_UxArray_Coins__SWIG_1(coin__UxArray.getCPtr(p0), p0, SWIGTYPE_p_unsigned_long_long.getCPtr(p1));
+    return skycoinJNI.SKY_coin_UxArray_Coins__SWIG_1(coin__UxArray.getCPtr (p0), p0, SWIGTYPE_p_unsigned_long_long.getCPtr(p1));
   }
 
   public static long SKY_coin_UxArray_CoinHours(coin__UxArray p0, java.math.BigInteger p1, SWIGTYPE_p_unsigned_long_long p2) {
-    return skycoinJNI.SKY_coin_UxArray_CoinHours__SWIG_1(coin__UxArray.getCPtr(p0), p0, p1, SWIGTYPE_p_unsigned_long_long.getCPtr(p2));
+    return skycoinJNI.SKY_coin_UxArray_CoinHours__SWIG_1(coin__UxArray.getCPtr (p0), p0, p1, SWIGTYPE_p_unsigned_long_long.getCPtr(p2));
   }
 
   public static long SKY_coin_UxArray_Sub(coin__UxArray p0, coin__UxArray p1, coin__UxArray p2) {
-    return skycoinJNI.SKY_coin_UxArray_Sub__SWIG_1(coin__UxArray.getCPtr(p0), p0, coin__UxArray.getCPtr(p1), p1, coin__UxArray.getCPtr(p2), p2);
+    return skycoinJNI.SKY_coin_UxArray_Sub__SWIG_1(coin__UxArray.getCPtr (p0), p0, coin__UxArray.getCPtr (p1), p1, coin__UxArray.getCPtr (p2), p2);
   }
 
   public static long SKY_coin_UxArray_Add(coin__UxArray p0, coin__UxArray p1, coin__UxArray p2) {
-    return skycoinJNI.SKY_coin_UxArray_Add__SWIG_1(coin__UxArray.getCPtr(p0), p0, coin__UxArray.getCPtr(p1), p1, coin__UxArray.getCPtr(p2), p2);
+    return skycoinJNI.SKY_coin_UxArray_Add__SWIG_1(coin__UxArray.getCPtr (p0), p0, coin__UxArray.getCPtr (p1), p1, coin__UxArray.getCPtr (p2), p2);
   }
 
   public static long SKY_coin_NewAddressUxOuts(coin__UxArray p0, SWIGTYPE_p_AddressUxOuts_Handle p1) {
-    return skycoinJNI.SKY_coin_NewAddressUxOuts__SWIG_1(coin__UxArray.getCPtr(p0), p0, SWIGTYPE_p_AddressUxOuts_Handle.getCPtr(p1));
+    return skycoinJNI.SKY_coin_NewAddressUxOuts__SWIG_1(coin__UxArray.getCPtr (p0), p0, SWIGTYPE_p_AddressUxOuts_Handle.getCPtr(p1));
   }
 
   public static long SKY_coin_AddressUxOuts_Keys(SWIGTYPE_p_AddressUxOuts_Handle p0, GoSlice p1) {
@@ -2941,7 +2941,7 @@ long tmpp1 = cipher_SecKey.getCPtr (p1);
   }
 
   public static long SKY_coin_AddressUxOuts_Flatten(SWIGTYPE_p_AddressUxOuts_Handle p0, coin__UxArray p1) {
-    return skycoinJNI.SKY_coin_AddressUxOuts_Flatten__SWIG_1(SWIGTYPE_p_AddressUxOuts_Handle.getCPtr(p0), coin__UxArray.getCPtr(p1), p1);
+    return skycoinJNI.SKY_coin_AddressUxOuts_Flatten__SWIG_1(SWIGTYPE_p_AddressUxOuts_Handle.getCPtr(p0), coin__UxArray.getCPtr (p1), p1);
   }
 
   public static long SKY_coin_AddressUxOuts_Sub(SWIGTYPE_p_AddressUxOuts_Handle p0, SWIGTYPE_p_AddressUxOuts_Handle p1, SWIGTYPE_p_AddressUxOuts_Handle p2) {
@@ -2953,7 +2953,7 @@ long tmpp1 = cipher_SecKey.getCPtr (p1);
   }
 
   public static long SKY_coin_AddressUxOuts_Get(SWIGTYPE_p_AddressUxOuts_Handle p0, cipher__Address p1, coin__UxArray p2) {
-    return skycoinJNI.SKY_coin_AddressUxOuts_Get__SWIG_1(SWIGTYPE_p_AddressUxOuts_Handle.getCPtr(p0), cipher__Address.getCPtr(p1), p1, coin__UxArray.getCPtr(p2), p2);
+    return skycoinJNI.SKY_coin_AddressUxOuts_Get__SWIG_1(SWIGTYPE_p_AddressUxOuts_Handle.getCPtr(p0), cipher__Address.getCPtr(p1), p1, coin__UxArray.getCPtr (p2), p2);
   }
 
   public static long SKY_coin_AddressUxOuts_HasKey(SWIGTYPE_p_AddressUxOuts_Handle p0, cipher__Address p1, SWIGTYPE_p_unsigned_char p2) {
@@ -2969,7 +2969,7 @@ long tmpp1 = cipher_SecKey.getCPtr (p1);
   }
 
   public static long SKY_coin_AddressUxOuts_Set(SWIGTYPE_p_AddressUxOuts_Handle p0, cipher__Address p1, coin__UxArray p2) {
-    return skycoinJNI.SKY_coin_AddressUxOuts_Set__SWIG_1(SWIGTYPE_p_AddressUxOuts_Handle.getCPtr(p0), cipher__Address.getCPtr(p1), p1, coin__UxArray.getCPtr(p2), p2);
+    return skycoinJNI.SKY_coin_AddressUxOuts_Set__SWIG_1(SWIGTYPE_p_AddressUxOuts_Handle.getCPtr(p0), cipher__Address.getCPtr(p1), p1, coin__UxArray.getCPtr (p2), p2);
   }
 
   public static java.math.BigInteger SKY_params_DropletPrecisionToDivisor(short p0) {

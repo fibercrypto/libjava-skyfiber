@@ -1,81 +1,81 @@
-// package skycoin.libjava;
+package skycoin.libjava;
 
-// import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-// import org.junit.Test;
+import org.junit.Test;
 
-// public class cipher_bitcoinTest extends skycoin {
-//   static { System.loadLibrary("skycoin"); }
+public class cipher_bitcoinTest extends skycoin {
+  static { System.loadLibrary("skycoin"); }
 
-//   transutils utils = new transutils();
+  transutils utils = new transutils();
 
-//   @Test
-//   public void TestDecodeBase58BitcoinAddress() {
-//     cipher_PubKey p = new cipher_PubKey();
-//     cipher_SecKey s = new cipher_SecKey();
-//     cipher__BitcoinAddress a = new cipher__BitcoinAddress();
-//     cipher__BitcoinAddress addrTmp = new cipher__BitcoinAddress();
+  @Test
+  public void TestDecodeBase58BitcoinAddress() {
+    cipher_PubKey p = new cipher_PubKey();
+    cipher_SecKey s = new cipher_SecKey();
+    cipher__BitcoinAddress a = new cipher__BitcoinAddress();
+    cipher__BitcoinAddress addrTmp = new cipher__BitcoinAddress();
 
-//     long err = SKY_cipher_GenerateKeyPair(p, s);
-//     assertEquals(err, SKY_OK);
-//     SKY_cipher_BitcoinAddressFromPubKey(p, a);
-//     err = SKY_cipher_BitcoinAddress_Verify(a, p);
-//     assertEquals(err, SKY_OK);
-//     _GoString_ Str = new _GoString_();
-//     Str.SetString("");
-//     err = SKY_cipher_DecodeBase58BitcoinAddress(Str, addrTmp);
-//     assertEquals(err, SKY_ERROR);
-//     Str.SetString("cascs");
-//     err = SKY_cipher_DecodeBase58BitcoinAddress(Str, addrTmp);
-//     if (utils.OS.equals("Linux")) {
-//       assertEquals(err, SKY_ERROR);
-//     } else {
-//       assertEquals(err, SKY_ErrAddressInvalidLength);
-//     }
+    long err = SKY_cipher_GenerateKeyPair(p, s);
+    assertEquals(err, SKY_OK);
+    SKY_cipher_BitcoinAddressFromPubKey(p, a);
+    err = SKY_cipher_BitcoinAddress_Verify(a, p);
+    assertEquals(err, SKY_OK);
+    _GoString_ Str = new _GoString_();
+    Str.SetString("");
+    err = SKY_cipher_DecodeBase58BitcoinAddress(Str, addrTmp);
+    assertEquals(err, SKY_ERROR);
+    Str.SetString("cascs");
+    err = SKY_cipher_DecodeBase58BitcoinAddress(Str, addrTmp);
+    if (utils.OS.equals("Linux")) {
+      assertEquals(err, SKY_ERROR);
+    } else {
+      assertEquals(err, SKY_ErrAddressInvalidLength);
+    }
 
-//     GoSlice b = new GoSlice();
-//     SKY_cipher_BitcoinAddress_Bytes(a, b);
-//     b.setLen(b.getLen() / 2);
-//     _GoString_ h = new _GoString_();
-//     SKY_base58_Hex2Base58(b, h);
-//     err = SKY_cipher_DecodeBase58BitcoinAddress(h, addrTmp);
-//     assertEquals(err, SKY_ErrAddressInvalidLength);
+    GoSlice b = new GoSlice();
+    SKY_cipher_BitcoinAddress_Bytes(a, b);
+    b.setLen(b.getLen() / 2);
+    _GoString_ h = new _GoString_();
+    SKY_base58_Hex2Base58(b, h);
+    err = SKY_cipher_DecodeBase58BitcoinAddress(h, addrTmp);
+    assertEquals(err, SKY_ErrAddressInvalidLength);
 
-//     b = new GoSlice();
-//     SKY_cipher_BitcoinAddress_Bytes(a, b);
-//     h = new _GoString_();
-//     SKY_base58_Hex2Base58(b, h);
-//     err = SKY_cipher_DecodeBase58BitcoinAddress(h, addrTmp);
-//     assertEquals(err, SKY_OK);
-//     assertEquals(a.isEqual(addrTmp), 1);
+    b = new GoSlice();
+    SKY_cipher_BitcoinAddress_Bytes(a, b);
+    h = new _GoString_();
+    SKY_base58_Hex2Base58(b, h);
+    err = SKY_cipher_DecodeBase58BitcoinAddress(h, addrTmp);
+    assertEquals(err, SKY_OK);
+    assertEquals(a.isEqual(addrTmp), 1);
 
-//     _GoString_ As = new _GoString_();
-//     SKY_cipher_BitcoinAddress_String(a, As);
-//     err = SKY_cipher_DecodeBase58BitcoinAddress(As, addrTmp);
-//     assertEquals(err, SKY_OK);
-//     assertEquals(a.isEqual(addrTmp), 1);
+    _GoString_ As = new _GoString_();
+    SKY_cipher_BitcoinAddress_String(a, As);
+    err = SKY_cipher_DecodeBase58BitcoinAddress(As, addrTmp);
+    assertEquals(err, SKY_OK);
+    assertEquals(a.isEqual(addrTmp), 1);
 
-//     // preceding whitespace is invalid
-//     _GoString_ as2 = new _GoString_();
-//     as2.SetString(" " + As.getP());
-//     err = SKY_cipher_DecodeBase58BitcoinAddress(as2, addrTmp);
-//     assertEquals(err, SKY_ERROR);
+    // preceding whitespace is invalid
+    _GoString_ as2 = new _GoString_();
+    as2.SetString(" " + As.getP());
+    err = SKY_cipher_DecodeBase58BitcoinAddress(as2, addrTmp);
+    assertEquals(err, SKY_ERROR);
 
-//     // preceding zeroes are invalid
-//     as2.SetString("000" + As.getP());
-//     err = SKY_cipher_DecodeBase58BitcoinAddress(as2, addrTmp);
-//     assertEquals(err, SKY_ERROR);
+    // preceding zeroes are invalid
+    as2.SetString("000" + As.getP());
+    err = SKY_cipher_DecodeBase58BitcoinAddress(as2, addrTmp);
+    assertEquals(err, SKY_ERROR);
 
-//     // trailing whitespace is invalid
-//     as2.SetString(As.getP() + " ");
-//     err = SKY_cipher_DecodeBase58BitcoinAddress(as2, addrTmp);
-//     assertEquals(err, SKY_ERROR);
+    // trailing whitespace is invalid
+    as2.SetString(As.getP() + " ");
+    err = SKY_cipher_DecodeBase58BitcoinAddress(as2, addrTmp);
+    assertEquals(err, SKY_ERROR);
 
-//     // trailing zeroes are invalid
-//     as2.SetString(As.getP() + "000");
-//     err = SKY_cipher_DecodeBase58BitcoinAddress(as2, addrTmp);
-//     assertEquals(err, SKY_ERROR);
-//   }
+    // trailing zeroes are invalid
+    as2.SetString(As.getP() + "000");
+    err = SKY_cipher_DecodeBase58BitcoinAddress(as2, addrTmp);
+    assertEquals(err, SKY_ERROR);
+  }
 
 //   @Test
 //   public void TestBitcoinAddressFromBytes() {
@@ -192,4 +192,4 @@
 //     assertEquals(seckey1_hex.getP(), seckey2_hex.getP());
 //     assertEquals(wip1.getP(), wip2.getP());
 //   }
-// }
+}

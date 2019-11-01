@@ -72,6 +72,10 @@
 %typemap(jstype,pre=" long tmp$javainput = GoSlice.getCPtr ($javainput);") GoSlice_*  "GoSlice"
 %typemap(javain) GoSlice_*  "GoSlice.getCPtr ($javainput)"
 
+// coin__UxArray
+%typemap(jni) coin__UxArray*  "coin__UxArray *"
+%typemap(jstype,pre=" long tmp$javainput = coin__UxArray.getCPtr ($javainput);") coin__UxArray*  "coin__UxArray"
+%typemap(javain) coin__UxArray*  "coin__UxArray.getCPtr ($javainput)"
 
 %apply unsigned short  {GoUint16, GoUint16_};
 %apply unsigned long  {GoUintptr, __SIZE_TYPE__};
@@ -81,7 +85,6 @@
 %apply signed char  {GoInt8_, GoInt8};
 %apply unsigned long long  {GoUint64, GoUint64_,GoUint,GoUint_};
 %apply long long  {GoInt64, GoInt64_,GoInt_, GoInt };
-// %apply GoSlice_* {GoSlice_**};
 %apply int {GoInt32,GoInt32_,ptrdiff_t};
 %apply int* {GoInt32*,GoInt32_*,ptrdiff_t*};
 %apply float {GoFloat32};
