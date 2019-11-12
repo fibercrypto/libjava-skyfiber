@@ -1,0 +1,3 @@
+[submodule "gopath/src/github.com/fibercrypto/libskycoin"]
+	path = gopath/src/github.com/fibercrypto/libskycoin
+	url = https://github.com/fibercrypto/libskycoin
