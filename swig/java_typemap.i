@@ -26,6 +26,7 @@
 %pointer_functions(BlockBody__Handle,BlockBody__HandlePtr);
 %pointer_functions(Signature_Handle,Signature_HandlePtr);
 %pointer_functions(Number_Handle,Number_HandlePtr);
+%pointer_functions(Distribution__Handle,Distribution__HandlePtr);
 %pointer_functions(unsigned char, CharPtr);
 %pointer_functions(FeeCalculator, FeeCalculatorPtr);
 %pointer_functions(FeeCalcFunc, FeeCalcFuncPtr);

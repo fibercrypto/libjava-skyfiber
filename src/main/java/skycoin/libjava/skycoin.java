@@ -425,6 +425,28 @@ public class skycoin implements skycoinConstants {
     return new SWIGTYPE_p_Number_Handle(skycoinJNI.Number_HandlePtr_value(SWIGTYPE_p_Number_Handle.getCPtr(obj)), true);
   }
 
+  public static SWIGTYPE_p_Distribution__Handle new_Distribution__HandlePtr() {
+    long cPtr = skycoinJNI.new_Distribution__HandlePtr();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Distribution__Handle(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_Distribution__Handle copy_Distribution__HandlePtr(SWIGTYPE_p_Distribution__Handle value) {
+    long cPtr = skycoinJNI.copy_Distribution__HandlePtr(SWIGTYPE_p_Distribution__Handle.getCPtr(value));
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Distribution__Handle(cPtr, false);
+  }
+
+  public static void delete_Distribution__HandlePtr(SWIGTYPE_p_Distribution__Handle obj) {
+    skycoinJNI.delete_Distribution__HandlePtr(SWIGTYPE_p_Distribution__Handle.getCPtr(obj));
+  }
+
+  public static void Distribution__HandlePtr_assign(SWIGTYPE_p_Distribution__Handle obj, SWIGTYPE_p_Distribution__Handle value) {
+    skycoinJNI.Distribution__HandlePtr_assign(SWIGTYPE_p_Distribution__Handle.getCPtr(obj), SWIGTYPE_p_Distribution__Handle.getCPtr(value));
+  }
+
+  public static SWIGTYPE_p_Distribution__Handle Distribution__HandlePtr_value(SWIGTYPE_p_Distribution__Handle obj) {
+    return new SWIGTYPE_p_Distribution__Handle(skycoinJNI.Distribution__HandlePtr_value(SWIGTYPE_p_Distribution__Handle.getCPtr(obj)), true);
+  }
+
   public static SWIGTYPE_p_unsigned_char new_CharPtr() {
     long cPtr = skycoinJNI.new_CharPtr();
     return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);

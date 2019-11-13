@@ -104,6 +104,11 @@ public class skycoinJNI {
   public final static native void delete_Number_HandlePtr(long jarg1);
   public final static native void Number_HandlePtr_assign(long jarg1, long jarg2);
   public final static native long Number_HandlePtr_value(long jarg1);
+  public final static native long new_Distribution__HandlePtr();
+  public final static native long copy_Distribution__HandlePtr(long jarg1);
+  public final static native void delete_Distribution__HandlePtr(long jarg1);
+  public final static native void Distribution__HandlePtr_assign(long jarg1, long jarg2);
+  public final static native long Distribution__HandlePtr_value(long jarg1);
   public final static native long new_CharPtr();
   public final static native long copy_CharPtr(short jarg1);
   public final static native void delete_CharPtr(long jarg1);
