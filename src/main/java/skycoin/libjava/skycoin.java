@@ -537,6 +537,116 @@ public class skycoin implements skycoinConstants {
     return (cPtr == 0) ? null : new coin__Block(cPtr, false);
   }
 
+  public static SWIGTYPE_p_Coin__Handle new_Coin__HandlePtr() {
+    long cPtr = skycoinJNI.new_Coin__HandlePtr();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Coin__Handle(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_Coin__Handle copy_Coin__HandlePtr(SWIGTYPE_p_Coin__Handle value) {
+    long cPtr = skycoinJNI.copy_Coin__HandlePtr(SWIGTYPE_p_Coin__Handle.getCPtr(value));
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Coin__Handle(cPtr, false);
+  }
+
+  public static void delete_Coin__HandlePtr(SWIGTYPE_p_Coin__Handle obj) {
+    skycoinJNI.delete_Coin__HandlePtr(SWIGTYPE_p_Coin__Handle.getCPtr(obj));
+  }
+
+  public static void Coin__HandlePtr_assign(SWIGTYPE_p_Coin__Handle obj, SWIGTYPE_p_Coin__Handle value) {
+    skycoinJNI.Coin__HandlePtr_assign(SWIGTYPE_p_Coin__Handle.getCPtr(obj), SWIGTYPE_p_Coin__Handle.getCPtr(value));
+  }
+
+  public static SWIGTYPE_p_Coin__Handle Coin__HandlePtr_value(SWIGTYPE_p_Coin__Handle obj) {
+    return new SWIGTYPE_p_Coin__Handle(skycoinJNI.Coin__HandlePtr_value(SWIGTYPE_p_Coin__Handle.getCPtr(obj)), true);
+  }
+
+  public static SWIGTYPE_p_Account__Handle new_Account__HandlePtr() {
+    long cPtr = skycoinJNI.new_Account__HandlePtr();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Account__Handle(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_Account__Handle copy_Account__HandlePtr(SWIGTYPE_p_Account__Handle value) {
+    long cPtr = skycoinJNI.copy_Account__HandlePtr(SWIGTYPE_p_Account__Handle.getCPtr(value));
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Account__Handle(cPtr, false);
+  }
+
+  public static void delete_Account__HandlePtr(SWIGTYPE_p_Account__Handle obj) {
+    skycoinJNI.delete_Account__HandlePtr(SWIGTYPE_p_Account__Handle.getCPtr(obj));
+  }
+
+  public static void Account__HandlePtr_assign(SWIGTYPE_p_Account__Handle obj, SWIGTYPE_p_Account__Handle value) {
+    skycoinJNI.Account__HandlePtr_assign(SWIGTYPE_p_Account__Handle.getCPtr(obj), SWIGTYPE_p_Account__Handle.getCPtr(value));
+  }
+
+  public static SWIGTYPE_p_Account__Handle Account__HandlePtr_value(SWIGTYPE_p_Account__Handle obj) {
+    return new SWIGTYPE_p_Account__Handle(skycoinJNI.Account__HandlePtr_value(SWIGTYPE_p_Account__Handle.getCPtr(obj)), true);
+  }
+
+  public static SWIGTYPE_p_PrivateKey__Handle new_PrivateKey__HandlePtr() {
+    long cPtr = skycoinJNI.new_PrivateKey__HandlePtr();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_PrivateKey__Handle(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_PrivateKey__Handle copy_PrivateKey__HandlePtr(SWIGTYPE_p_PrivateKey__Handle value) {
+    long cPtr = skycoinJNI.copy_PrivateKey__HandlePtr(SWIGTYPE_p_PrivateKey__Handle.getCPtr(value));
+    return (cPtr == 0) ? null : new SWIGTYPE_p_PrivateKey__Handle(cPtr, false);
+  }
+
+  public static void delete_PrivateKey__HandlePtr(SWIGTYPE_p_PrivateKey__Handle obj) {
+    skycoinJNI.delete_PrivateKey__HandlePtr(SWIGTYPE_p_PrivateKey__Handle.getCPtr(obj));
+  }
+
+  public static void PrivateKey__HandlePtr_assign(SWIGTYPE_p_PrivateKey__Handle obj, SWIGTYPE_p_PrivateKey__Handle value) {
+    skycoinJNI.PrivateKey__HandlePtr_assign(SWIGTYPE_p_PrivateKey__Handle.getCPtr(obj), SWIGTYPE_p_PrivateKey__Handle.getCPtr(value));
+  }
+
+  public static SWIGTYPE_p_PrivateKey__Handle PrivateKey__HandlePtr_value(SWIGTYPE_p_PrivateKey__Handle obj) {
+    return new SWIGTYPE_p_PrivateKey__Handle(skycoinJNI.PrivateKey__HandlePtr_value(SWIGTYPE_p_PrivateKey__Handle.getCPtr(obj)), true);
+  }
+
+  public static SWIGTYPE_p_PublicKey__Handle new_PublicKey__HandlePtr() {
+    long cPtr = skycoinJNI.new_PublicKey__HandlePtr();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_PublicKey__Handle(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_PublicKey__Handle copy_PublicKey__HandlePtr(SWIGTYPE_p_PublicKey__Handle value) {
+    long cPtr = skycoinJNI.copy_PublicKey__HandlePtr(SWIGTYPE_p_PublicKey__Handle.getCPtr(value));
+    return (cPtr == 0) ? null : new SWIGTYPE_p_PublicKey__Handle(cPtr, false);
+  }
+
+  public static void delete_PublicKey__HandlePtr(SWIGTYPE_p_PublicKey__Handle obj) {
+    skycoinJNI.delete_PublicKey__HandlePtr(SWIGTYPE_p_PublicKey__Handle.getCPtr(obj));
+  }
+
+  public static void PublicKey__HandlePtr_assign(SWIGTYPE_p_PublicKey__Handle obj, SWIGTYPE_p_PublicKey__Handle value) {
+    skycoinJNI.PublicKey__HandlePtr_assign(SWIGTYPE_p_PublicKey__Handle.getCPtr(obj), SWIGTYPE_p_PublicKey__Handle.getCPtr(value));
+  }
+
+  public static SWIGTYPE_p_PublicKey__Handle PublicKey__HandlePtr_value(SWIGTYPE_p_PublicKey__Handle obj) {
+    return new SWIGTYPE_p_PublicKey__Handle(skycoinJNI.PublicKey__HandlePtr_value(SWIGTYPE_p_PublicKey__Handle.getCPtr(obj)), true);
+  }
+
+  public static SWIGTYPE_p_Path__Handle new_Path__HandlePtr() {
+    long cPtr = skycoinJNI.new_Path__HandlePtr();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Path__Handle(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_Path__Handle copy_Path__HandlePtr(SWIGTYPE_p_Path__Handle value) {
+    long cPtr = skycoinJNI.copy_Path__HandlePtr(SWIGTYPE_p_Path__Handle.getCPtr(value));
+    return (cPtr == 0) ? null : new SWIGTYPE_p_Path__Handle(cPtr, false);
+  }
+
+  public static void delete_Path__HandlePtr(SWIGTYPE_p_Path__Handle obj) {
+    skycoinJNI.delete_Path__HandlePtr(SWIGTYPE_p_Path__Handle.getCPtr(obj));
+  }
+
+  public static void Path__HandlePtr_assign(SWIGTYPE_p_Path__Handle obj, SWIGTYPE_p_Path__Handle value) {
+    skycoinJNI.Path__HandlePtr_assign(SWIGTYPE_p_Path__Handle.getCPtr(obj), SWIGTYPE_p_Path__Handle.getCPtr(value));
+  }
+
+  public static SWIGTYPE_p_Path__Handle Path__HandlePtr_value(SWIGTYPE_p_Path__Handle obj) {
+    return new SWIGTYPE_p_Path__Handle(skycoinJNI.Path__HandlePtr_value(SWIGTYPE_p_Path__Handle.getCPtr(obj)), true);
+  }
+
   public static long isGoSlice_Eq(GoSlice slice1, GoSlice slice2) {
     return skycoinJNI.isGoSlice_Eq(GoSlice.getCPtr (slice1), slice1, GoSlice.getCPtr (slice2), slice2);
   }
