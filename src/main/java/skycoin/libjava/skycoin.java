@@ -51,26 +51,26 @@ public class skycoin implements skycoinConstants {
     return new GoSlice(skycoinJNI.GoSlicePtr_value(GoSlice.getCPtr(obj), obj), true);
   }
 
-  public static SWIGTYPE_p_GoUint8_ new_GoUint8Ptr() {
+  public static SWIGTYPE_p_unsigned_char new_GoUint8Ptr() {
     long cPtr = skycoinJNI.new_GoUint8Ptr();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_GoUint8_(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
   }
 
-  public static SWIGTYPE_p_GoUint8_ copy_GoUint8Ptr(short value) {
+  public static SWIGTYPE_p_unsigned_char copy_GoUint8Ptr(short value) {
     long cPtr = skycoinJNI.copy_GoUint8Ptr(value);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_GoUint8_(cPtr, false);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
   }
 
-  public static void delete_GoUint8Ptr(SWIGTYPE_p_GoUint8_ obj) {
-    skycoinJNI.delete_GoUint8Ptr(SWIGTYPE_p_GoUint8_.getCPtr(obj));
+  public static void delete_GoUint8Ptr(SWIGTYPE_p_unsigned_char obj) {
+    skycoinJNI.delete_GoUint8Ptr(SWIGTYPE_p_unsigned_char.getCPtr(obj));
   }
 
-  public static void GoUint8Ptr_assign(SWIGTYPE_p_GoUint8_ obj, short value) {
-    skycoinJNI.GoUint8Ptr_assign(SWIGTYPE_p_GoUint8_.getCPtr(obj), value);
+  public static void GoUint8Ptr_assign(SWIGTYPE_p_unsigned_char obj, short value) {
+    skycoinJNI.GoUint8Ptr_assign(SWIGTYPE_p_unsigned_char.getCPtr(obj), value);
   }
 
-  public static short GoUint8Ptr_value(SWIGTYPE_p_GoUint8_ obj) {
-    return skycoinJNI.GoUint8Ptr_value(SWIGTYPE_p_GoUint8_.getCPtr(obj));
+  public static short GoUint8Ptr_value(SWIGTYPE_p_unsigned_char obj) {
+    return skycoinJNI.GoUint8Ptr_value(SWIGTYPE_p_unsigned_char.getCPtr(obj));
   }
 
   public static _GoString_ new_GoStringPtr() {

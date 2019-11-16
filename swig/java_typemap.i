@@ -9,7 +9,7 @@
 %include "typemaps.i"
 %include cpointer.i
 %pointer_functions(GoSlice, GoSlicePtr);
-%pointer_functions(GoUint8_, GoUint8Ptr);
+%pointer_functions(unsigned char, GoUint8Ptr);
 %pointer_functions(_GoString_, GoStringPtr);
 %pointer_functions(int, IntPtr);
 %pointer_functions(coin__Transaction, coin__TransactionPtr);
