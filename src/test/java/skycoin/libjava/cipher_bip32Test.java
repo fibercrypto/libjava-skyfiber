@@ -761,4 +761,29 @@ public class cipher_bip32Test extends skycoin {
                         assertEquals(isPublicKeyEq(pubKey, pubKey3), 1);
                 }
         }
+
+        @Test
+        public void TestMaxChildDepthError() {
+                GoSlice tmp = new GoSlice();
+                long err = SKY_cipher_RandByte(32, tmp);
+                assertEquals(err, SKY_OK);
+                SWIGTYPE_p_PrivateKey__Handle key = new_PrivateKey__HandlePtr();
+                err = SKY_bip32_NewMasterKey(tmp, key);
+                assertEquals(err, SKY_OK);
+                byte reached = 0;
+                for (int i = 0; i < 256; i++) {
+                        err = SKY_bip32_PrivateKey_NewPrivateChildKey(key, 0, key);
+                        switch (i) {
+                        case 255:
+                                assertEquals(err, SKY_ErrMaxDepthReached);
+                                reached = 1;
+                                break;
+
+                        default:
+                                assertEquals(err, SKY_OK);
+                                break;
+                        }
+                }
+                assertEquals(reached, 1);
+        }
 }
