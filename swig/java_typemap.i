@@ -9,15 +9,15 @@
 %include "typemaps.i"
 %include cpointer.i
 %pointer_functions(GoSlice, GoSlicePtr);
-%pointer_functions(unsigned char, GoUint8Ptr);
+%pointer_functions(GoUint8, GoUint8Ptr);
+%pointer_functions(unsigned char, CharPtr);
 %pointer_functions(_GoString_, GoStringPtr);
-%pointer_functions(int, IntPtr);
 %pointer_functions(coin__Transaction, coin__TransactionPtr);
 %pointer_functions(AddressUxOuts_Handle, AddressUxOuts__HandlePtr);
-%pointer_functions(unsigned long long, GoUint64Ptr);
-%pointer_functions(long long, GointPtr);
-%pointer_functions(unsigned short, GoUint16Ptr);
-%pointer_functions(unsigned int, GoUint32Ptr);
+%pointer_functions(GoUint64, GoUint64Ptr);
+%pointer_functions(GoInt, GoIntPtr);
+%pointer_functions(GoUint16, GoUint16Ptr);
+%pointer_functions(GoUint32, GoUint32Ptr);
 %pointer_functions(cipher__Address, cipher__AddressPtr);
 %pointer_functions(Transactions__Handle, Transactions__HandlePtr);
 %pointer_functions(Transaction__Handle, Transaction__HandlePtr);
@@ -27,7 +27,6 @@
 %pointer_functions(Signature_Handle,Signature_HandlePtr);
 %pointer_functions(Number_Handle,Number_HandlePtr);
 %pointer_functions(Distribution__Handle,Distribution__HandlePtr);
-%pointer_functions(unsigned char, CharPtr);
 %pointer_functions(FeeCalculator, FeeCalculatorPtr);
 %pointer_functions(FeeCalcFunc, FeeCalcFuncPtr);
 %pointer_functions(coin__Block*, coin__BlockPtr);

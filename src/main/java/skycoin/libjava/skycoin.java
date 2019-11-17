@@ -73,6 +73,28 @@ public class skycoin implements skycoinConstants {
     return skycoinJNI.GoUint8Ptr_value(SWIGTYPE_p_unsigned_char.getCPtr(obj));
   }
 
+  public static SWIGTYPE_p_unsigned_char new_CharPtr() {
+    long cPtr = skycoinJNI.new_CharPtr();
+    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
+  }
+
+  public static SWIGTYPE_p_unsigned_char copy_CharPtr(short value) {
+    long cPtr = skycoinJNI.copy_CharPtr(value);
+    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
+  }
+
+  public static void delete_CharPtr(SWIGTYPE_p_unsigned_char obj) {
+    skycoinJNI.delete_CharPtr(SWIGTYPE_p_unsigned_char.getCPtr(obj));
+  }
+
+  public static void CharPtr_assign(SWIGTYPE_p_unsigned_char obj, short value) {
+    skycoinJNI.CharPtr_assign(SWIGTYPE_p_unsigned_char.getCPtr(obj), value);
+  }
+
+  public static short CharPtr_value(SWIGTYPE_p_unsigned_char obj) {
+    return skycoinJNI.CharPtr_value(SWIGTYPE_p_unsigned_char.getCPtr(obj));
+  }
+
   public static _GoString_ new_GoStringPtr() {
     long cPtr = skycoinJNI.new_GoStringPtr();
     return (cPtr == 0) ? null : new _GoString_(cPtr, false);
@@ -93,28 +115,6 @@ public class skycoin implements skycoinConstants {
 
   public static _GoString_ GoStringPtr_value(_GoString_ obj) {
     return new _GoString_(skycoinJNI.GoStringPtr_value(_GoString_.getCPtr(obj), obj), true);
-  }
-
-  public static SWIGTYPE_p_int new_IntPtr() {
-    long cPtr = skycoinJNI.new_IntPtr();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_int(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_int copy_IntPtr(int value) {
-    long cPtr = skycoinJNI.copy_IntPtr(value);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_int(cPtr, false);
-  }
-
-  public static void delete_IntPtr(SWIGTYPE_p_int obj) {
-    skycoinJNI.delete_IntPtr(SWIGTYPE_p_int.getCPtr(obj));
-  }
-
-  public static void IntPtr_assign(SWIGTYPE_p_int obj, int value) {
-    skycoinJNI.IntPtr_assign(SWIGTYPE_p_int.getCPtr(obj), value);
-  }
-
-  public static int IntPtr_value(SWIGTYPE_p_int obj) {
-    return skycoinJNI.IntPtr_value(SWIGTYPE_p_int.getCPtr(obj));
   }
 
   public static coin__Transaction new_coin__TransactionPtr() {
@@ -183,26 +183,26 @@ public class skycoin implements skycoinConstants {
     return skycoinJNI.GoUint64Ptr_value(SWIGTYPE_p_unsigned_long_long.getCPtr(obj));
   }
 
-  public static SWIGTYPE_p_long_long new_GointPtr() {
-    long cPtr = skycoinJNI.new_GointPtr();
+  public static SWIGTYPE_p_long_long new_GoIntPtr() {
+    long cPtr = skycoinJNI.new_GoIntPtr();
     return (cPtr == 0) ? null : new SWIGTYPE_p_long_long(cPtr, false);
   }
 
-  public static SWIGTYPE_p_long_long copy_GointPtr(long value) {
-    long cPtr = skycoinJNI.copy_GointPtr(value);
+  public static SWIGTYPE_p_long_long copy_GoIntPtr(long value) {
+    long cPtr = skycoinJNI.copy_GoIntPtr(value);
     return (cPtr == 0) ? null : new SWIGTYPE_p_long_long(cPtr, false);
   }
 
-  public static void delete_GointPtr(SWIGTYPE_p_long_long obj) {
-    skycoinJNI.delete_GointPtr(SWIGTYPE_p_long_long.getCPtr(obj));
+  public static void delete_GoIntPtr(SWIGTYPE_p_long_long obj) {
+    skycoinJNI.delete_GoIntPtr(SWIGTYPE_p_long_long.getCPtr(obj));
   }
 
-  public static void GointPtr_assign(SWIGTYPE_p_long_long obj, long value) {
-    skycoinJNI.GointPtr_assign(SWIGTYPE_p_long_long.getCPtr(obj), value);
+  public static void GoIntPtr_assign(SWIGTYPE_p_long_long obj, long value) {
+    skycoinJNI.GoIntPtr_assign(SWIGTYPE_p_long_long.getCPtr(obj), value);
   }
 
-  public static long GointPtr_value(SWIGTYPE_p_long_long obj) {
-    return skycoinJNI.GointPtr_value(SWIGTYPE_p_long_long.getCPtr(obj));
+  public static long GoIntPtr_value(SWIGTYPE_p_long_long obj) {
+    return skycoinJNI.GoIntPtr_value(SWIGTYPE_p_long_long.getCPtr(obj));
   }
 
   public static SWIGTYPE_p_unsigned_short new_GoUint16Ptr() {
@@ -445,28 +445,6 @@ public class skycoin implements skycoinConstants {
 
   public static SWIGTYPE_p_Distribution__Handle Distribution__HandlePtr_value(SWIGTYPE_p_Distribution__Handle obj) {
     return new SWIGTYPE_p_Distribution__Handle(skycoinJNI.Distribution__HandlePtr_value(SWIGTYPE_p_Distribution__Handle.getCPtr(obj)), true);
-  }
-
-  public static SWIGTYPE_p_unsigned_char new_CharPtr() {
-    long cPtr = skycoinJNI.new_CharPtr();
-    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
-  }
-
-  public static SWIGTYPE_p_unsigned_char copy_CharPtr(short value) {
-    long cPtr = skycoinJNI.copy_CharPtr(value);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
-  }
-
-  public static void delete_CharPtr(SWIGTYPE_p_unsigned_char obj) {
-    skycoinJNI.delete_CharPtr(SWIGTYPE_p_unsigned_char.getCPtr(obj));
-  }
-
-  public static void CharPtr_assign(SWIGTYPE_p_unsigned_char obj, short value) {
-    skycoinJNI.CharPtr_assign(SWIGTYPE_p_unsigned_char.getCPtr(obj), value);
-  }
-
-  public static short CharPtr_value(SWIGTYPE_p_unsigned_char obj) {
-    return skycoinJNI.CharPtr_value(SWIGTYPE_p_unsigned_char.getCPtr(obj));
   }
 
   public static SWIGTYPE_p_FeeCalculator new_FeeCalculatorPtr() {

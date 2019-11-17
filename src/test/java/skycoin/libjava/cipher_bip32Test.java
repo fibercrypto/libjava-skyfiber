@@ -386,7 +386,7 @@ public class cipher_bip32Test extends skycoin {
                 children.chainCode = "04466b9cc8e161e966409ca52986c584f07e9dc81f735db683c3ff6ec7b1503f";
                 children.hexPubKey = "0357bfe1e341d01c69fe5654309956cbea516822fba8a601743a012a7896ee8dc2";
                 children.wifPrivKey = "L43t3od1Gh7Lj55Bzjj1xDAgJDcL7YFo2nEcNaMGiyRZS1CidBVU";
-                children.childNUmber = 2 + (long)(FirstHardenedChild);
+                children.childNUmber = 2 + (long) (FirstHardenedChild);
                 children.depth = 3;
                 vector1.children[2] = children;
 
@@ -563,4 +563,202 @@ public class cipher_bip32Test extends skycoin {
                 testVectorKeyPairs(vector4);
         }
 
+        @Test
+        public void TestParentPublicChildDerivation() {
+                GoSlice extendedMasterPublicBytes = new GoSlice();
+                _GoString_ tmp_str = new _GoString_();
+                tmp_str.setP("xpub6DxSCdWu6jKqr4isjo7bsPeDD6s3J4YVQV1JSHZg12Eagdqnf7XX4fxqyW2sLhUoFWutL7tAELU2LiGZrEXtjVbvYptvTX5Eoa4Mamdjm9u");
+                tmp_str.setN(tmp_str.getP().length());
+                long err = SKY_base58_Decode(tmp_str, extendedMasterPublicBytes);
+                assertEquals(err, SKY_OK);
+
+                SWIGTYPE_p_PublicKey__Handle extendedMasterPublic = new_PublicKey__HandlePtr();
+                err = SKY_bip32_DeserializePublicKey(extendedMasterPublicBytes, extendedMasterPublic);
+                assertEquals(err, SKY_OK);
+
+                GoSlice extendedMasterPrivateBytes = new GoSlice();
+                tmp_str.setP("xprv9zy5o7z1GMmYdaeQdmabWFhUf52Ytbpe3G5hduA4SghboqWe7aDGWseN8BJy1GU72wPjkCbBE1hvbXYqpCecAYdaivxjNnBoSNxwYD4wHpW");
+                tmp_str.setN(tmp_str.getP().length());
+                err = SKY_base58_Decode(tmp_str, extendedMasterPrivateBytes);
+                assertEquals(err, SKY_OK);
+
+                SWIGTYPE_p_PrivateKey__Handle extendedMasterPrivate = new_PrivateKey__HandlePtr();
+                err = SKY_bip32_DeserializePrivateKey(extendedMasterPrivateBytes, extendedMasterPrivate);
+                assertEquals(err, SKY_OK);
+
+                testChildKey[] expectedChildren = new testChildKey[20];
+
+                // 0
+                testChildKey tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/0";
+                tmpChildKey.hexPubKey = "0243187e1a2ba9ba824f5f81090650c8f4faa82b7baf93060d10b81f4b705afd46";
+                tmpChildKey.wifPrivKey = "KyNPkzzaQ9xa7d2iFacTBgjP4rM3SydTzUZW7uwDh6raePWRJkeM";
+                expectedChildren[0] = tmpChildKey;
+                // 1
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/1";
+                tmpChildKey.hexPubKey = "023790d11eb715c4320d8e31fba3a09b700051dc2cdbcce03f44b11c274d1e220b";
+                tmpChildKey.wifPrivKey = "KwVyk5XXaamsPPiGLHciv6AjhUV88CM7xTto7sRMCEy12GfwZzZQ";
+                expectedChildren[1] = tmpChildKey;
+                // 2
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/2";
+                tmpChildKey.hexPubKey = "0302c5749c3c75cea234878ae3f4d8f65b75d584bcd7ed0943b016d6f6b59a2bad";
+                tmpChildKey.wifPrivKey = "L1o7CpgTjkcBYmbeuNigVpypgJ9GKq87WNqz8QDjWMqdKVKFf826";
+                expectedChildren[2] = tmpChildKey;
+                // 3
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/3";
+                tmpChildKey.hexPubKey = "03f0440c94e5b14ea5b15875934597afff541bec287c6e65dc1102cafc07f69699";
+                tmpChildKey.wifPrivKey = "KzmYqf8WSUNzf2LhAWJjxv7pYX34XhFeLLxSoaSD8y9weJ4j6Z7q";
+                expectedChildren[3] = tmpChildKey;
+                // 4
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/4";
+                tmpChildKey.hexPubKey = "026419d0d8996707605508ac44c5871edc7fe206a79ef615b74f2eea09c5852e2b";
+                tmpChildKey.wifPrivKey = "KzezMKd7Yc4jwJd6ASji2DwXX8jB8XwNTggLoAJU78zPAfXhzRLD";
+                expectedChildren[4] = tmpChildKey;
+                // 5
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/5";
+                tmpChildKey.hexPubKey = "02f63c6f195eea98bdb163c4a094260dea71d264b21234bed4df3899236e6c2298";
+                tmpChildKey.wifPrivKey = "Kwxik5cHiQCZYy5g9gdfQmr7c3ivLDhFjpSF7McHKHeox6iu6MjL";
+                expectedChildren[5] = tmpChildKey;
+                // 6
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/6";
+                tmpChildKey.hexPubKey = "02d74709cd522081064858f393d009ead5a0ecd43ede3a1f57befcc942025cb5f9";
+                tmpChildKey.wifPrivKey = "KwGhZYHovZoczyfupFRgZcr2xz1nHTSKx79uZuWhuzDSU7L7LrxE";
+                expectedChildren[6] = tmpChildKey;
+                // 7
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/7";
+                tmpChildKey.hexPubKey = "03e54bb92630c943d38bbd8a4a2e65fca7605e672d30a0e545a7198cbb60729ceb";
+                tmpChildKey.wifPrivKey = "L4iGJ3JCfnMU1ia2bMQeF88hs6tkkS9QrmLbWPsj1ULHrUJid4KT";
+                expectedChildren[7] = tmpChildKey;
+                // 8
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/8";
+                tmpChildKey.hexPubKey = "027e9d5acd14d39c4938697fba388cd2e8f31fc1c5dc02fafb93a10a280de85199";
+                tmpChildKey.wifPrivKey = "L3xfynMTDMR8vs6G5VxxjoKLBQyihvtcBHF4KHY5wvFMwevLjZKU";
+                expectedChildren[8] = tmpChildKey;
+                // 9
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/9";
+                tmpChildKey.hexPubKey = "02a167a9f0d57468fb6abf2f3f7967e2cadf574314753a06a9ef29bc76c54638d2";
+                tmpChildKey.wifPrivKey = "KxiUV7CcdCuF3bLajqaP6qMFERQFvzsRj9aeCCf3TNWXioLwwJAm";
+                expectedChildren[9] = tmpChildKey;
+                // 10
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/100";
+                tmpChildKey.hexPubKey = "020db9ba00ddf68428e3f5bfe54252bbcd75b21e42f51bf3bfc4172bf0e5fa7905";
+                tmpChildKey.wifPrivKey = "L5ipKgExgKZYaxsQPEmyjrhoSepoxuSAxSWgK1GX5kaTUN3zGCU7";
+                expectedChildren[10] = tmpChildKey;
+                // 11
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/101";
+                tmpChildKey.hexPubKey = "0299e3790956570737d6164e6fcda5a3daa304065ca95ba46bc73d436b84f34d46";
+                tmpChildKey.wifPrivKey = "L1iUjHWpYSead5vYZycMdMzCZDFQzveG3S6NviAi5BvvGdnuQbi6";
+                expectedChildren[11] = tmpChildKey;
+                // 12
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/102";
+                tmpChildKey.hexPubKey = "0202e0732c4c5d2b1036af173640e01957998cfd4f9cdaefab6ffe76eb869e2c59";
+                tmpChildKey.wifPrivKey = "KybjnK4e985dgzxL5pgXTfq8YFagG8gB9HWAjLimagR4pdodCSNo";
+                expectedChildren[12] = tmpChildKey;
+                // 13
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/103";
+                tmpChildKey.hexPubKey = "03d050adbd996c0c5d737ff638402dfbb8c08e451fef10e6d62fb57887c1ac6cb2";
+                tmpChildKey.wifPrivKey = "Kx9bf5cyf29fp7uuMVnqn47692xRwXStVmnL75w9i1sLQDjbFHP5";
+                expectedChildren[13] = tmpChildKey;
+                // 14
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/104";
+                tmpChildKey.hexPubKey = "038d466399e2d68b4b16043ad4d88893b3b2f84fc443368729a973df1e66f4f530";
+                tmpChildKey.wifPrivKey = "L5myg7MNjKHcgVMS9ytmHgBftiWAi1awGpeC6p9dygsEQV9ZRvpz";
+                expectedChildren[14] = tmpChildKey;
+                // 15
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/105";
+                tmpChildKey.hexPubKey = "034811e2f0c8c50440c08c2c9799b99c911c036e877e8325386ff61723ae3ffdce";
+                tmpChildKey.wifPrivKey = "L1KHrLBPhaJnvysjKUYk5QwkyWDb6uHgDM8EmE4eKtfqyJ13a7HC";
+                expectedChildren[15] = tmpChildKey;
+                // 16
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/106";
+                tmpChildKey.hexPubKey = "026339fd5842921888e711a6ba9104a5f0c94cc0569855273cf5faefdfbcd3cc29";
+                tmpChildKey.wifPrivKey = "Kz4WPV43po7LRkatwHf9YGknGZRYfvo7TkvojinzxoFRXRYXyfDn";
+                expectedChildren[16] = tmpChildKey;
+                // 17
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/107";
+                tmpChildKey.hexPubKey = "02833705c1069fab2aa92c6b0dac27807290d72e9f52378d493ac44849ca003b22";
+                tmpChildKey.wifPrivKey = "L3PxeN4w336kTk1becdFsAnR8ihh8SeMYXRHEzSmRNQTjtmcUjr9";
+                expectedChildren[17] = tmpChildKey;
+                // 18
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/108";
+                tmpChildKey.hexPubKey = "032d2639bde1eb7bdf8444bd4f6cc26a9d1bdecd8ea15fac3b992c3da68d9d1df5";
+                tmpChildKey.wifPrivKey = "L2wf8FYiA888qrhDzHkFkZ3ZRBntysjtJa1QfcxE1eFiyDUZBRSi";
+                expectedChildren[18] = tmpChildKey;
+                // 19
+                tmpChildKey = new testChildKey();
+                tmpChildKey.path = "m/109";
+                tmpChildKey.hexPubKey = "02479c6d4a64b93a2f4343aa862c938fbc658c99219dd7bebb4830307cbd76c9e9";
+                tmpChildKey.wifPrivKey = "L5A5hcupWnYTNJTLTWDDfWyb3hnrJgdDgyN7c4PuF17bsY1tNjxS";
+                expectedChildren[19] = tmpChildKey;
+
+                for (int i = 0; i < 20; i++) {
+                        testChildKey child = expectedChildren[i];
+                        SWIGTYPE_p_Path__Handle path = new_Path__HandlePtr();
+                        _GoString_ tmp_child = new _GoString_();
+                        tmp_child.setP(child.path);
+                        tmp_child.setN(tmp_child.getP().length());
+                        err = SKY_bip32_ParsePath(tmp_child, path);
+                        assertEquals(err, SKY_OK);
+                        SWIGTYPE_p_long_long len = new_GoIntPtr();
+                        err = SKY_bip32_Path_Count(path, len);
+                        assertEquals(err, SKY_OK);
+                        assertEquals(GoIntPtr_value(len), 2);
+
+                        SWIGTYPE_p_PublicKey__Handle pubKey = new_PublicKey__HandlePtr();
+                        bip32__PathNode element_tmp = new bip32__PathNode();
+                        err = SKY_bip32_Path_GetElements(path, 1, element_tmp);
+                        assertEquals(err, SKY_OK);
+                        err = SKY_bip32_PublicKey_NewPublicChildKey(extendedMasterPublic, element_tmp.getChildNumber(),
+                                        pubKey);
+                        assertEquals(err, SKY_OK);
+                        GoSlice pubkey_key = new GoSlice();
+                        err = SKY_bip32_PublicKey_GetKey(pubKey, pubkey_key);
+                        assertEquals(err, SKY_OK);
+
+                        _GoString_ pubkey_hexpubkey = new _GoString_();
+                        err = SKY_base58_Hex2String(pubkey_key, pubkey_hexpubkey);
+                        assertEquals(err, SKY_OK);
+                        assertEquals(pubkey_hexpubkey.getP(), child.hexPubKey);
+
+                        SWIGTYPE_p_PublicKey__Handle pubKey2 = new_PublicKey__HandlePtr();
+                        err = SKY_bip32_PrivateKey_NewPublicChildKey(extendedMasterPrivate,
+                                        element_tmp.getChildNumber(), pubKey2);
+                        assertEquals(err, SKY_OK);
+                        assertEquals(isPublicKeyEq(pubKey, pubKey2), 1);
+
+                        SWIGTYPE_p_PrivateKey__Handle privKey = new_PrivateKey__HandlePtr();
+                        err = SKY_bip32_PrivateKey_NewPrivateChildKey(extendedMasterPrivate,
+                                        element_tmp.getChildNumber(), privKey);
+                        assertEquals(err, SKY_OK);
+
+                        cipher_SecKey expectedPrivKey = new cipher_SecKey();
+                        tmp_child.setP(child.wifPrivKey);
+                        tmp_child.setN(tmp_child.getP().length());
+                        err = SKY_cipher_SecKeyFromBitcoinWalletImportFormat(tmp_child, expectedPrivKey);
+                        assertEquals(err, SKY_OK);
+
+                        SWIGTYPE_p_PublicKey__Handle pubKey3 = new_PublicKey__HandlePtr();
+                        err = SKY_bip32_PrivateKey_Publickey(privKey, pubKey3);
+                        assertEquals(err, SKY_OK);
+                        assertEquals(isPublicKeyEq(pubKey, pubKey3), 1);
+                }
+        }
 }

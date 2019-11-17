@@ -81,9 +81,9 @@ public class transutils extends skycoin {
             makeTransaction(thandle, ptx);
             SKY_coin_Transactions_Add(handle, thandle);
         }
-        SWIGTYPE_p_long_long count = new_GointPtr();
+        SWIGTYPE_p_long_long count = new_GoIntPtr();
         SKY_coin_Transactions_Length(handle, count);
-        assertEquals(n, GointPtr_value(count));
+        assertEquals(n, GoIntPtr_value(count));
         return handle;
     }
 

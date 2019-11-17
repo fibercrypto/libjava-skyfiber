@@ -62,10 +62,10 @@ public class coin_mathTest extends skycoin {
     public void TestUint64ToInt64() {
         FullCases();
         for (int i = 0; i < cases.length; i++) {
-            SWIGTYPE_p_long_long r = new_GointPtr();
+            SWIGTYPE_p_long_long r = new_GoIntPtr();
             long err = SKY_util_Uint64ToInt64(cases[i].a, r);
             assertEquals(err, cases[i].failure);
-            assertEquals(cases[i].b, BigInteger.valueOf(GointPtr_value(r)));
+            assertEquals(cases[i].b, BigInteger.valueOf(GoIntPtr_value(r)));
         }
     }
 }

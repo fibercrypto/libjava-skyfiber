@@ -567,13 +567,13 @@ public class coin_outputTest extends skycoin {
         SWIGTYPE_p_AddressUxOuts_Handle up3 = new_AddressUxOuts__HandlePtr();
         err = SKY_coin_AddressUxOuts_Add(up, up2, up3);
         assertEquals(err, SKY_OK);
-        SWIGTYPE_p_long_long len = new_GointPtr();
+        SWIGTYPE_p_long_long len = new_GoIntPtr();
         err = SKY_coin_AddressUxOuts_Length(up3, len);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(len), 3);
+        assertEquals(GoIntPtr_value(len), 3);
         err = SKY_coin_AddressUxOuts_Length(up2, len);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(len), 2);
+        assertEquals(GoIntPtr_value(len), 2);
     }
 
     @Test
@@ -651,10 +651,10 @@ public class coin_outputTest extends skycoin {
         SWIGTYPE_p_AddressUxOuts_Handle uxo = new_AddressUxOuts__HandlePtr();
         long err = SKY_coin_NewAddressUxOuts(uxs, uxo);
         assertEquals(err, SKY_OK);
-        SWIGTYPE_p_long_long len = new_GointPtr();
+        SWIGTYPE_p_long_long len = new_GoIntPtr();
         err = SKY_coin_AddressUxOuts_Length(uxo, len);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(len), 3);
+        assertEquals(GoIntPtr_value(len), 3);
         coin_UxOutArray uxa1 = new coin_UxOutArray();
         coin_UxOutArray uxa2 = new coin_UxOutArray();
 
