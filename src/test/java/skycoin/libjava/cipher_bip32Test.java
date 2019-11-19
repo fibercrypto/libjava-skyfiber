@@ -786,4 +786,87 @@ public class cipher_bip32Test extends skycoin {
                 }
                 assertEquals(reached, 1);
         }
+
+        private class tests_Struct {
+                public int err;
+                public String base58;
+        }
+
+        @Test
+        public void TestDeserializePrivateInvalidStrings() {
+                tests_Struct[] tests = new tests_Struct[12];
+                // 0
+                tests_Struct tmp_test = new tests_Struct();
+                tmp_test.err = SKY_ErrSerializedKeyWrongSize;
+                tmp_test.base58 = "xprv9s21ZrQH143K4YUcKrp6cVxQaX59ZFkN6MFdeZjt8CHVYNs55xxQSvZpHWfojWMv6zgjmzopCyWPSFAnV4RU33J4pwCcnhsB4R4mPEnTsM";
+                tests[0] = tmp_test;
+                // 1
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_bip32_ErrInvalidChecksum;
+                tmp_test.base58 = "xprv9s21ZrQH143K3YSbAXLMPCzJso5QAarQksAGc5rQCyZCBfw4Rj2PqVLFNgezSBhktYkiL3Ta2stLPDF9yZtLMaxk6Spiqh3DNFG8p8MVeEc";
+                tests[1] = tmp_test;
+                // 2
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_ErrInvalidPrivateKeyVersion;
+                tmp_test.base58 = "xpub6DxSCdWu6jKqr4isjo7bsPeDD6s3J4YVQV1JSHZg12Eagdqnf7XX4fxqyW2sLhUoFWutL7tAELU2LiGZrEXtjVbvYptvTX5Eoa4Mamdjm9u";
+                tests[2] = tmp_test;
+                // 3
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_ErrInvalidKeyVersion;
+                tmp_test.base58 = "8FH81Rao5EgGmdScoN66TJAHsQP7phEMeyMTku9NBJd7hXgaj3HTvSNjqJjoqBpxdbuushwPEM5otvxXt2p9dcw33AqNKzZEPMqGHmz7Dpayi6Vb";
+                tests[3] = tmp_test;
+                // 4
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_bip32_ErrInvalidChecksum;
+                tmp_test.base58 = "xprvQQQQQQQQQQQQQQQQCviVfJSKyQ1mDYahRjijr5idH2WwLsEd4Hsb2Tyh8RfQMuPh7f7RtyzTtdrbdqqsunu5Mm3wDvUAKRHSC34sJ7in334";
+                tests[4] = tmp_test;
+                // 5
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_ErrSerializedKeyWrongSize;
+                tmp_test.base58 = "HAsbc6CgKmTYEQg2CTz7m5STEPAB";
+                tests[5] = tmp_test;
+                // 6
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_ErrInvalidFingerprint;
+                tmp_test.base58 = "xprv9tnJFvAXAXPfPnMTKfwpwnkty7MzJwELVgp4NTBquaKXy4RndyfJJCJJf7zNaVpBpzrwVRutZNLRCVLEcZHcvuCNG3zGbGBcZn57FbNnmSP";
+                tests[6] = tmp_test;
+                // 7
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_ErrInvalidPrivateKey;
+                tmp_test.base58 = "xprv9s21ZrQH143K3yLysFvsu3n1dMwhNusmNHr7xArzAeCc7MQYqDBBStmqnZq6WLi668siBBNs3SjiyaexduHu9sXT9ixTsqptL67ADqcaBdm";
+                tests[7] = tmp_test;
+                // 8
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_ErrInvalidChildNumber;
+                tmp_test.base58 = "xprv9s21ZrQYdgnodnKW4Drm1Qg7poU6Gf2WUDsjPxvYiK7iLBMrsjbnF1wsZZQgmXNeMSG3s7jmHk1b3JrzhG5w8mwXGxqFxfrweico7k8DtxR";
+                tests[8] = tmp_test;
+                // 9
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_ErrInvalidKeyVersion;
+                tmp_test.base58 = "1111111111111adADjFaSNPxwXqLjHLj4mBfYxuewDPbw9hEj1uaXCzMxRPXDFF3cUoezTFYom4sEmEVSQmENPPR315cFk9YUFVek73wE9";
+                tests[9] = tmp_test;
+                // 10
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_ErrSerializedKeyWrongSize;
+                tmp_test.base58 = "9XpNiB4DberdMn4jZiMhNGtuZUd7xUrCEGw4MG967zsVNvUKBEC9XLrmVmFasanWGp15zXfTNw4vW4KdvUAynEwyKjdho9QdLMPA2H5uyt";
+                tests[10] = tmp_test;
+                // 11
+                tmp_test = new tests_Struct();
+                tmp_test.err = SKY_ErrSerializedKeyWrongSize;
+                tmp_test.base58 = "7JJikZQ2NUXjSAnAF2SjFYE3KXbnnVxzRBNddFE1DjbDEHVGEJzYC7zqSgPoauBJS3cWmZwsER94oYSFrW9vZ4Ch5FtGeifdzmtS3FGYDB1vxFZsYKgMc";
+                tests[11] = tmp_test;
+
+                for (int i = 0; i < 12; i++) {
+                        tests_Struct test = tests[i];
+                        GoSlice b = new GoSlice();
+                        _GoString_ tmp_base58 = new _GoString_();
+                        tmp_base58.setP(test.base58);
+                        tmp_base58.setN(tmp_base58.getP().length());
+                        long err = SKY_base58_Decode(tmp_base58, b);
+                        assertEquals(err, SKY_OK);
+                        SWIGTYPE_p_PrivateKey__Handle rest_priv = new_PrivateKey__HandlePtr();
+                        err = SKY_bip32_DeserializePrivateKey(b, rest_priv);
+                        assertEquals(err, test.err);
+                }
+        }
 }
