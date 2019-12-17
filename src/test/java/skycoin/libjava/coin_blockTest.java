@@ -105,10 +105,10 @@ public class coin_blockTest extends skycoin {
         SKY_coin_BlockHeader_Fee(pnewBlockHeader, pHeadFee);
         SKY_coin_BlockHeader_Time(pnewBlockHeader, pHeadTime);
         SKY_coin_BlockHeader_BkSeq(pnewBlockHeader, pHeadBkSeq);
-        SWIGTYPE_p_long_long pTransLength = new_GointPtr();
+        SWIGTYPE_p_long_long pTransLength = new_GoIntPtr();
         err = SKY_coin_Transactions_Length(txns, pTransLength);
         assertEquals(err, SKY_OK);
-        assertEquals(GoUint64Ptr_value(pHeadFee), utils.toBigInteger((fee * GointPtr_value(pTransLength))));
+        assertEquals(GoUint64Ptr_value(pHeadFee), utils.toBigInteger((fee * GoIntPtr_value(pTransLength))));
         assertEquals(GoUint64Ptr_value(pHeadTime), utils.toBigInteger(currentTime));
         pPrevBlockHeader = new_BlockHeader__HandlePtr();
         err = SKY_coin_Block_GetBlockHeader(prevBlock, pPrevBlockHeader);

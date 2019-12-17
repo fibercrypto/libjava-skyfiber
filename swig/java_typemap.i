@@ -9,15 +9,15 @@
 %include "typemaps.i"
 %include cpointer.i
 %pointer_functions(GoSlice, GoSlicePtr);
-%pointer_functions(GoUint8_, GoUint8Ptr);
+%pointer_functions(GoUint8, GoUint8Ptr);
+%pointer_functions(unsigned char, CharPtr);
 %pointer_functions(_GoString_, GoStringPtr);
-%pointer_functions(int, IntPtr);
 %pointer_functions(coin__Transaction, coin__TransactionPtr);
 %pointer_functions(AddressUxOuts_Handle, AddressUxOuts__HandlePtr);
-%pointer_functions(unsigned long long, GoUint64Ptr);
-%pointer_functions(long long, GointPtr);
-%pointer_functions(unsigned short, GoUint16Ptr);
-%pointer_functions(unsigned int, GoUint32Ptr);
+%pointer_functions(GoUint64, GoUint64Ptr);
+%pointer_functions(GoInt, GoIntPtr);
+%pointer_functions(GoUint16, GoUint16Ptr);
+%pointer_functions(GoUint32, GoUint32Ptr);
 %pointer_functions(cipher__Address, cipher__AddressPtr);
 %pointer_functions(Transactions__Handle, Transactions__HandlePtr);
 %pointer_functions(Transaction__Handle, Transaction__HandlePtr);
@@ -26,10 +26,15 @@
 %pointer_functions(BlockBody__Handle,BlockBody__HandlePtr);
 %pointer_functions(Signature_Handle,Signature_HandlePtr);
 %pointer_functions(Number_Handle,Number_HandlePtr);
-%pointer_functions(unsigned char, CharPtr);
+%pointer_functions(Distribution__Handle,Distribution__HandlePtr);
 %pointer_functions(FeeCalculator, FeeCalculatorPtr);
 %pointer_functions(FeeCalcFunc, FeeCalcFuncPtr);
 %pointer_functions(coin__Block*, coin__BlockPtr);
+%pointer_functions(Coin__Handle, Coin__HandlePtr);
+%pointer_functions(Account__Handle, Account__HandlePtr);
+%pointer_functions(PrivateKey__Handle, PrivateKey__HandlePtr);
+%pointer_functions(PublicKey__Handle, PublicKey__HandlePtr);
+%pointer_functions(Path__Handle, Path__HandlePtr);
 
 /*GoString* parameter as reference */
 %typemap(in, numinputs=0) GoString* (GoString temp) {
@@ -72,6 +77,10 @@
 %typemap(jstype,pre=" long tmp$javainput = GoSlice.getCPtr ($javainput);") GoSlice_*  "GoSlice"
 %typemap(javain) GoSlice_*  "GoSlice.getCPtr ($javainput)"
 
+// coin__UxArray
+%typemap(jni) coin__UxArray*  "coin__UxArray *"
+%typemap(jstype,pre=" long tmp$javainput = coin__UxArray.getCPtr ($javainput);") coin__UxArray*  "coin__UxArray"
+%typemap(javain) coin__UxArray*  "coin__UxArray.getCPtr ($javainput)"
 
 %apply unsigned short  {GoUint16, GoUint16_};
 %apply unsigned long  {GoUintptr, __SIZE_TYPE__};
@@ -81,7 +90,6 @@
 %apply signed char  {GoInt8_, GoInt8};
 %apply unsigned long long  {GoUint64, GoUint64_,GoUint,GoUint_};
 %apply long long  {GoInt64, GoInt64_,GoInt_, GoInt };
-%apply GoSlice_* {coin__UxArray*,GoSlice_**};
 %apply int {GoInt32,GoInt32_,ptrdiff_t};
 %apply int* {GoInt32*,GoInt32_*,ptrdiff_t*};
 %apply float {GoFloat32};

@@ -9,7 +9,7 @@ SHELL := /bin/bash
 MKFILE_PATH   = $(abspath $(lastword $(MAKEFILE_LIST)))
 REPO_ROOT     = $(dir $(MKFILE_PATH))
 GOPATH_DIR    = gopath
-SKYLIBC_DIR  ?= $(GOPATH_DIR)/src/github.com/skycoin/libskycoin
+SKYLIBC_DIR  ?= $(GOPATH_DIR)/src/github.com/fibercrypto/libskycoin
 SKYCOIN_DIR  ?= $(SKYLIBC_DIR)/vendor/github.com/skycoin/skycoin
 SKYBUILD_DIR  = $(SKYLIBC_DIR)/build
 BUILDLIBC_DIR = $(SKYBUILD_DIR)/libskycoin
@@ -103,14 +103,14 @@ build-libjava:
 
 test: clean build-libc build-swig build-libjava ## Running test
 	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
-	(cd $(LIB_JAVA_WRAPPER) && mvn test)
-	(cd lib/skyapi-feign && mvn test)
-	(cd lib/skyapi-resttemplate && mvn test)
-	(cd lib/skyapi-vertx && mvn test)
-	(cd lib/skyapi-restassured && mvn test)
-	(cd lib/skyapi-jersey2 && mvn test)
-	(cd lib/skyapi-retrofit2 && mvn test)
-	(cd lib/skyapi-resteasy && mvn test)
+	# (cd $(LIB_JAVA_WRAPPER) && mvn test)
+	# (cd lib/skyapi-feign && mvn test)
+	# (cd lib/skyapi-resttemplate && mvn test)
+	# (cd lib/skyapi-vertx && mvn test)
+	# (cd lib/skyapi-restassured && mvn test)
+	# (cd lib/skyapi-jersey2 && mvn test)
+	# (cd lib/skyapi-retrofit2 && mvn test)
+	# (cd lib/skyapi-resteasy && mvn test)
 
 clean: ## Clean all trash
 	GOPATH="$(REPO_ROOT)/$(GOPATH_DIR)" make -C $(SKYLIBC_DIR) clean-libc

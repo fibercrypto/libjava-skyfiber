@@ -207,10 +207,10 @@ public class coin_transactionsTest extends skycoin {
         assertEquals(err, SKY_OK);
         int r = SKY_coin_Transaction_PushInput(tx, sha);
         assertEquals(r, 0);
-        SWIGTYPE_p_long_long count = new_GointPtr();
+        SWIGTYPE_p_long_long count = new_GoIntPtr();
         err = SKY_coin_Transaction_GetInputsCount(tx, count);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(count), 1);
+        assertEquals(GoIntPtr_value(count), 1);
         cipher_SHA256 sha1 = new cipher_SHA256();
         err = SKY_coin_Transaction_GetInputAt(tx, 0, sha1);
         assertEquals(err, SKY_OK);
@@ -232,10 +232,10 @@ public class coin_transactionsTest extends skycoin {
         cipher__Address a = utils.makeAddress();
         long err = SKY_coin_Transaction_PushOutput(tx, a, BigInteger.valueOf(100), BigInteger.valueOf(150));
         assertEquals(err, SKY_OK);
-        SWIGTYPE_p_long_long count = new_GointPtr();
+        SWIGTYPE_p_long_long count = new_GoIntPtr();
         err = SKY_coin_Transaction_GetOutputsCount(tx, count);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(count), 1);
+        assertEquals(GoIntPtr_value(count), 1);
         coin__TransactionOutput pOut1 = new coin__TransactionOutput();
         coin__TransactionOutput pOut = new coin__TransactionOutput();
         pOut1.setAddress(a);
@@ -249,10 +249,10 @@ public class coin_transactionsTest extends skycoin {
             err = SKY_coin_Transaction_PushOutput(tx, a, BigInteger.valueOf(i).multiply(BigInteger.valueOf(100)),
                     BigInteger.valueOf(i).multiply(BigInteger.valueOf(50)));
             assertEquals(err, SKY_OK);
-            count = new_GointPtr();
+            count = new_GoIntPtr();
             err = SKY_coin_Transaction_GetOutputsCount(tx, count);
             assertEquals(err, SKY_OK);
-            assertEquals(GointPtr_value(count), (i + 1));
+            assertEquals(GoIntPtr_value(count), (i + 1));
             pOut1 = new coin__TransactionOutput();
             pOut = new coin__TransactionOutput();
             pOut1.setAddress(a);
@@ -294,10 +294,10 @@ public class coin_transactionsTest extends skycoin {
         err = SKY_coin_Transaction_PushOutput(handle, utils.makeAddress(), BigInteger.valueOf(40),
                 BigInteger.valueOf(80));
         assertEquals(err, SKY_OK);
-        SWIGTYPE_p_long_long count = new_GointPtr();
+        SWIGTYPE_p_long_long count = new_GoIntPtr();
         err = SKY_coin_Transaction_GetSignaturesCount(handle, count);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(count), 0);
+        assertEquals(GoIntPtr_value(count), 0);
         // Valid signing
         h = new cipher_SHA256();
         SKY_coin_Transaction_HashInner(handle, h);
@@ -309,7 +309,7 @@ public class coin_transactionsTest extends skycoin {
         assertEquals(err, SKY_OK);
         err = SKY_coin_Transaction_GetSignaturesCount(handle, count);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(count), 2);
+        assertEquals(GoIntPtr_value(count), 2);
         cipher_SHA256 h2 = new cipher_SHA256();
         err = SKY_coin_Transaction_HashInner(handle, h2);
         assertEquals(err, SKY_OK);
@@ -537,9 +537,9 @@ public class coin_transactionsTest extends skycoin {
         long err = makeTransactions(10, handles);
         int trunc = 0;
         SWIGTYPE_p_unsigned_int count = new_GoUint32Ptr();
-        SWIGTYPE_p_long_long len_tnxs = new_GointPtr();
+        SWIGTYPE_p_long_long len_tnxs = new_GoIntPtr();
         err = SKY_coin_Transactions_Length(handles, len_tnxs);
-        long len_tnxs_value = GointPtr_value(len_tnxs);
+        long len_tnxs_value = GoIntPtr_value(len_tnxs);
         for (long i = 0; i < (len_tnxs_value / 2); i++) {
             count = new_GoUint32Ptr();
             SWIGTYPE_p_Transaction__Handle handle = new_Transaction__HandlePtr();
@@ -553,12 +553,12 @@ public class coin_transactionsTest extends skycoin {
         SWIGTYPE_p_Transactions__Handle tnxs2 = new_Transactions__HandlePtr();
         err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
         assertEquals(err, SKY_OK);
-        SWIGTYPE_p_long_long len_tnxs2 = new_GointPtr();
+        SWIGTYPE_p_long_long len_tnxs2 = new_GoIntPtr();
 
         err = SKY_coin_Transactions_Length(tnxs2, len_tnxs2);
         assertEquals(err, SKY_OK);
 
-        assertEquals(GointPtr_value(len_tnxs2), len_tnxs_value / 2);
+        assertEquals(GoIntPtr_value(len_tnxs2), len_tnxs_value / 2);
         count = new_GoUint32Ptr();
         err = SKY_coin_Transactions_Size(tnxs2, count);
         assertEquals(err, SKY_OK);
@@ -568,10 +568,10 @@ public class coin_transactionsTest extends skycoin {
         trunc += 1;
         err = SKY_coin_Transactions_TruncateBytesTo(handles, trunc, tnxs2);
         assertEquals(err, SKY_OK);
-        SWIGTYPE_p_long_long len = new_GointPtr();
+        SWIGTYPE_p_long_long len = new_GoIntPtr();
         err = SKY_coin_Transactions_Length(tnxs2, len);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(len), len_tnxs_value / 2);
+        assertEquals(GoIntPtr_value(len), len_tnxs_value / 2);
         err = SKY_coin_Transactions_Size(tnxs2, count);
         assertEquals(err, SKY_OK);
         assertEquals(GoUint32Ptr_value(count), trunc - 1);
@@ -588,7 +588,7 @@ public class coin_transactionsTest extends skycoin {
         assertEquals(err, SKY_OK);
         err = SKY_coin_Transactions_Length(tnxs2, len);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(len), 5);
+        assertEquals(GoIntPtr_value(len), 5);
         err = SKY_coin_Transactions_Size(tnxs2, count);
         assertEquals(err, SKY_OK);
         SWIGTYPE_p_unsigned_int count_tnxs5 = new_GoUint32Ptr();
@@ -602,7 +602,7 @@ public class coin_transactionsTest extends skycoin {
         assertEquals(err, SKY_OK);
         err = SKY_coin_Transactions_Length(tnxs2, len);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(len), 6);
+        assertEquals(GoIntPtr_value(len), 6);
         err = SKY_coin_Transactions_Size(tnxs2, count);
         assertEquals(err, SKY_OK);
         assertEquals(GoUint32Ptr_value(count), trunc);
@@ -623,7 +623,7 @@ public class coin_transactionsTest extends skycoin {
         assertEquals(err, SKY_OK);
         err = SKY_coin_Transactions_Length(tnxs2, len);
         assertEquals(err, SKY_OK);
-        assertEquals(GointPtr_value(len), 0);
+        assertEquals(GoIntPtr_value(len), 0);
         err = SKY_coin_Transactions_Size(tnxs2, count);
         assertEquals(err, SKY_OK);
         assertEquals(GoUint32Ptr_value(count), trunc);
