@@ -1,6 +1,6 @@
-# LibSkycoin for Java
+# LibSkyfiber for Java
 
-[![Build Status](https://travis-ci.org/simelo/libjava-skycoin.svg?branch=develop)](https://travis-ci.org/simelo/libjava-skycoin)
+[![Build Status](https://travis-ci.org/fibercrypto/libjava-skyfiber.svg?branch=develop)](https://travis-ci.org/fibercrypto/libjava-skyfiber)
 
 Java client library for Skycoin API. This library is a .Net assembly generated with SWIG to access Skycoin API from Java.
 
@@ -33,7 +33,7 @@ Java client library for Skycoin API. This library is a .Net assembly generated w
 
 ## Install from sources
 
-Download the repository from https://github.com/simelo/libjava-skycoin.git.
+Download the repository from https://github.com/fibercrypto/libjava-skyfiber.git.
 Execute (`mvn compile`) to install the library. Although executing (`mvn test`) is a better choice for making changes to the library. However, when using tox these commands are not required at all because calling tox will make any necessary installation and execute the tests.
 
 ## Install from Maven
@@ -43,8 +43,8 @@ Add this dependency to your project's POM:
 ```xml
 <repositories>
   <repository>
-    <id>skycoin-libjava-skycoin</id>
-    <url>https://packagecloud.io/skycoin/libjava-skycoin/maven2</url>
+    <id>skycoin-libjava-skyfiber</id>
+    <url>https://packagecloud.io/fibercrypto/libjava-skyfiber/maven2</url>
     <releases>
       <enabled>true</enabled>
     </releases>
@@ -217,7 +217,7 @@ Memory management is transparent to the user. Any object allocated inside the li
 
 ## Make Rules
 
-The following `make` rules are available after `git checkout` of this repository. They all require [Skycoin](https://github.com/skycoin/skycoin) to be checked out as a `git submodule` of libskycoin .NET .
+The following `make` rules are available after `git checkout` of this repository. They all require [Skycoin](https://github.com/fibercrypto/skycoin) to be checked out as a `git submodule` of libskycoin .NET .
 
 - `build-libc`
   - Compiles skycoin C language library.
@@ -234,17 +234,17 @@ details.
 The project has two branches: `master` and `develop`.
 
 - `develop` is the default branch and will always have the latest code.
-  The submodule at `gopath/src/github.com/skycoin/skycoin` has to be
+  The submodule at `gopath/src/github.com/fibercrypto/skycoin` has to be
   in sync with `skycoin/skycoin` `develop` branch.
 - `master` will always be equal to the current stable release on the website, and should correspond with the latest release tag.
-  The submodule at `gopath/src/github.com/skycoin/skycoin` has to be
+  The submodule at `gopath/src/github.com/fibercrypto/skycoin` has to be
   in sync with `skycoin/skycoin` `master` branch.
 
 Separate stable development branches will be created to work on releases for supporting the
 most recent stable version of Skycoin. The name of these branches should be the Skycoin
 major and minor version numbers followed by `dev` suffix e.g. `0.25-dev`.
 These branches may be forked out of either `master` or `develop` branches, and 
-the submodule at `gopath/src/github.com/skycoin/skycoin` has to be
+the submodule at `gopath/src/github.com/fibercrypto/skycoin` has to be
 in sync with the corresponding tag of `skycoin/skycoin` official repository.
 
 Stable development branches are created most of the time for the following reasons:
@@ -266,14 +266,14 @@ $ make test
 
 1. If the `master` branch has commits that are not in `develop` (e.g. due to a hotfix applied to `master`), merge `master` into `develop` (and fix any build or test failures)
 2. Switch to a new release branch named `release-X.Y.Z` for preparing the release.
-3. Ensure that the submodule at `gopath/src/github.com/skycoin/skycoin` is in sync with respect to the corresponding tag in https://github.com/skycoin/skycoin repository.
+3. Ensure that the submodule at `gopath/src/github.com/fibercrypto/skycoin` is in sync with respect to the corresponding tag in https://github.com/fibercrypto/skycoin repository.
 4. Update package version (pom.xml)
 5. Run `make build` to make sure that the code base is up to date
 6. Update `CHANGELOG.md`: move the "unreleased" changes to the version and add the date.
 7. Follow the steps in [pre-release testing](#pre-release-testing)
 8. Make a PR merging the release branch into `master`
 9. Review the PR and merge it
-10. Update files in https://github.com/skycoin/repo-info/tree/master/repos/skycoin/remote for `skycoin/skycoindev-java` Docker image, adding a new file for the new version and adjusting any configuration text that may have changed
+10. Update files in https://github.com/fibercrypto/repo-info/tree/master/repos/fibercrypto/remote for `skycoin/skycoindev-java` Docker image, adding a new file for the new version and adjusting any configuration text that may have changed
 11. Tag the `master` branch with the version number. Version tags start with `v`, e.g. `v0.20.0`. Sign the tag. If you have your GPG key in github, creating a release on the Github website will automatically tag the release. It can be tagged from the command line with `git tag -as v0.20.0 $COMMIT_ID`, but Github will not recognize it as a "release".
 12. Release builds are created and uploaded by travis. To do it manually, checkout the master branch and follow the [create release builds instructions](#creating-release-builds).
 13. Checkout `develop` branch and bump package up to next [`dev` version number](http://maven.apache.org/guides/mini/guide-releasing.html).

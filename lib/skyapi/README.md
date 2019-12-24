@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 <repositories>
   <repository>
     <id>skycoin-libskyapi</id>
-    <url>https://packagecloud.io/skycoin/libskyapi/maven2</url>
+    <url>https://packagecloud.io/fibercrypto/libskyapi/maven2</url>
     <releases>
       <enabled>true</enabled>
     </releases>
@@ -53,7 +53,7 @@ Add this dependency to your project's POM:
 </repositories>
 
 <dependency>
-  <groupId>Skycoin</groupId>
+  <groupId>fibercrypto</groupId>
   <artifactId>skyapi</artifactId>
   <version>0.26.0</version>
   <scope>compile</scope>

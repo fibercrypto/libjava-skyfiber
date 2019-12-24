@@ -2,7 +2,7 @@
   http://maven.apache.org/xsd/settings-1.0.0.xsd">
   <servers>
     <server>
-      <id>packagecloud-skycoin</id>
+      <id>packagecloud-skyfiber</id>
       <password>774922bd823907364d3422f69f77bd2b8582d020662f3003</password>
     </server>
   </servers>
