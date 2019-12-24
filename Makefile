@@ -92,7 +92,7 @@ build-swig: ## Generate libjava
 	rm -f swig/include/swig.h
 	rm -f skycoinnet_wrap.c
 	mkdir -p src/main/java/skycoin/libjava
-	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
+	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skyfiber.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
 
 build-libc-swig: build-libc build-swig
 

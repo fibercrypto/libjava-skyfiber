@@ -6,7 +6,7 @@
  * the SWIG interface file instead.
  * ----------------------------------------------------------------------------- */
 
-package skycoin.libjava;
+package skyfiber.libjava;
 
 public class transaction__UxBalance {
   private transient long swigCPtr;

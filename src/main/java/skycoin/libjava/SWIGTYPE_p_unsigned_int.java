@@ -6,7 +6,7 @@
  * the SWIG interface file instead.
  * ----------------------------------------------------------------------------- */
 
-package skycoin.libjava;
+package skyfiber.libjava;
 
 public class SWIGTYPE_p_unsigned_int {
   private transient long swigCPtr;

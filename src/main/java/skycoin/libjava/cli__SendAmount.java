@@ -6,7 +6,7 @@
  * the SWIG interface file instead.
  * ----------------------------------------------------------------------------- */
 
-package skycoin.libjava;
+package skyfiber.libjava;
 
 public class cli__SendAmount {
   private transient long swigCPtr;

@@ -1,4 +1,4 @@
-package skycoin.libjava;
+package skyfiber.libjava;
 
 import org.junit.Test;
 
