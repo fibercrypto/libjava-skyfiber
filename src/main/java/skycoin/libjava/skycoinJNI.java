@@ -6,7 +6,7 @@
  * the SWIG interface file instead.
  * ----------------------------------------------------------------------------- */
 
-package skycoin.libjava;
+package skyfiber.libjava;
 
 public class skycoinJNI {
   public final static native int equalSlices(long jarg1, GoSlice jarg1_, long jarg2, GoSlice jarg2_, int jarg3);

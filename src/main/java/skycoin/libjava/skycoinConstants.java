@@ -6,7 +6,7 @@
  * the SWIG interface file instead.
  * ----------------------------------------------------------------------------- */
 
-package skycoin.libjava;
+package skyfiber.libjava;
 
 public interface skycoinConstants {
   public final static int SKY_OK = skycoinJNI.SKY_OK_get();

@@ -1,16 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>skycoin</groupId>
+    <groupId>fibercrypto</groupId>
     <artifactId>skyapi-vertx</artifactId>
     <packaging>jar</packaging>
     <name>skyapi-vertx</name>
     <version>0.27.0</version>
-    <url>https://github.com/simelo/libjava-skycoin</url>
+    <url>https://github.com/fibercrypto/libjava-skyfiber</url>
     <description>OpenAPI Java Skycoin </description>
     <scm>
-        <connection>scm:git:git@github.com:simelo/libjava-skycoin.git</connection>
-        <developerConnection>scm:git:git@github.com:simelo/libjava-skycoin.git</developerConnection>
-        <url>https://github.com/simelo/libjava-skycoin</url>
+        <connection>scm:git:git@github.com:simelo/libjava-skyfiber.git</connection>
+        <developerConnection>scm:git:git@github.com:simelo/libjava-skyfiber.git</developerConnection>
+        <url>https://github.com/fibercrypto/libjava-skyfiber</url>
     </scm>
 
     <licenses>
@@ -265,12 +265,12 @@
     <!-- Deploy github -->
     <distributionManagement>
         <repository>
-            <id>packagecloud-skycoin</id>
-            <url>packagecloud+https://packagecloud.io/skycoin/libskyapi</url>
+            <id>packagecloud-skyfiber</id>
+            <url>packagecloud+https://packagecloud.io/fibercrypto/libskyapi</url>
         </repository>
         <snapshotRepository>
-            <id>packagecloud-skycoin</id>
-            <url>packagecloud+https://packagecloud.io/skycoin/libskyapi</url>
+            <id>packagecloud-skyfiber</id>
+            <url>packagecloud+https://packagecloud.io/fibercrypto/libskyapi</url>
         </snapshotRepository>
     </distributionManagement>
 

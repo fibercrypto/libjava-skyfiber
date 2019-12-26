@@ -6,7 +6,7 @@
  * the SWIG interface file instead.
  * ----------------------------------------------------------------------------- */
 
-package skycoin.libjava;
+package skyfiber.libjava;
 
 public class skycoin implements skycoinConstants {
   public static int equalSlices(GoSlice slice1, GoSlice slice2, int elem_size) {

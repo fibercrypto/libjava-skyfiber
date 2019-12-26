@@ -1,4 +1,4 @@
-package skycoin.libjava;
+package skyfiber.libjava;
 
 import static org.junit.Assert.assertEquals;
 

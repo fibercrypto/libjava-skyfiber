@@ -1,9 +1,9 @@
-package skycoin.libjava;
+package skyfiber.libjava;
 
 import org.junit.Test;
 
-import skycoin.libjava.SWIGTYPE_p_Distribution__Handle;
-import skycoin.libjava.skycoin;
+import skyfiber.libjava.SWIGTYPE_p_Distribution__Handle;
+import skyfiber.libjava.skycoin;
 
 import static org.junit.Assert.assertEquals;
 

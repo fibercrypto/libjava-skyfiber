@@ -55,7 +55,7 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    repo: simelo/libjava-skycoin
+    repo: fibercrypto/libjava-skyfiber
 notifications:
   email: false
   webhooks: https://fathomless-fjord-24024.herokuapp.com/notify

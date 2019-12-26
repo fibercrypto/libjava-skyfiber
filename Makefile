@@ -92,7 +92,7 @@ build-swig: ## Generate libjava
 	rm -f swig/include/swig.h
 	rm -f skycoinnet_wrap.c
 	mkdir -p src/main/java/skycoin/libjava
-	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skycoin.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
+	swig  -DUSE_ASSERT_EXCEPTIONS -java -v -package skyfiber.libjava -Iswig/include -I$(INCLUDE_DIR) -outdir src/main/java/skycoin/libjava -o skycoin_wrap.c $(LIBSWIG_DIR)/skycoin.i
 
 build-libc-swig: build-libc build-swig
 
@@ -103,14 +103,14 @@ build-libjava:
 
 test: clean build-libc build-swig build-libjava ## Running test
 	$(LDPATHVAR)="$(FOLDERLIB):$(LDPATHVAR)" mvn test
-	# (cd $(LIB_JAVA_WRAPPER) && mvn test)
-	# (cd lib/skyapi-feign && mvn test)
-	# (cd lib/skyapi-resttemplate && mvn test)
-	# (cd lib/skyapi-vertx && mvn test)
-	# (cd lib/skyapi-restassured && mvn test)
-	# (cd lib/skyapi-jersey2 && mvn test)
-	# (cd lib/skyapi-retrofit2 && mvn test)
-	# (cd lib/skyapi-resteasy && mvn test)
+	(cd $(LIB_JAVA_WRAPPER) && mvn test)
+	(cd lib/skyapi-feign && mvn test)
+	(cd lib/skyapi-resttemplate && mvn test)
+	(cd lib/skyapi-vertx && mvn test)
+	(cd lib/skyapi-restassured && mvn test)
+	(cd lib/skyapi-jersey2 && mvn test)
+	(cd lib/skyapi-retrofit2 && mvn test)
+	(cd lib/skyapi-resteasy && mvn test)
 
 clean: ## Clean all trash
 	GOPATH="$(REPO_ROOT)/$(GOPATH_DIR)" make -C $(SKYLIBC_DIR) clean-libc

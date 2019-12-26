@@ -1,4 +1,4 @@
-package skycoin.libjava;
+package skyfiber.libjava;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
