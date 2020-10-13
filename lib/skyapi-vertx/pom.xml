@@ -259,7 +259,7 @@
         <swagger-annotations-version>1.5.22</swagger-annotations-version>
         <jackson-version>2.6.4</jackson-version>
         <jackson-databind>2.6.4</jackson-databind>
-        <junit-version>4.12</junit-version>
+        <junit-version>4.13.1</junit-version>
     </properties>
 
     <!-- Deploy github -->
